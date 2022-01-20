@@ -178,11 +178,13 @@ export default function Box() {
   const [hash, setHash] = useState('')
   const [imgLoaded, setImgLoaded] = useState(false)
   const { remainingNFT, participated, drawDeposit } = useBlindBox(account)
-  const drawDepositAmount = new TokenAmount(
-    new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18),
-    JSBI.BigInt(drawDeposit || 0)
+  const drawDepositAmount = MATTER_ADDRESS[chainId || 1]
+    ? new TokenAmount(new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18), JSBI.BigInt(drawDeposit || 0))
+    : undefined
+  const matterBalance = useTokenBalance(
+    account || undefined,
+    MATTER_ADDRESS[chainId || 1] ? new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18) : undefined
   )
-  const matterBalance = useTokenBalance(account || undefined, new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18))
   const history = useHistory()
   const addTxn = useTransactionAdder()
   const txn = useTransaction(hash)
@@ -198,7 +200,10 @@ export default function Box() {
   const images = useMemo(() => generateImages(handleLoad), [handleLoad])
 
   const [approval, approveCallback] = useApproveCallback(
-    tryParseAmount(drawDepositAmount.toSignificant(), new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18)),
+    tryParseAmount(
+      drawDepositAmount?.toSignificant(),
+      MATTER_ADDRESS[chainId || 1] ? new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18) : undefined
+    ),
     BLIND_BOX_ADDRESS[chainId || 1]
   )
 
@@ -269,7 +274,7 @@ export default function Box() {
             <DefaultBox
               remainingNFT={remainingNFT}
               participated={participated}
-              drawDepositAmount={drawDepositAmount.toSignificant()}
+              drawDepositAmount={drawDepositAmount?.toSignificant() || ''}
               approval={approval}
               matterBalance={matterBalance}
               onApprove={handleApprove}
