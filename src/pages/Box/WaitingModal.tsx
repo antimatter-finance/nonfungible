@@ -10,12 +10,14 @@ export default function WaitingModal({
   buttonText,
   icon,
   onClick,
+  op,
   subTitle
 }: {
   title: string
   buttonText: string | React.ReactNode
   icon?: React.ReactNode
   onClick?: () => void
+  op?: JSX.Element
   subTitle?: string
 }) {
   return (
@@ -34,9 +36,12 @@ export default function WaitingModal({
         <div />
       </RowBetween>
 
-      <ButtonBlack disabled={!onClick} onClick={onClick}>
-        {buttonText}
-      </ButtonBlack>
+      <AutoColumn style={{ width: '100%' }} gap="10px">
+        <ButtonBlack disabled={!onClick} onClick={onClick}>
+          {buttonText}
+        </ButtonBlack>
+        {op}
+      </AutoColumn>
     </AutoColumn>
   )
 }

@@ -10,15 +10,18 @@ export function useBlindBox(
   remainingNFT: any
   participated: boolean
   drawDeposit: string | undefined
+  claimAt: number | undefined
   drawCallback: null | ((...args: any) => Promise<any>)
 } {
   const contract = useBlindBoxContract()
   const remainingNFTRes = useSingleCallResult(contract, 'getGiftLength')
   const drawDepositRes = useSingleCallResult(contract, 'drawDeposit')
+  const claimAtRes = useSingleCallResult(contract, 'claimAt')
   // const participatedRes = useSingleCallResult(contract, 'participated', [address ?? undefined])
   const balanceOfRes = useSingleCallResult(contract, 'balanceOf', [address ?? undefined])
   const remainingNFT = remainingNFTRes?.result
   const participated = balanceOfRes?.result
+  const claimAt = claimAtRes?.result?.[0]
   const drawDeposit = drawDepositRes?.result?.toString()
 
   const drawCallback = useCallback(async () => {
@@ -31,9 +34,10 @@ export function useBlindBox(
       remainingNFT: remainingNFT ? parseInt(JSBI.BigInt(remainingNFT).toString()) : 0,
       participated: participated ? Number(participated[0].toString()) > 0 : false,
       drawDeposit,
+      claimAt: claimAt ? Number(claimAt.toString()) : undefined,
       drawCallback: drawCallback
     }),
-    [remainingNFT, participated, drawDeposit, drawCallback]
+    [remainingNFT, participated, drawDeposit, claimAt, drawCallback]
   )
 
   return result
@@ -84,4 +88,21 @@ export function useMyBlindBox() {
     loading,
     ret
   }
+}
+
+export function useBlindBoxClaimed(nftId: string | number | undefined) {
+  const contract = useBlindBoxContract()
+  const [res, setRes] = useState<boolean>()
+  useEffect(() => {
+    if (!contract || !nftId) {
+      setRes(undefined)
+      return
+    }
+    contract
+      .claimed(nftId)
+      .then((res: boolean | ((prevState: boolean | undefined) => boolean | undefined) | undefined) => setRes(res))
+      .catch(() => setRes(undefined))
+  }, [contract, nftId])
+
+  return res
 }

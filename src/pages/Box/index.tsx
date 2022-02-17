@@ -10,7 +10,7 @@ import gradient from 'assets/svg/overlay_gradient.svg'
 import DefaultBox from './DefaultBox'
 import { RowFixed } from 'components/Row'
 import Loader from 'assets/svg/antimatter_background_logo.svg'
-import { useBlindBox } from 'hooks/useBlindBox'
+import { useBlindBox, useBlindBoxClaimed, useMyBlindBox } from 'hooks/useBlindBox'
 import { useActiveWeb3React } from 'hooks/index'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 import { JSBI, Token, TokenAmount } from '@uniswap/sdk'
@@ -23,6 +23,8 @@ import { useHistory } from 'react-router'
 import { useBlindBoxContract } from 'hooks/useContract'
 import { useTokenBalance } from 'state/wallet/hooks'
 import { useCurrentUserInfo, useLogin } from 'state/userInfo/hooks'
+import { ButtonBlack } from 'components/Button'
+import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -177,10 +179,18 @@ export default function Box() {
   const [attemptingTxn, setAttemptingTxn] = useState(false)
   const [hash, setHash] = useState('')
   const [imgLoaded, setImgLoaded] = useState(false)
-  const { remainingNFT, participated, drawDeposit } = useBlindBox(account)
+  const { remainingNFT, participated, drawDeposit, claimAt } = useBlindBox(account)
   const drawDepositAmount = MATTER_ADDRESS[chainId || 1]
     ? new TokenAmount(new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18), JSBI.BigInt(drawDeposit || 0))
     : undefined
+
+  const [transactionModalOpen, setTransactionModalOpen] = useState(false)
+  const [attemptingTxnModal, setAttemptingTxnModal] = useState(false)
+  const [modalHash, setModalHash] = useState('')
+  const [error, setError] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const { ret: myMlindBoxData } = useMyBlindBox()
+  const blindBoxClaimed = useBlindBoxClaimed(myMlindBoxData.length ? myMlindBoxData[0].id : undefined)
   const matterBalance = useTokenBalance(
     account || undefined,
     MATTER_ADDRESS[chainId || 1] ? new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18) : undefined
@@ -234,6 +244,32 @@ export default function Box() {
         })
     return
   }, [account, addTxn, contract])
+
+  const onWithdrawMatter = useCallback(() => {
+    if (!account || !contract || !myMlindBoxData.length || !myMlindBoxData[0].id) return
+    setTransactionModalOpen(true)
+    setAttemptingTxnModal(true)
+    contract
+      .claim(myMlindBoxData[0].id, {
+        from: account
+      })
+      .then((response: any) => {
+        addTxn(response, { summary: 'claim Matter' })
+        setAttemptingTxnModal(false)
+        setModalHash(response.hash)
+      })
+      .catch((error: any) => {
+        setAttemptingTxnModal(false)
+        setError(true)
+        setErrorMsg(error.error ? error.error.message : error.data ? error.data.message : error?.message)
+        if (error?.code === 4001) {
+          console.error('Transaction rejected.')
+        } else {
+          console.error(`claimMatter: ${error.message}`)
+        }
+      })
+    return
+  }, [account, addTxn, contract, myMlindBoxData])
 
   const userInfo = useCurrentUserInfo()
   const { login } = useLogin()
@@ -318,6 +354,21 @@ export default function Box() {
               }
               buttonText="Check My NFTs"
               onClick={toShowUserPanel}
+              op={
+                !blindBoxClaimed ? (
+                  <>
+                    <ButtonBlack
+                      onClick={onWithdrawMatter}
+                      disabled={!claimAt || new Date(claimAt * 1000) > new Date()}
+                    >
+                      Claim Matter
+                    </ButtonBlack>
+                    <span>Note: Claimable time is {claimAt ? new Date(claimAt * 1000).toUTCString() : '-'}.</span>
+                  </>
+                ) : (
+                  <ButtonBlack disabled={true}>Claimed</ButtonBlack>
+                )
+              }
             />
           )}
         </AppBody>
@@ -337,6 +388,16 @@ export default function Box() {
         )}
         <CardGrid style={{ display: imgLoaded ? 'inherit' : 'none' }}>{images}</CardGrid>
       </CardWrapper>
+
+      <TransactionConfirmationModal
+        isOpen={transactionModalOpen}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onDismiss={() => setTransactionModalOpen(false)}
+        hash={modalHash}
+        attemptingTxn={attemptingTxnModal}
+        error={error}
+        errorMsg={errorMsg}
+      />
     </Wrapper>
   )
 }

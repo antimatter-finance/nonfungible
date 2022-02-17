@@ -209,9 +209,9 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
+        "internalType": "uint256",
+        "name": "nftid",
+        "type": "uint256"
       }
     ],
     "name": "claimed",
