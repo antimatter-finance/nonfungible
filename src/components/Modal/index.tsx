@@ -8,7 +8,6 @@ import { useGesture } from 'react-use-gesture'
 import { transparentize } from 'polished'
 import { Marginer } from '../../pages/App'
 import gradient from 'assets/svg/overlay_gradient.svg'
-// import { headerHeightDisplacement } from '../Header'
 
 const AnimatedDialogOverlay = animated(DialogOverlay)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,11 +55,6 @@ export const Wrapper = styled.div`
     margin-bottom: auto;
   `}
 `
-
-// export const Filler = styled.div`
-//   width: 212px;
-//   ${({ theme }) => theme.desktop}
-// `
 
 export const AnimatedDialogContent = animated(DialogContent)
 // destructure to not pass custom props to Dialog DOM element
