@@ -5,7 +5,6 @@ import Header from '../components/Header'
 import Polling from '../components/Header/Polling'
 import Popups from '../components/Popups'
 import Web3ReactManager from '../components/Web3ReactManager'
-import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import ComingSoon from './ComingSoon'
 import NoService from './NoService'
 import { fetchLocation } from '../utils/option/location'
@@ -88,7 +87,6 @@ export default function App() {
   }, [])
   return (
     <Suspense fallback={null}>
-      <Route component={DarkModeQueryParamReader} />
       <Route component={UserLogin} />
       <AppWrapper id="app">
         <ContentWrapper>

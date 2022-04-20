@@ -34,7 +34,7 @@ const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } 
 const white = '#FFFFFF'
 const black = '#000000'
 
-export function colors(darkMode: boolean): Colors {
+export function colors(): Colors {
   return {
     // base
     white,
@@ -101,7 +101,7 @@ export function colors(darkMode: boolean): Colors {
 
 export function theme(darkMode: boolean): DefaultTheme {
   return {
-    ...colors(darkMode),
+    ...colors(),
 
     grids: {
       sm: 8,
@@ -110,7 +110,7 @@ export function theme(darkMode: boolean): DefaultTheme {
     },
 
     //shadows
-    shadow1: darkMode ? '#000' : '#2F80ED',
+    shadow1: '#000',
 
     // media queries
     mediaWidth: mediaWidthTemplates,
@@ -225,7 +225,7 @@ body {
 }
 
  a {
-   color: ${colors(false).blue1}; 
+   color: ${colors().blue1}; 
  }
 
 * {
