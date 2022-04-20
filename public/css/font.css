@@ -27,3 +27,8 @@
   font-display: swap;
   src: local('SF Pro Bold'), url('../fonts/SFPRODISPLAYBOLD.OTF');
 }
+@font-face {
+  font-family: 'Monument';
+  font-display: block;
+  src: url('../fonts/MonumentExtended-Regular.ttf');
+}

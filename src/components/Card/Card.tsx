@@ -16,8 +16,7 @@ export default function Card({
       sx={{
         background: color ?? '#ffffff',
         borderRadius: '20px',
-        boxShadow: 'none',
-
+        boxShadow: 'unset',
         ...style
       }}
     >

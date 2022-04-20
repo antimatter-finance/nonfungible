@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   color: #000000;
   margin-top: 60px;
   min-height: ${({ theme }) => `calc(100vh - ${theme.headerHeight})`};
-  background: #000000 url(${gradient}) -50px 50px no-repeat;
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -114,7 +114,10 @@ const AnimationWrapper = styled.div`
 
 const CardWrapper = styled(AutoColumn)`
   width: 100%;
-  max-width: 1240px;
+  max-width: ${({ theme }) => theme.maxContentWidth};
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 32px;
 `
 
 const CardGrid = styled.div`
@@ -136,7 +139,7 @@ const CardGrid = styled.div`
 const CardImgWrapper = styled(AutoColumn)`
   grid-gap: 8px;
   span:first-child {
-    color: #ffffff;
+    color: ${({ theme }) => theme.text1}
     font-size: 20px;
   }
   span:last-child {
@@ -283,7 +286,7 @@ export default function Box() {
 
   return (
     <Wrapper>
-      <TYPE.monument style={{ width: '100%' }} textAlign="center">
+      <TYPE.monument style={{ width: '100%', color: '#252525' }} textAlign="center">
         Art meets Finance
       </TYPE.monument>
       <FormWrapper>
@@ -374,8 +377,8 @@ export default function Box() {
         </AppBody>
       </FormWrapper>
       <CardWrapper>
-        <SwitchTabWrapper isWhite>
-          <Tab key={'live'} selected={true} isWhite>
+        <SwitchTabWrapper>
+          <Tab key={'live'} selected={true}>
             All Boxes
           </Tab>
         </SwitchTabWrapper>

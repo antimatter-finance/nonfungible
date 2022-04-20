@@ -156,7 +156,7 @@ export const TYPE = {
     return <TextWrapper fontWeight={400} fontSize={16} color={'text1'} {...props} />
   },
   monument(props: TextProps) {
-    return <TextWrapper color="#ffffff" fontSize={48} {...props} />
+    return <TextWrapper color="#ffffff" fontSize={48} {...props} fontFamily="Monument" />
   },
   largeHeader(props: TextProps) {
     return <TextWrapper fontWeight={600} fontSize={24} {...props} fontFamily="SF Pro" />
