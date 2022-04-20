@@ -6,7 +6,7 @@ import { OutlineCard } from 'components/Card'
 import { RowBetween } from 'components/Row'
 import { ApprovalState } from 'hooks/useApproveCallback'
 import { useWalletModalToggle } from 'state/application/hooks'
-import { Dots } from 'components/swap/styleds'
+import { Dots } from 'components/Dots'
 import { JSBI, TokenAmount } from '@uniswap/sdk'
 // import { TimerCapsule } from 'components/NFTCard/Capsule'
 

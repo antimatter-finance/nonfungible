@@ -235,56 +235,6 @@ const NameWrapper = styled(RowFixed)`
   `}
 `
 
-// function ActionButton({ onClick }: { onClick: () => void }) {
-//   return (
-//     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-//       <ButtonOutlinedBlack key="1" width="120px" onClick={onClick}>
-//         Claim Fees
-//       </ButtonOutlinedBlack>
-//     </div>
-//   )
-// }
-
-// function ActionCell({ action }: { action: Actions }) {
-//   return (
-//     <>
-//       {ActionIcons[action]}
-//       {action}
-//     </>
-//   )
-// }
-
-// const dummyActivityData = [
-//   [
-//     'Sport Index',
-//     '121',
-//     <ActionCell action={Actions.BUY} key="1" />,
-//     <OwnerCell name="2living0zen" key="1" />,
-//     '1 day ago'
-//   ],
-//   [
-//     'Sport Index',
-//     '121',
-//     <ActionCell action={Actions.SELL} key="2" />,
-//     <OwnerCell name="2living0zen" key="2" />,
-//     '1 day ago'
-//   ],
-//   [
-//     'Sport Index',
-//     '121',
-//     <ActionCell action={Actions.SEND} key="3" />,
-//     <OwnerCell name="2living0zen" key="3" />,
-//     '1 day ago'
-//   ],
-//   [
-//     'Sport Index',
-//     '121',
-//     <ActionCell action={Actions.CLAIM} key="4" />,
-//     <OwnerCell name="2living0zen" key="4" />,
-//     '1 day ago'
-//   ]
-// ]
-
 function ShowNFTImage({ tokenURI }: { tokenURI: string }) {
   const [imgSrc, setImgSrc] = useState('')
   useEffect(() => {
@@ -406,7 +356,7 @@ export default function User() {
                   </TYPE.darkGray>
                   <ButtonBlack
                     width="134px"
-                    disabled={!!(Number(claimFee) <= 0)}
+                    // disabled={!!(Number(claimFee) <= 0)}
                     onClick={() => {
                       setClaimModal(true)
                     }}

@@ -8,7 +8,7 @@ import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
 import { TYPE } from '../../theme'
 import useTheme from '../../hooks/useTheme'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { Dots } from '../swap/styleds'
+import { Dots } from 'components/Dots'
 
 export const StyledDropDown = styled(DropDown)`
   margin: 0 0.25rem 0 0;
