@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import useMediaWidth from 'hooks/useMediaWidth'
 
 const LogosContainer = styled.div`
-  height: 380px;
+  height: 237px;
   width: 100%;
   position: absolute;
   top: 0;
@@ -18,23 +18,22 @@ const LogosContainer = styled.div`
 const LogoWrapper = styled.div<{ size: number; top: number; left: number }>`
   position: absolute;
   z-index: 3;
-  width: ${({ size }) => size}px;
-  height: ${({ size }) => size}px;
-  top: ${({ top }) => top}px;
-  left: ${({ left }) => left}px;
+  width: ${({ size }) => size * 0.8}px;
+  height: ${({ size }) => size * 0.8}px;
+  top: ${({ top }) => (top * 100) / 380}%;
+  left: ${({ left }) => (left * 100) / 280}%;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(169.06deg, #ffffff 8.1%, #f5f5f5 64.51%, #000000 176.95%),
-    linear-gradient(135.43deg, #000000 -7.49%, #000000 60.86%, #02ff49 180.85%);
+  background: #ffffff;
   svg,
   img {
     height: 60%;
     width: 60%;
   }
   ${({ top, left, theme }) => theme.mediaWidth.upToSmall`
-    top: ${(top / 3.5).toFixed(1)}%;
+    top: ${((top * 100) / (3.5 * 145)).toFixed(1)}%;
     left: ${(left / 2.5).toFixed(1)}%;
   `}
   ${({ size, theme }) => theme.mediaWidth.upToSmall`

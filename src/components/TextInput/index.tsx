@@ -19,10 +19,10 @@ const CustomInput = styled(StyledInput)<{
   align-items: center;
   padding: ${({ padding }) => padding + ' 20px'};
   width: 100%;
-  background-color: ${({ disabled }) => (disabled ? 'rgba(0, 0, 0, 0.1)' : '#ffffff')};
+  background-color: ${({ disabled, theme }) => (disabled ? 'rgba(0, 0, 0, 0.1)' : theme.bg2)};
   border-radius: 10px;
   height:${({ height }) => height ?? 'auto'}
-  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? theme.text2)};
+  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? 'transparent')};
   ::placeholder {
     color: ${({ theme }) => theme.text2};
   } 
@@ -42,8 +42,8 @@ export const CustomTextArea = styled.textarea<{
   border: none;
   padding: 20px 1rem;
   border-radius: 14px;
-  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? theme.text2)};
-  background-color: ${({ disabled }) => (disabled ? 'rgba(0, 0, 0, 0.1)' : '#ffffff')};
+  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? 'transparent')};
+  background-color: ${({ disabled, theme }) => (disabled ? 'rgba(0, 0, 0, 0.1)' : theme.bg2)};
   text-align: ${({ align }) => align && align};
   ::-webkit-search-decoration {
     -webkit-appearance: none;

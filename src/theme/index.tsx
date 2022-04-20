@@ -87,7 +87,7 @@ export function colors(): Colors {
   }
 }
 
-export function theme(darkMode: boolean): DefaultTheme {
+export function theme(): DefaultTheme {
   return {
     ...colors(),
 
@@ -113,6 +113,7 @@ export function theme(darkMode: boolean): DefaultTheme {
     `,
     mobileHeaderHeight: '90px',
     headerHeight: '82px',
+    maxContentWidth: '1280px',
 
     // css snippets
     flexColumnNoWrap: css`
@@ -129,7 +130,7 @@ export function theme(darkMode: boolean): DefaultTheme {
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   const darkMode = useIsDarkMode()
 
-  const themeObject = useMemo(() => theme(darkMode), [darkMode])
+  const themeObject = useMemo(() => theme(), [darkMode])
 
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>
 }

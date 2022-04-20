@@ -8,25 +8,18 @@ import { TYPE } from 'theme/'
 
 type WhenTimerEndInSeconds = number
 
-export const StyledCapsule = styled.div<{ color: string; padding?: string }>`
+export const StyledCapsule = styled.div<{ color: string; padding?: string; noMinWidth?: boolean }>`
   padding: ${({ padding }) => padding ?? '6px 10px'}
   border-radius: 20px;
   overflow: hidden;
   position: relative;
   width: max-content;
-  min-width: 118px;
+  min-width: ${({ noMinWidth }) => (noMinWidth ? 'unset' : '118px')};
   display: flex;
   white-space: nowrap;
-  :before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0.2;
-    background-color: ${({ color }) => color};
-  }
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ color }) => color};
 `
 
 export function Capsule({ color, children }: { color: CardColor; children: React.ReactNode }) {
