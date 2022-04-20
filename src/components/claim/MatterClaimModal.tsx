@@ -2,15 +2,12 @@ import React, { useCallback, useState } from 'react'
 import Modal from '../Modal'
 import { AutoColumn, ColumnCenter } from '../Column'
 import styled from 'styled-components'
-import { DataCard, CardSection, Break } from '../earn/styled'
 import { RowBetween } from '../Row'
 import { TYPE, ExternalLink, CloseIcon, CustomLightSpinner, UniTokenAnimated } from '../../theme'
 import { ButtonPrimary } from '../Button'
 import Circle from '../../assets/images/blue-loader.svg'
 import { Text } from 'rebass'
 import { useActiveWeb3React } from '../../hooks'
-import Confetti from '../Confetti'
-// import { CardBGImageSmaller } from '../earn/styled'
 import { useIsTransactionPending } from '../../state/transactions/hooks'
 import { getEtherscanLink, shortenAddress } from '../../utils'
 import { useClaimMATTERCall } from 'hooks/useMatterClaim'
@@ -21,19 +18,32 @@ const ContentWrapper = styled(AutoColumn)`
   width: 100%;
 `
 
-const ModalUpper = styled(DataCard)`
+export const CardSection = styled(AutoColumn)<{ disabled?: boolean }>`
+  padding: 1rem;
+  z-index: 1;
+  opacity: ${({ disabled }) => disabled && '0.4'};
+`
+
+export const Break = styled.div`
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  height: 1px;
+`
+
+const ModalUpper = styled(AutoColumn)`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   background: #fff;
   padding: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 `
 
 const ConfirmOrLoadingWrapper = styled.div<{ activeBG: boolean }>`
   width: 100%;
   padding: 24px;
   position: relative;
-  /* background: ${({ activeBG }) =>
-    activeBG &&
-    'radial-gradient(76.02% 75.41% at 1.84% 0%, rgba(255, 0, 122, 0.2) 0%, rgba(33, 114, 229, 0.2) 100%), #FFFFFF;'}; */
 `
 
 const ConfirmedIcon = styled(ColumnCenter)`
@@ -60,8 +70,6 @@ export default function AddressClaimModal({
   const claimPending = useIsTransactionPending(hash ?? '')
   const claimConfirmed = hash && !claimPending
 
-  // use the hash to monitor this txn
-
   const { callback } = useClaimMATTERCall()
 
   const onClaim = useCallback(() => {
@@ -85,12 +93,9 @@ export default function AddressClaimModal({
 
   return (
     <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss} maxHeight={90}>
-      <Confetti start={Boolean(isOpen && claimConfirmed && attempting)} />
       {!attempting && (
         <ContentWrapper gap="lg">
           <ModalUpper>
-            {/* <CardBGImage /> */}
-            {/* <CardNoise /> */}
             <CardSection gap="md">
               <RowBetween>
                 <TYPE.black fontWeight={500}>Claim {chainId === 1 ? 'MATTER' : ''} Token</TYPE.black>
@@ -135,7 +140,7 @@ export default function AddressClaimModal({
                 {claimConfirmed ? 'Claimed' : 'Claiming'}
               </TYPE.largeHeader>
               {!claimConfirmed && (
-                <Text fontSize={36} color={'#ff007a'} fontWeight={800}>
+                <Text fontSize={36} color={'#000000'} fontWeight={800}>
                   {claimFee} {CHAIN_ETH_NAME[chainId ?? 1]}
                 </Text>
               )}

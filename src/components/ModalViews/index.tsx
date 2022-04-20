@@ -12,7 +12,7 @@ import { ExternalLink } from '../../theme/components'
 import useTheme from 'hooks/useTheme'
 import { ButtonBlack } from 'components/Button'
 import Loader from 'components/Loader'
-import { Dots } from 'components/swap/styleds'
+import { Dots } from 'components/Dots'
 
 const ConfirmOrLoadingWrapper = styled.div`
   width: 100%;

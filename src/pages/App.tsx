@@ -4,16 +4,13 @@ import styled from 'styled-components'
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import Header from '../components/Header'
 import Polling from '../components/Header/Polling'
-// import URLWarning from '../components/Header/URLWarning'
 import Popups from '../components/Popups'
 import Web3ReactManager from '../components/Web3ReactManager'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import ComingSoon from './ComingSoon'
 import NoService from './NoService'
 import { fetchLocation } from '../utils/option/location'
-
 import { RedirectPathToSwapOnly } from './SpotIndex/redirects'
-// import Governance from './NFTGovernance'
 import SpotIndex from './SpotIndex'
 import GovernanceDetail from './NFTGovernance/NFTGovernanceDetail'
 import Locker from './Locker'
@@ -24,7 +21,6 @@ import User from './User'
 import Box from './Box'
 import WarningModal from 'components/Modal/WarningModal'
 import Spinner from 'components/Spinner'
-// import { ButtonWhite } from 'components/Button'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -78,32 +74,9 @@ const BodyWrapper = styled.div`
   `}
 `
 
-// const MobileHint = styled.div`
-//   display: none;
-//   color: #ffffff;
-//   margin: 100px auto auto;
-//   width: 300px;
-//   text-align: center;
-//   ${({ theme }) => theme.mediaWidth.upToMedium`
-//   display: block;
-//   `};
-//   > a {
-//     text-decoration: none;
-//     > button {
-//       margin: 40px auto;
-//     }
-//   }
-// `
-
 export const Marginer = styled.div`
   ${({ theme }) => theme.desktop};
 `
-
-// function TopLevelModals() {
-//   const open = useModalOpen(ApplicationModal.ADDRESS_CLAIM)
-//   const toggle = useToggleModal(ApplicationModal.ADDRESS_CLAIM)
-//   return <AddressClaimModal isOpen={open} onDismiss={toggle} />
-// }
 
 const resource = fetchLocation()
 
@@ -120,26 +93,15 @@ export default function App() {
       <Route component={DarkModeQueryParamReader} />
       <Route component={UserLogin} />
       <AppWrapper id="app">
-        {/* <URLWarning /> */}
-
         <ContentWrapper>
           <HeaderWrapper id="header">
             <Header />
           </HeaderWrapper>
           <HeaderFiller />
-          {/* <MobileHint>
-            <div>Mobile version is coming soon! Please use desktop version for now~</div>
-            <a href="https://antimatter.finance/">
-              <ButtonWhite width="240px" height={60}>
-                Go to homepage
-              </ButtonWhite>
-            </a>
-          </MobileHint> */}
           <BodyWrapper id="body">
             <Popups />
             <Polling />
             <WarningModal />
-            {/* <TopLevelModals /> */}
             <Web3ReactManager>
               <LocatoinVerification resource={resource}>
                 <Switch>
@@ -158,7 +120,6 @@ export default function App() {
                 </Switch>
               </LocatoinVerification>
             </Web3ReactManager>
-            {/* <Marginer /> */}
           </BodyWrapper>
         </ContentWrapper>
       </AppWrapper>

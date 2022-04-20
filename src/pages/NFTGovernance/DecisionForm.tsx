@@ -6,7 +6,7 @@ import { ButtonEmpty, ButtonOutlinedPrimary, ButtonPrimary } from 'components/Bu
 import { LightGreyCard } from 'components/Card'
 import { RowBetween } from 'components/Row'
 import { getDeltaTime, Timer } from 'components/Timer'
-import { Dots } from 'components/swap/styleds'
+import { Dots } from 'components/Dots'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 import { SubmittedView } from 'components/ModalViews'
 import Modal from 'components/Modal'

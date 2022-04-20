@@ -10,7 +10,6 @@ import { ArrowLeft, AlertTriangle } from 'react-feather'
 import { transparentize } from 'polished'
 import useTheme from 'hooks/useTheme'
 import { ButtonPrimary } from 'components/Button'
-import { SectionBreak } from 'components/swap/styleds'
 import { useAddUserToken } from 'state/user/hooks'
 import { getEtherscanLink } from 'utils'
 import { useActiveWeb3React } from 'hooks'
@@ -18,6 +17,12 @@ import { ExternalLink } from '../../theme/components'
 import { useCombinedInactiveList } from 'state/lists/hooks'
 import ListLogo from 'components/ListLogo'
 import { PaddedColumn, Checkbox } from './styleds'
+
+export const SectionBreak = styled.div`
+  height: 1px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.bg3};
+`
 
 const Wrapper = styled.div`
   position: relative;

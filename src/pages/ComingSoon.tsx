@@ -1,12 +1,12 @@
 import { ButtonWhite } from 'components/Button'
-import { Dots } from 'components/swap/styleds'
+import { Dots } from 'components/Dots'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
 const Frame = styled.div`
   width: 500px;
   height: 280px;
-  /* border: 1px solid rgba(255, 255, 255, 0.2); */
   box-sizing: border-box;
   border-radius: 32px;
   display: flex;

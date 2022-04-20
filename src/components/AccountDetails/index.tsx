@@ -14,7 +14,6 @@ import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import PortisIcon from '../../assets/images/portisIcon.png'
-// import Identicon from '../Identicon'
 import { ButtonSecondary, ButtonOutlinedBlack, ButtonBlack } from '../Button'
 
 import { LinkStyledButton, TYPE } from '../../theme'
@@ -214,7 +213,6 @@ export default function AccountDetails({
     if (connector === injected) {
       return (
         <IconWrapper size={16}>
-          {/* <Identicon /> */}
           <Dot />
         </IconWrapper>
       )
