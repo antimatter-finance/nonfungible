@@ -5,10 +5,13 @@ import { TYPE } from 'theme'
 import Column, { AutoColumn } from 'components/Column'
 import ProgressBar from './ProgressBar'
 import CurrencyLogosOverlay from './CurrencyLogosOverlay'
-import CurvedText from './CurvedText'
+// import CurvedText from './CurvedText'
 import { RowBetween } from 'components/Row'
-import { Capsule, TimerCapsule } from './Capsule'
+import { TimerCapsule, StyledCapsule } from './Capsule'
 import { ellipsis } from 'polished'
+import { shortenAddress } from 'utils'
+import CopyHelper from 'components/AccountDetails/Copy'
+import { Box } from '@mui/material'
 export { default as NFTArtCard } from './NFTArtCard'
 
 export enum CardColor {
@@ -49,102 +52,87 @@ const formatSynposis = (synopsis: string) => {
   return synopsis
 }
 
-const CardWrapper = styled.div<{ color: CardColor; padding?: string | number }>`
+const CardWrapper = styled.div`
+  height: 394px;
+  width: 271px;
   background: #ffffff;
+  border: 1px solid #ebecf2;
   border-radius: 30px;
-  height: 380px;
-  width: 280px;
+  display: grid;
+  justify-content: center;
+  padding: 21px 20px;
+  gap: 12px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 100%;
+  min-width: 312px;
+  height: auto;
+`}
+`
+
+const CardContent = styled.div<{ color: CardColor; padding?: string | number }>`
+  background: ${({ theme, color }) => theme[color]};
+  border-radius: 20px;
+  height: 237px;
+  width: 231px;
   position: relative;
   overflow: hidden;
   padding: ${({ padding }) => padding ?? '20px'};
   cursor: pointer;
-  :before {
-    content: '';
-    position: absolute;
-    width: 316px;
-    height: 184px;
-    left: 40%;
-    top: -100px;
-    background: ${({ theme, color }) => theme[color]};
-    filter: blur(100px);
-    border-radius: 160px;
-    z-index: 1;
-  }
-  :after {
-    content: '';
-    position: absolute;
-    width: 316px;
-    height: 184px;
-    left: 40%px;
-    top: -100px;
-    background: ${({ theme, color }) => theme[color]};
-    filter: blur(100px);
-    border-radius: 120px;
-    z-index: 1;
-  }
-  :hover {
-    :before {
-      width: 468px;
-      height: 272px;
-    }
-    :after {
-      width: 468px;
-      height: 272px;
-    }
-  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
-    min-width: 312px;
-    height: 276px;
-  `}
+  height: 145px;
+  width: 264px;
+`}
 `
 
-const OutlineCard = styled.div<{ borderRadius?: string }>`
-  border: 1px solid ${({ theme }) => theme.text2};
-  height: 100%;
-  z-index: 3;
-  border-radius: ${({ borderRadius }) => borderRadius ?? '20px'};
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px 20px;
-  & * {
-    z-index: 3;
-  }
-  ${({ theme }) => theme.mediaWidth.upToSmall`padding-top: 20px;`}
-`
-
-const CapsuleWrapper = styled(AutoColumn)`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    display: flex;
-    grid-gap: 8px
-  `}
-`
+// const OutlineCard = styled.div<{ borderRadius?: string }>`
+//   border: 1px solid ${({ theme }) => theme.text2};
+//   height: 100%;
+//   z-index: 3;
+//   border-radius: ${({ borderRadius }) => borderRadius ?? '20px'};
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   padding: 24px 20px;
+//   & * {
+//     z-index: 3;
+//   }
+//   ${({ theme }) => theme.mediaWidth.upToSmall`padding-top: 20px;`}
+// `
 
 function NFTCardBase({
   children,
   color,
   address,
   noBorderArea,
-  onClick
+  onClick,
+  icons
 }: {
   children: React.ReactNode
   color: CardColor
   address: string
   noBorderArea?: boolean
   onClick?: () => void
+  icons?: React.ReactNode[]
 }) {
   return (
-    <CardWrapper padding={noBorderArea ? 0 : '20px'} color={color} onClick={onClick}>
-      {!noBorderArea && (
-        <>
-          <CurvedText text={address} />
-          <CurvedText text={address} inverted />
-        </>
-      )}
-      <OutlineCard borderRadius={noBorderArea ? '30px' : '20px'}>{children}</OutlineCard>
+    <CardWrapper>
+      {children}
+      <CardContent padding={noBorderArea ? 0 : '20px'} color={color} onClick={onClick}>
+        {icons && <CurrencyLogosOverlay icons={icons} />}
+        {/* {!noBorderArea && (
+          <>
+            <CurvedText text={address} />
+            <CurvedText text={address} inverted />
+          </>
+        )} */}
+        {/* <OutlineCard borderRadius={noBorderArea ? '30px' : '20px'}>{}</OutlineCard> */}
+      </CardContent>
+      <Box display="flex" alignItems={'center'} sx={{ opacity: 0.5 }}>
+        <CopyHelper toCopy={address} />
+        <TYPE.smallGray>{shortenAddress(address, 12)}</TYPE.smallGray>
+      </Box>
     </CardWrapper>
   )
 }
@@ -161,21 +149,20 @@ export default function NFTCard({
   createName
 }: NFTCardProps & { onClick?: () => void; createName?: string }) {
   return (
-    <NFTCardBase noBorderArea={noBorderArea} color={color} address={address} onClick={onClick}>
-      <CurrencyLogosOverlay icons={icons} />
+    <NFTCardBase noBorderArea={noBorderArea} color={color} address={address} onClick={onClick} icons={icons}>
       <TYPE.black fontWeight={700} fontSize={28} color="#000000" style={{ ...ellipsis('100%') }}>
         {name}
       </TYPE.black>
-      <CapsuleWrapper gap="4px">
-        <Capsule color={color}>
+      <Box display="flex" gap={'8px'}>
+        <StyledCapsule color={'#EBECF250'} noMinWidth>
           <TYPE.smallGray>{createName ? createName : 'Index ID'}:&nbsp;</TYPE.smallGray>
           <TYPE.small color="#000000"> {indexId}</TYPE.small>
-        </Capsule>
-        <Capsule color={color}>
+        </StyledCapsule>
+        <StyledCapsule color={'#EBECF250'}>
           <TYPE.smallGray>Creator:&nbsp;</TYPE.smallGray>
           <TYPE.small color="#000000"> {creator}</TYPE.small>
-        </Capsule>
-      </CapsuleWrapper>
+        </StyledCapsule>
+      </Box>
     </NFTCardBase>
   )
 }

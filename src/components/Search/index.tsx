@@ -33,30 +33,27 @@ const SearchParams = [
 ]
 
 const WrapperSearch = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.text1};
+  border-bottom: 1px solid #e6edf8;
 `
 
 const StyledSearch = styled.div`
   margin: auto;
-  padding: 23px 42px;
+  padding-bottom: 23px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  width: 1280px;
+  width: 100%;
   & > div {
     flex-shrink: 1;
   }
   ${({ theme }) => theme.mediaWidth.upToLarge`
-    padding: 23px 50px;
     flex-wrap: wrap
     flex-direction: column
     width: 100%;
     grid-gap:10px;
   `}
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  padding: 0;
-  padding-top: 44px;
   grid-gap: 24px
 `}
 `
@@ -139,7 +136,6 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
             marginRight={match ? '0' : '10px'}
           />
           <TextValueInput
-            borderColor="#ffffff"
             value={searchBy}
             onUserInput={val => {
               setSearchBy(val)

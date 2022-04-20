@@ -10,10 +10,25 @@ import { AnimatedImg, AnimatedWrapper, HideSmall, TYPE, ShowSmall } from 'theme'
 import Loader from 'assets/svg/antimatter_icon.svg'
 import { SportIndexSearchProps } from 'utils/option/httpFetch'
 import { useToken } from 'hooks/Tokens'
+import ProductBanner from 'components/ProductBanner'
+import spotBannerUrl from 'assets/svg/spot_banner.svg'
+
+const Layout = styled.div`
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`
 
 const Wrapper = styled.div`
+  max-width: ${({ theme }) => theme.maxContentWidth};
+  background: ${({ theme }) => theme.bg1};
+  border-radius: 32px;
   width: 100%;
-  margin-bottom: auto;
+  margin: 0 auto auto;
+  min-height: 100vh;
+  padding: 40px 28px;
 `
 const EmptyList = styled.div`
   transform: translateY(30px);
@@ -33,19 +48,21 @@ const EmptyList = styled.div`
 `
 const ContentWrapper = styled.div`
   position: relative;
-  max-width: 1280px;
+  width: 100%;
   margin: auto;
   display: grid;
-  grid-gap: 24px;
-  grid-template-columns: repeat(auto-fill, 280px);
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, 271px);
   padding: 52px 0;
   justify-content: center;
-  ${({ theme }) => theme.mediaWidth.upToLarge`padding: 30px`}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  padding: 30px;
+ `}
+  ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 24px;
-    grid-template-columns: repeat(auto-fill, 312px);
    `}
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+  grid-template-columns: repeat(auto-fill, 312px);
     grid-template-columns: 100%;
   `}
 `
@@ -127,53 +144,61 @@ export default function SpotIndex() {
       <ShowSmall>
         <MobileSearch onSearch={handleSearch} />
       </ShowSmall>
-      <Wrapper>
-        <HideSmall>
-          <Search onSearch={handleSearch} />
-        </HideSmall>
-        {showLoading && loading ? (
-          <AnimatedWrapper style={{ marginTop: 100, opacity: 0.8 }}>
-            <AnimatedImg>
-              <img src={Loader} alt="loading-icon" />
-            </AnimatedImg>
-          </AnimatedWrapper>
-        ) : (
-          <>
-            {NFTListCardData?.length === 0 && (
-              <EmptyList>
-                <TYPE.body style={{ marginBottom: '8px' }}>No NFT found.</TYPE.body>
-                <TYPE.subHeader>
-                  <i>You can create or change search criteria.</i>
-                </TYPE.subHeader>
-              </EmptyList>
-            )}
-            <ContentWrapper>
-              {NFTListCardData.map(({ color, address, icons, indexId, creator, name, id }, idx) => (
-                <NFTCard
-                  key={`${id}${idx}`}
-                  id={id}
-                  color={color}
-                  address={address}
-                  icons={icons}
-                  indexId={indexId}
-                  creator={creator}
-                  name={name}
-                  onClick={() => history.push(`/spot_detail/${indexId}`)}
-                />
-              ))}
-            </ContentWrapper>
-            <Pagination
-              page={currentPage}
-              count={countPages}
-              setPage={page => {
-                setShowLoading(true)
-                setLastChangeLoading(new Date().getTime())
-                setCurrentPage(page)
-              }}
-            />
-          </>
-        )}
-      </Wrapper>
+      <Layout>
+        <ProductBanner
+          title="Non-Fungible Finance"
+          text="A basket for multiple assets and store assets 
+with a variety of lock and unlock mechanism."
+          imgUrl={spotBannerUrl}
+        />
+        <Wrapper>
+          <HideSmall>
+            <Search onSearch={handleSearch} />
+          </HideSmall>
+          {showLoading && loading ? (
+            <AnimatedWrapper style={{ marginTop: 100, opacity: 0.8 }}>
+              <AnimatedImg>
+                <img src={Loader} alt="loading-icon" />
+              </AnimatedImg>
+            </AnimatedWrapper>
+          ) : (
+            <>
+              {NFTListCardData?.length === 0 && (
+                <EmptyList>
+                  <TYPE.body style={{ marginBottom: '8px' }}>No NFT found.</TYPE.body>
+                  <TYPE.subHeader>
+                    <i>You can create or change search criteria.</i>
+                  </TYPE.subHeader>
+                </EmptyList>
+              )}
+              <ContentWrapper>
+                {NFTListCardData.map(({ color, address, icons, indexId, creator, name, id }, idx) => (
+                  <NFTCard
+                    key={`${id}${idx}`}
+                    id={id}
+                    color={color}
+                    address={address}
+                    icons={icons}
+                    indexId={indexId}
+                    creator={creator}
+                    name={name}
+                    onClick={() => history.push(`/spot_detail/${indexId}`)}
+                  />
+                ))}
+              </ContentWrapper>
+              <Pagination
+                page={currentPage}
+                count={countPages}
+                setPage={page => {
+                  setShowLoading(true)
+                  setLastChangeLoading(new Date().getTime())
+                  setCurrentPage(page)
+                }}
+              />
+            </>
+          )}
+        </Wrapper>
+      </Layout>
     </>
   )
 }

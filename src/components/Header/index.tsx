@@ -385,14 +385,6 @@ const HeaderElement = styled.div<{
    flex-direction: row-reverse;
     align-items: center;
   `};
-  & > div {
-    border-radius: 4px;
-    height: 32px;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-  }
 `
 
 const NetworkCard = styled.div<{ color?: string }>`
@@ -400,8 +392,9 @@ const NetworkCard = styled.div<{ color?: string }>`
   border: 1px solid #ededed;
   cursor: pointer;
   display: flex;
-  padding: 0 4px;
-  height: 32px;
+  padding: 4px 16px;
+  height: 40px;
+  margin-top: 2px;
   margin-right: 12px;
   margin-left: 19px;
   justify-content: center;
