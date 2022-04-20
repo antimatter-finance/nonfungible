@@ -4,7 +4,6 @@ import { Link, NavLink, useHistory, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { Check } from 'react-feather'
 import { darken } from 'polished'
-// import { useTranslation } from 'react-i18next'
 import { CountUp } from 'use-count-up'
 import { useActiveWeb3React } from '../../hooks'
 import { useAggregateUniBalance, useETHBalances } from '../../state/wallet/hooks'
@@ -111,7 +110,7 @@ const HeaderFrame = styled.div`
   padding: 21px 0 0;
   z-index: 6;
   background-color: ${({ theme }) => theme.bg1};
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
     grid-template-columns: 1fr;
     padding: 0 1rem;
     width: 100%;
@@ -128,7 +127,7 @@ const HeaderControls = styled.div`
   flex-direction: row;
   justify-self: flex-end;
   align-items: center;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
     height: ${theme.headerHeight};
     flex-direction: row;
     align-items: center;
@@ -151,7 +150,7 @@ const HeaderRow = styled(RowFixed)`
   min-width: 1100px;
   padding-left: 2rem;
   align-items: flex-start
-    ${({ theme }) => theme.mediaWidth.upToLarge`
+    ${({ theme }) => theme.mediaWidth.upToMedium`
     background: red
    align-items: center
   `};
