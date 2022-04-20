@@ -8,8 +8,6 @@ import {
   removeSerializedToken,
   SerializedPair,
   SerializedToken,
-  updateMatchesDarkMode,
-  updateUserDarkMode,
   updateUserExpertMode,
   updateUserSlippageTolerance,
   updateUserRedeemSlippageTolerance,
@@ -92,14 +90,6 @@ export default createReducer(initialState, builder =>
       }
 
       state.lastUpdateVersionTimestamp = currentTimestamp()
-    })
-    .addCase(updateUserDarkMode, (state, action) => {
-      state.userDarkMode = action.payload.userDarkMode
-      state.timestamp = currentTimestamp()
-    })
-    .addCase(updateMatchesDarkMode, (state, action) => {
-      state.matchesDarkMode = action.payload.matchesDarkMode
-      state.timestamp = currentTimestamp()
     })
     .addCase(updateUserExpertMode, (state, action) => {
       state.userExpertMode = action.payload.userExpertMode
