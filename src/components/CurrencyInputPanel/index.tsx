@@ -44,7 +44,7 @@ const CurrencySelect = styled.button<{ selected: boolean; halfWidth?: boolean }>
   height: 3rem;
   font-weight: 500;
   background-color: ${({ theme }) => theme.bg2};
-  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.text3)};
+  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.text2)};
   border-radius: 14px;
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
   outline: none;
@@ -62,7 +62,7 @@ const CurrencySelect = styled.button<{ selected: boolean; halfWidth?: boolean }>
     border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.primary1))};
   }
   :hover {
-    border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.bg5))};
+    border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.bg1))};
   }
   ${({ theme, selected }) => theme.mediaWidth.upToSmall`
   position: absolute;
@@ -70,9 +70,9 @@ const CurrencySelect = styled.button<{ selected: boolean; halfWidth?: boolean }>
   width: 50%;
   z-index: 3;
   color:${selected ? theme.text1 : theme.primary1}
-  border: 1px solid ${selected ? theme.text4 : theme.primary1}
+  border: 1px solid ${selected ? theme.text1 : theme.primary1}
   :hover,:focus,:active {
-    border: 1px solid ${selected ? theme.text4 : theme.primary1}
+    border: 1px solid ${selected ? theme.text1 : theme.primary1}
   }
   `}
 `
@@ -83,7 +83,7 @@ const CurrencyNFTSelect = styled.button<{ selected: boolean; halfWidth?: boolean
   height: 60px;
   font-weight: 500;
   background-color: ${({ theme }) => theme.bg2};
-  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.text3)};
+  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.text2)};
   border-radius: 14px;
   outline: none;
   cursor: pointer;
@@ -104,9 +104,9 @@ const CurrencyNFTSelect = styled.button<{ selected: boolean; halfWidth?: boolean
   z-index: 3;
   height: 48px;
   // color:${selected ? theme.text1 : theme.primary1}
-  // border: 1px solid ${selected ? theme.text4 : theme.primary1}
+  // border: 1px solid ${selected ? theme.text1 : theme.primary1}
   :hover,:focus,:active {
-    // border: 1px solid ${selected ? theme.text4 : theme.primary1}
+    // border: 1px solid ${selected ? theme.text1 : theme.primary1}
   }
   `}
 `
@@ -152,7 +152,7 @@ const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
 const StyledNFTDropDown = styled(StyledDropDown)<{ selected: boolean }>`
   width: 13px;
   path {
-    stroke: ${({ selected, theme }) => (selected ? theme.black : theme.text3)};
+    stroke: ${({ selected, theme }) => (selected ? theme.black : theme.text2)};
     stroke-width: 1.5px;
   }
   ${({ theme, selected }) =>
@@ -181,7 +181,7 @@ const StyledTokenName = styled.span<{ active?: boolean }>`
 
 const StyledBalanceMax = styled.button`
   height: 28px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
   border: 1px solid transparent;
   border-radius: 49px;
   font-size: 0.875rem;
@@ -258,13 +258,13 @@ export default function CurrencyInputPanel({
         {!hideInput && (
           <LabelRow>
             <AutoRow justify="space-between">
-              <TYPE.body color={theme.text3} fontWeight={500} fontSize={14}>
+              <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
                 {label}
               </TYPE.body>
               {account && (
                 <TYPE.body
                   onClick={onMax}
-                  color={theme.text3}
+                  color={theme.text2}
                   fontWeight={500}
                   fontSize={14}
                   style={{ display: 'inline', cursor: 'pointer' }}
@@ -390,13 +390,13 @@ export function CurrencyNFTInputPanel({
           <LabelRow>
             {!hiddenLabel && (
               <AutoRow justify="space-between">
-                <TYPE.body color={theme.text3} fontWeight={500} fontSize={14}>
+                <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
                   {label}
                 </TYPE.body>
                 {account && (
                   <TYPE.body
                     onClick={onMax}
-                    color={theme.text3}
+                    color={theme.text2}
                     fontWeight={500}
                     fontSize={14}
                     style={{ display: 'inline', cursor: 'pointer' }}

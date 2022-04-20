@@ -20,7 +20,7 @@ const StyledBackIcon = styled(CloseIcon)`
 
 const CloseColor = styled(Close)<{ strokecolor?: string }>`
   path {
-    stroke: ${({ theme, strokecolor }) => (strokecolor ? strokecolor : theme.text4)};
+    stroke: ${({ theme, strokecolor }) => (strokecolor ? strokecolor : theme.text1)};
   }
 `
 

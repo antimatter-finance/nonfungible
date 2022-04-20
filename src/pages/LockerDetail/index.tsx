@@ -1,4 +1,4 @@
-import { ButtonBlack, ButtonEmpty } from 'components/Button'
+import { ButtonPrimary, ButtonEmpty } from 'components/Button'
 import { RowBetween, RowFixed } from 'components/Row'
 import { StyledTabItem } from 'components/Tabs'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -193,12 +193,12 @@ export default function LockerDetail({
                 // locker721Info.assetsParameters[0] &&
                 // JSBI.GT(JSBI.BigInt(locker721Info.assetsParameters[0].unClaimAmount ?? 0), JSBI.BigInt(0)) && (
                 <RowFixed>
-                  <ButtonBlack width="140px" height="44px" onClick={() => setClaimModal(true)}>
+                  <ButtonPrimary width="140px" height="44px" onClick={() => setClaimModal(true)}>
                     Claim Tokens
-                  </ButtonBlack>
-                  {/* <ButtonBlack width="100px" height="44px" marginLeft="10px">
+                  </ButtonPrimary>
+                  {/* <ButtonPrimary width="100px" height="44px" marginLeft="10px">
                   Send
-                </ButtonBlack> */}
+                </ButtonPrimary> */}
                 </RowFixed>
               )}
             </RowBetween>

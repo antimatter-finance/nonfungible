@@ -109,7 +109,7 @@ export default function WelcomeSlider() {
       <StyledDialogContent
         minHeight={20}
         minWidth={580}
-        border={'1px solid ' + theme.bg4}
+        border={'1px solid ' + theme.bg1}
         style={{ alignSelf: 'unset' }}
       >
         <WelcomeCard>

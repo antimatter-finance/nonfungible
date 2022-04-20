@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Text } from 'rebass'
 import { AutoColumn } from 'components/Column'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
-import { ButtonBlack, ButtonOutlinedBlack, ButtonOutlinedWhite } from 'components/Button'
+import { ButtonPrimary, ButtonOutlinedBlack, ButtonOutlinedWhite } from 'components/Button'
 import { AnimatedImg, AnimatedWrapper, HideSmall, TYPE, ShowSmall } from 'theme'
 import CopyHelper from 'components/AccountDetails/Copy'
 import ProfileFallback from 'assets/images/profile-fallback.png'
@@ -198,7 +198,7 @@ const CardImgWrapper = styled(AutoColumn)`
     font-size: 20px;
   }
   span:last-child {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
     font-size: 14px;
   }
   a {
@@ -225,7 +225,7 @@ const CardImg = styled.img`
 const Divider = styled.div`
   width: 80px;
   height: 0;
-  border-bottom: 1px solid ${({ theme }) => theme.text4};
+  border-bottom: 1px solid ${({ theme }) => theme.text1};
   margin: 20px auto 0;
 `
 
@@ -354,7 +354,7 @@ export default function User() {
                   <TYPE.darkGray style={{ display: 'flex', alignItems: 'center' }}>
                     Unclaim Fees: <TYPE.black fontSize={20}> {claimFee ?? '-'}</TYPE.black>
                   </TYPE.darkGray>
-                  <ButtonBlack
+                  <ButtonPrimary
                     width="134px"
                     // disabled={!!(Number(claimFee) <= 0)}
                     onClick={() => {
@@ -362,7 +362,7 @@ export default function User() {
                     }}
                   >
                     Claim Fees
-                  </ButtonBlack>
+                  </ButtonPrimary>
                 </AutoColumn>
               </ClaimWrapper>
               <ShowSmall style={{ justifyContent: 'center' }}>

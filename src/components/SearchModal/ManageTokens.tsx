@@ -30,7 +30,7 @@ const Footer = styled.div`
   border-radius: 20px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  border-top: 1px solid ${({ theme }) => theme.bg3};
+  border-top: 1px solid ${({ theme }) => theme.text2};
   padding: 20px;
   text-align: center;
 `

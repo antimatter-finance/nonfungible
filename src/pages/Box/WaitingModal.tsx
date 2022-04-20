@@ -1,7 +1,7 @@
 import React from 'react'
 import { AutoColumn } from 'components/Column'
 import { TYPE } from 'theme'
-import { ButtonBlack } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import { RowBetween } from 'components/Row'
 import Spinner from 'components/Spinner'
 
@@ -37,9 +37,9 @@ export default function WaitingModal({
       </RowBetween>
 
       <AutoColumn style={{ width: '100%' }} gap="10px">
-        <ButtonBlack disabled={!onClick} onClick={onClick}>
+        <ButtonPrimary disabled={!onClick} onClick={onClick}>
           {buttonText}
-        </ButtonBlack>
+        </ButtonPrimary>
         {op}
       </AutoColumn>
     </AutoColumn>

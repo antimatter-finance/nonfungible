@@ -38,7 +38,7 @@ const Footer = styled.div`
   padding: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-top: 1px solid ${({ theme }) => theme.text5};
+  border-top: 1px solid ${({ theme }) => theme.text1};
 `
 
 const ButtonEmpty = styled(ButtonEmptyUnstyled)`
@@ -237,7 +237,7 @@ export function CurrencySearch({
         </div>
       ) : (
         <Column style={{ padding: '20px', height: '100%' }}>
-          <TYPE.main color={theme.text3} textAlign="center" mb="20px">
+          <TYPE.main color={theme.text2} textAlign="center" mb="20px">
             No results found.
           </TYPE.main>
         </Column>

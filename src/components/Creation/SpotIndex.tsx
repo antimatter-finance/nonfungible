@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { AutoColumn } from 'components/Column'
 import { TextValueInput } from 'components/TextInput'
 import {
-  ButtonBlack as ButtonBlackDesktop,
+  ButtonPrimary as ButtonPrimaryDesktop,
   ButtonDropdown,
   ButtonOutlined as ButtonOutlinedDesktop
 } from 'components/Button'
@@ -142,20 +142,20 @@ const CreationTitleBox = styled.div`
   `}
 `
 
-const ButtonBlack = styled(ButtonBlackDesktop)`
+const ButtonPrimary = styled(ButtonPrimaryDesktop)`
   margin-top: 40px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   margin-top: auto;
   background-color: ${({ theme }) => theme.primary1};
   color: #000000;
   :hover{
-    background: ${({ theme }) => theme.primary4};
+    background: ${({ theme }) => theme.primary2};
   }
   `}
   ${({ theme }) => theme.mediaWidth.upToSmall`
     :disabled {
-      color: ${({ theme }) => theme.text3};
-      background: ${({ theme }) => theme.bg4};
+      color: ${({ theme }) => theme.text2};
+      background: ${({ theme }) => theme.bg1};
     }
   `}
 `
@@ -330,13 +330,13 @@ export default function SpotIndex({
               hint="Maximum 100 characters"
             />
           </AutoColumn>
-          <ButtonBlack
+          <ButtonPrimary
             height={60}
             onClick={() => setCurrent(++current)}
             disabled={!data.description.trim() || !data.name.trim()}
           >
             Next Step
-          </ButtonBlack>
+          </ButtonPrimary>
         </>
       )}
 
@@ -413,9 +413,9 @@ export default function SpotIndex({
             <ButtonOutlined height={60} onClick={addAsset} disabled={assetParams.length === 8}>
               + Add asset
             </ButtonOutlined>
-            <ButtonBlack height={60} onClick={toColorStep} disabled={assetsBtnDIsabled}>
+            <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled}>
               Next Step
-            </ButtonBlack>
+            </ButtonPrimary>
           </ButtonGroup>
         </>
       )}
@@ -431,17 +431,17 @@ export default function SpotIndex({
               }}
             />
           </AutoColumn>
-          <ButtonBlack height={60} onClick={handleGenerate}>
+          <ButtonPrimary height={60} onClick={handleGenerate}>
             Generate
-          </ButtonBlack>
+          </ButtonPrimary>
         </>
       )}
 
       {current === 4 && (
         <SpotConfirmation dataInfo={data} tokenFluiditys={tokenFluiditys}>
-          <ButtonBlack onClick={onConfirm} style={{ marginTop: 0 }} disabled={spotCreateButton.disabled} height={60}>
+          <ButtonPrimary onClick={onConfirm} style={{ marginTop: 0 }} disabled={spotCreateButton.disabled} height={60}>
             {spotCreateButton.text}
-          </ButtonBlack>
+          </ButtonPrimary>
         </SpotConfirmation>
       )}
     </>

@@ -33,7 +33,7 @@ const SearchParams = [
 ]
 
 const WrapperSearch = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.text5};
+  border-bottom: 1px solid ${({ theme }) => theme.text1};
 `
 
 const StyledSearch = styled.div`
@@ -150,7 +150,7 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
           />
           <ButtonWrapper>
             <ButtonPrimary width="152px" onClick={handleSearch}>
-              <SearchIcon style={{ marginRight: 10, fill: '#000000' }} />
+              <SearchIcon style={{ marginRight: 10 }} />
               Search
             </ButtonPrimary>
             <div style={{ width: 10 }} />

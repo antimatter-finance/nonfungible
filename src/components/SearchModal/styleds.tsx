@@ -25,7 +25,7 @@ export const PopoverContainer = styled.div<{ show: boolean }>`
   opacity: ${props => (props.show ? 1 : 0)};
   transition: visibility 150ms linear, opacity 150ms linear;
   background: ${({ theme }) => theme.bg2};
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.text2};
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
     0px 24px 32px rgba(0, 0, 0, 0.01);
   color: ${({ theme }) => theme.text2};
@@ -79,7 +79,7 @@ export const MenuItem = styled(RowBetween)`
   opacity: ${({ disabled, selected }) => (disabled || selected ? 0.5 : 1)};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     color: #ffffff;
-    border-bottom:  1px solid ${theme.bg4};
+    border-bottom:  1px solid ${theme.bg1};
   `};
 `
 
@@ -100,7 +100,7 @@ export const SearchInput = styled.input`
   font-size: 16px;
 
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   }
   transition: border 100ms;
   :focus {
@@ -128,7 +128,7 @@ export const SearchNFTInput = styled.input`
   font-size: 16px;
 
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   }
   transition: border 100ms;
   :focus {
@@ -149,5 +149,5 @@ export const Separator = styled.div`
 export const SeparatorDark = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
 `

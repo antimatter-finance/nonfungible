@@ -23,7 +23,7 @@ import { useHistory } from 'react-router'
 import { useBlindBoxContract } from 'hooks/useContract'
 import { useTokenBalance } from 'state/wallet/hooks'
 import { useCurrentUserInfo, useLogin } from 'state/userInfo/hooks'
-import { ButtonBlack } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
 
 const Wrapper = styled.div`
@@ -357,16 +357,16 @@ export default function Box() {
               op={
                 !blindBoxClaimed ? (
                   <>
-                    <ButtonBlack
+                    <ButtonPrimary
                       onClick={onWithdrawMatter}
                       disabled={!claimAt || new Date(claimAt * 1000) > new Date()}
                     >
                       Claim Matter
-                    </ButtonBlack>
+                    </ButtonPrimary>
                     <span>Note: Claimable time is {claimAt ? new Date(claimAt * 1000).toUTCString() : '-'}.</span>
                   </>
                 ) : (
-                  <ButtonBlack disabled={true}>Claimed</ButtonBlack>
+                  <ButtonPrimary disabled={true}>Claimed</ButtonPrimary>
                 )
               }
             />

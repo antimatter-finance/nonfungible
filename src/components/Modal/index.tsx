@@ -7,7 +7,6 @@ import '@reach/dialog/styles.css'
 import { useGesture } from 'react-use-gesture'
 import { transparentize } from 'polished'
 import { Marginer } from '../../pages/App'
-import gradient from 'assets/svg/overlay_gradient.svg'
 
 const AnimatedDialogOverlay = animated(DialogOverlay)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,19 +24,15 @@ export const StyledDialogOverlay = styled(AnimatedDialogOverlay)<{
     align-items: ${({ alignitems }) => alignitems ?? 'center'};
     justify-content: center;
 
-    background: #000000 url(${gradient}) no-repeat left bottom;
+    background: rgba(0, 0, 0, 0.4) no-repeat left bottom;
+    height: 100vh;
+    top: 0;
 
-    height: calc(100vh - ${({ theme }) => theme.headerHeight});
-    top: ${({ theme }) => theme.headerHeight};
-    ${({ theme }) => theme.mediaWidth.upToLarge`
-      height: calc(100vh - ${({ theme }) => theme.headerHeight + ' - ' + theme.mobileHeaderHeight});
-      top: ${theme.mobileHeaderHeight};
-    `}
-    ${({ theme }) => theme.mediaWidth.upToSmall`
+    ${({ theme }) => theme.mediaWidth.upToMedium`
       height: 100vh;
       top: 0;
       bottom: ${({ theme }) => theme.headerHeight};
-      background: #000000;
+      background: ${({ theme }) => theme.bg2};
       justify-content: flex-end;
       z-index: 12;
     `}
@@ -98,7 +93,7 @@ export const StyledDialogContent = styled(
         min-height: ${minHeight}vh;
       `}
     display: flex;
-    border-radius: 42px;
+    border-radius: 40px;
     margin: 0 auto;
     ${({ theme }) => theme.mediaWidth.upToMedium`
       width: 65vw;
@@ -112,7 +107,7 @@ export const StyledDialogContent = styled(
       height: 100vh;
       overflow-y: auto;
       border-radius: 0;
-      background-color: #000000;
+      background-color:${theme.bg2};
     `}
   }
 `

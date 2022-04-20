@@ -1,4 +1,3 @@
-import { transparentize } from 'polished'
 import React, { useMemo } from 'react'
 import styled, {
   ThemeProvider as StyledComponentsThemeProvider,
@@ -41,38 +40,27 @@ export function colors(): Colors {
     black,
 
     // text
-    text1: '#FFFFFF',
-    text2: '#CCCCCC',
+    text1: '#252525',
+    text2: 'rgba(37, 37, 37, .6)',
     text3: '#999999',
-    text4: '#727272',
-    text5: '#333333',
-    text6: '#1F191B',
 
     // backgrounds / greys
-    bg1: '#000000',
-    bg2: '#191919',
-    bg3: '#252525',
-    bg4: '#303030',
-    bg5: '#A1A1A1',
+    bg1: '#FFFFFF',
+    bg2: '#F2F5FA',
 
     //specialty colors
     modalBG: 'rgba(0,0,0,.7)',
     advancedBG: 'rgba(0,0,0,0.1)',
 
     //primary colors
-    primary1: '#B2F355',
-    primary2: '#B2F355',
-    primary3: '#B2F355',
-    primary4: '#739A3B',
-    primary5: '#2B3A14',
+    primary1: '#31B047',
+    primary2: 'rgba(17, 191, 45, .1)',
+    primary3: '#2DA241',
+    primary4: '#257D34',
+    primary5: 'rgba(49, 176, 71, 0.3)',
 
     // color text
     primaryText1: '#B2F355',
-
-    // secondary colors
-    secondary1: '#739A3B',
-    secondary2: '#191919',
-    secondary3: '#252525',
 
     // other
     red1: '#FF0000',
@@ -83,11 +71,11 @@ export function colors(): Colors {
     yellow2: '#F3841E',
     blue1: '#2172E5',
 
-    pastelRed: '#F1A985',
-    pastelBlue: '#66D6FA',
-    pastelGreen: 'rgba(178, 243, 85, 0.8)',
-    pastelPurple: 'rgba(184, 160, 247, 1)',
-    pastelYellow: 'rgba(240, 185, 11, 0.8)',
+    pastelRed: 'linear-gradient(90deg, #EBC0FD 0%, #D9DED8 100%);',
+    pastelBlue: 'linear-gradient(90deg, #E0C3FC 0%, #8EC5FC 100%)',
+    pastelGreen: 'linear-gradient(90deg, #A1C4FD 0%, #C2E9FB 100%)',
+    pastelPurple: 'linear-gradient(90deg, #84FAB0 0%, #8FD3F4 100%)',
+    pastelYellow: 'linear-gradient(90deg, #A8EDEA 0%, #FED6E3 100%)',
 
     // dont wanna forget these blue yet
     // blue4: darkMode ? '#153d6f70' : '#C4D9F8',
@@ -167,16 +155,16 @@ export const TYPE = {
     return <TextWrapper fontWeight={400} fontSize={16} color={'text1'} {...props} />
   },
   monument(props: TextProps) {
-    return <TextWrapper color="#ffffff" fontSize={48} fontFamily="Monument" {...props} />
+    return <TextWrapper color="#ffffff" fontSize={48} {...props} />
   },
   largeHeader(props: TextProps) {
-    return <TextWrapper fontWeight={600} fontSize={24} {...props} fontFamily="Roboto" />
+    return <TextWrapper fontWeight={600} fontSize={24} {...props} fontFamily="SF Pro" />
   },
   mediumHeader(props: TextProps) {
-    return <TextWrapper fontWeight={500} fontSize={22} {...props} fontFamily="Roboto" />
+    return <TextWrapper fontWeight={500} fontSize={22} {...props} fontFamily="SF Pro" />
   },
   smallHeader(props: TextProps) {
-    return <TextWrapper fontWeight={500} fontSize={16} {...props} fontFamily="Roboto" />
+    return <TextWrapper fontWeight={500} fontSize={16} {...props} fontFamily="SF Pro" />
   },
   subHeader(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={14} {...props} />
@@ -185,22 +173,16 @@ export const TYPE = {
     return <TextWrapper fontWeight={400} fontSize={12} {...props} />
   },
   smallGray(props: TextProps) {
-    return <TextWrapper fontWeight={400} fontSize={12} color={'text3'} {...props} />
+    return <TextWrapper fontWeight={400} fontSize={12} color={'text2'} {...props} />
   },
   blue(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'blue1'} {...props} />
-  },
-  yellow(props: TextProps) {
-    return <TextWrapper fontWeight={500} color={'yellow1'} {...props} />
   },
   darkGray(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'text3'} {...props} />
   },
   gray(props: TextProps) {
-    return <TextWrapper fontWeight={500} color={'bg3'} {...props} />
-  },
-  italic(props: TextProps) {
-    return <TextWrapper fontWeight={500} fontSize={12} fontStyle={'italic'} color={'text2'} {...props} />
+    return <TextWrapper fontWeight={500} color={'text2'} {...props} />
   },
   error({ error, ...props }: { error: boolean } & TextProps) {
     return <TextWrapper fontWeight={500} color={error ? 'red1' : 'text2'} {...props} />
@@ -209,12 +191,12 @@ export const TYPE = {
 
 export const FixedGlobalStyle = createGlobalStyle`
 html, input, textarea, button {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'SF Pro', sans-serif;
   font-display: fallback;
 }
 @supports (font-variation-settings: normal) {
   html, input, textarea, button {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'SF Pro', sans-serif;
   }
 }
 
@@ -225,7 +207,7 @@ body {
 }
 
  a {
-   color: ${colors().blue1}; 
+   color: ${colors().primary1}; 
  }
 
 * {
@@ -249,7 +231,7 @@ html {
 
 export const ThemedGlobalStyle = createGlobalStyle`
 html {
-  color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
   background-color: ${({ theme }) => theme.bg2};
 }
 
@@ -257,10 +239,5 @@ body {
   min-height: 100vh;
   background-position: 0 -30vh;
   background-repeat: no-repeat;
-  background-image: ${({ theme }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${transparentize(0.9, theme.primary1)} 0%, ${transparentize(
-      1,
-      theme.bg1
-    )} 100%)`};
 }
 `

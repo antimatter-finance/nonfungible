@@ -26,12 +26,12 @@ const FancyButton = styled.button`
   font-size: 1rem;
   width: auto;
   min-width: 3.5rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.text2};
   outline: none;
   padding: 14px;
   background: ${({ theme }) => theme.translucent};
   :hover {
-    border: 1px solid ${({ theme }) => theme.bg4};
+    border: 1px solid ${({ theme }) => theme.bg1};
   }
   :focus {
     border: 1px solid ${({ theme }) => theme.primary1};
@@ -44,7 +44,7 @@ const Option = styled(FancyButton)<{ active: boolean }>`
     cursor: pointer;
   }
   border: 1px solid ${({ active, theme }) => (active ? theme.primary1 : '#eee')};
-  color: ${({ active, theme }) => (active ? theme.black : theme.text6)};
+  color: ${({ active, theme }) => (active ? theme.black : theme.text1)};
 `
 
 const Input = styled.input`
@@ -56,13 +56,13 @@ const Input = styled.input`
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-  color: ${({ theme, color }) => (color === 'red' ? theme.red1 : theme.text6)};
+  color: ${({ theme, color }) => (color === 'red' ? theme.red1 : theme.text1)};
   text-align: left;
 `
 
 const OptionCustom = styled(FancyButton)<{ active?: boolean; warning?: boolean }>`
   position: relative;
-  color: ${({ theme }) => theme.text6};
+  color: ${({ theme }) => theme.text1};
   /* flex: 1; */
   width: 50%;
   flex-shrink: 0;
@@ -157,7 +157,7 @@ export default function SlippageTabs({
     <AutoColumn gap="24px">
       <AutoColumn gap="sm">
         <RowFixed>
-          <TYPE.black fontWeight={400} fontSize={14} color={theme.text6}>
+          <TYPE.black fontWeight={400} fontSize={14} color={theme.text1}>
             Slippage tolerance
           </TYPE.black>
           <QuestionHelper text="Your transaction will revert if the price changes unfavorably by more than this percentage." />

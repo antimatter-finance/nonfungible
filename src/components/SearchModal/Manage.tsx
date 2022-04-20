@@ -67,7 +67,7 @@ export default function Manage({
         <RowBetween>
           <ArrowLeft style={{ cursor: 'pointer' }} onClick={() => setModalView(CurrencyModalView.search)} />
           <Text fontSize={18}>Select a token</Text>
-          <CloseIcon onClick={onDismiss} style={{ color: theme.text3 }} />
+          <CloseIcon onClick={onDismiss} style={{ color: theme.text2 }} />
         </RowBetween>
       </PaddedColumn>
       <Separator />

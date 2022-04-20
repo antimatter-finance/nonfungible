@@ -24,7 +24,7 @@ export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; wi
   width: ${({ width }) => (width ? width : '100%')};
   height: 3rem;
   background-color: ${({ theme }) => theme.bg2};
-  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.text3)};
+  color: ${({ selected, theme }) => (selected ? theme.text1 : theme.text2)};
   border-radius: 14px;
   border: unset;
   padding: 0 10px 0 15px;
@@ -35,7 +35,7 @@ export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; wi
     border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.primary1))};
   }
   :hover {
-    border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.bg5))};
+    border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.bg1))};
   }
   &:disabled {
     :hover {
@@ -43,7 +43,7 @@ export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; wi
     }
     opacity: 100%;
     cursor: auto;
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   }
 `
 const OptionWrapper = styled.div<{ isOpen: boolean; width?: string }>`
@@ -63,14 +63,14 @@ const OptionWrapper = styled.div<{ isOpen: boolean; width?: string }>`
 const SelectOption = styled(Base)<{ selected: boolean }>`
   border: none;
   border-radius: unset;
-  border-bottom: 1px solid ${({ theme }) => theme.bg3};
+  border-bottom: 1px solid ${({ theme }) => theme.text2};
   color: ${({ theme }) => theme.text1};
   padding: 14px;
-  background-color: ${({ selected, theme }) => (selected ? theme.bg3 : 'transparent')};
+  background-color: ${({ selected, theme }) => (selected ? theme.text2 : 'transparent')};
   :hover,
   :focus,
   :active {
-    background-color: ${({ theme }) => theme.bg3};
+    background-color: ${({ theme }) => theme.text2};
   }
   justify-content: flex-start;
 `
@@ -121,7 +121,7 @@ export default function ButtonSelect({
     <div style={{ position: 'relative', marginRight: marginRight, width: width, flex: 1 }}>
       {label && (
         <AutoRow style={{ marginBottom: '4px' }}>
-          <TYPE.body color={theme.text3} fontWeight={500} fontSize={14}>
+          <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
             {label}
           </TYPE.body>
         </AutoRow>

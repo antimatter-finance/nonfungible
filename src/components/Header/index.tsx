@@ -9,7 +9,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useAggregateUniBalance, useETHBalances } from '../../state/wallet/hooks'
 import { ButtonText, ExternalLink, HideSmall, TYPE } from '../../theme'
 import Row, { RowFixed, RowBetween } from '../Row'
-import Web3Status from '../Web3Status'
+import Web3Status from './Web3Status'
 import usePrevious from '../../hooks/usePrevious'
 import { ReactComponent as Logo } from '../../assets/svg/antimatter_logo.svg'
 import ToggleMenu from './ToggleMenu'
@@ -106,7 +106,6 @@ const HeaderFrame = styled.div`
   top: 0;
   height: ${({ theme }) => theme.headerHeight};
   position: relative;
-  border-bottom: 1px solid ${({ theme }) => theme.text5};
   padding: 21px 0 0;
   z-index: 6;
   background-color: ${({ theme }) => theme.bg1};
@@ -171,23 +170,23 @@ const AccountElement = styled.div<{ active: boolean }>`
 `
 
 const UNIAmount = styled.div`
-  color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
   font-size: 13px;
   display: flex;
   flex-direction: row;
   align-items: center;
   background-color: transparent;
+  width: fit-content;
+  position: relative;
+  div {
+    color: ${({ theme }) => theme.text1};
+  }
   &:after {
     content: '';
-    border-right: 2px solid ${({ theme }) => theme.text2};
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
     margin-left: 16px;
     height: 20px;
   }
-`
-
-const UNIWrapper = styled.span`
-  width: fit-content;
-  position: relative;
 `
 
 export const StyledMenuButton = styled.button`
@@ -199,7 +198,7 @@ export const StyledMenuButton = styled.button`
   margin: 0;
   padding: 0;
   height: 35px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
   margin-left: 8px;
   padding: 0.15rem 0.5rem;
   border-radius: 0.5rem;
@@ -208,7 +207,7 @@ export const StyledMenuButton = styled.button`
   :focus {
     cursor: pointer;
     outline: none;
-    background-color: ${({ theme }) => theme.bg4};
+    background-color: ${({ theme }) => theme.bg1};
   }
 
   svg {
@@ -260,7 +259,7 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text4};
+  color: ${({ theme }) => theme.text2};
   width: fit-content;
   margin: 0 20px;
   font-weight: 400;
@@ -270,7 +269,7 @@ const StyledNavLink = styled(NavLink).attrs({
   border-bottom: 1px solid transparent;
   &.${activeClassName} {
     color: ${({ theme }) => theme.text1};
-    border-bottom: 1px solid ${({ theme }) => theme.text1};
+    border-bottom: 1px solid ${({ theme }) => theme.primary1};
   }
   :hover,
   :focus {
@@ -283,7 +282,7 @@ const StyledExternalLink = styled(ExternalLink)`
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text4};
+  color: ${({ theme }) => theme.text2};
   width: fit-content;
   margin: 0 20px;
   font-weight: 400;
@@ -304,13 +303,6 @@ const StyledExternalLink = styled(ExternalLink)`
 const UserButtonWrap = styled.div`
   position: relative;
   :hover {
-    #userButton {
-      :hover,
-      :focus {
-        background: linear-gradient(360deg, #fffa8b 0%, rgba(207, 209, 86, 0) 50%),
-          linear-gradient(259.57deg, #b2f355 1.58%, #66d7fa 92.54%);
-      }
-    }
     div {
       opacity: 1;
       visibility: visible;
@@ -326,12 +318,7 @@ const UserButton = styled(ButtonText)<{ isOpen: boolean; size?: string }>`
   height: ${({ size }) => size ?? '44px'};
   width: ${({ size }) => size ?? '44px'};
   border-radius: 50%;
-  background: ${({ isOpen }) =>
-    isOpen
-      ? `linear-gradient(360deg, #fffa8b 0%, rgba(207, 209, 86, 0) 50%),
-  linear-gradient(259.57deg, #b2f355 1.58%, #66d7fa 92.54%);`
-      : `linear-gradient(360deg, #66d7fa 0%, rgba(207, 209, 86, 0) 50%),
-    linear-gradient(259.57deg, #66d7fa 1.58%, #66d7fa 92.54%);`};
+  background: #263238;
   border: none;
   flex-shrink: 0;
   ${({ theme }) => theme.flexRowNoWrap};
@@ -340,10 +327,6 @@ const UserButton = styled(ButtonText)<{ isOpen: boolean; size?: string }>`
   transition: 0.4s;
   :disabled {
     cursor: auto;
-  }
-  :hover {
-    background: linear-gradient(360deg, #fffa8b 0%, rgba(207, 209, 86, 0) 50%),
-      linear-gradient(259.57deg, #b2f355 1.58%, #66d7fa 92.54%);
   }
 `
 
@@ -403,7 +386,6 @@ const HeaderElement = styled.div<{
     align-items: center;
   `};
   & > div {
-    border: 1px solid ${({ theme, show }) => (show ? theme.text1 : 'transparent')};
     border-radius: 4px;
     height: 32px;
     padding: 0 16px;
@@ -415,6 +397,7 @@ const HeaderElement = styled.div<{
 
 const NetworkCard = styled.div<{ color?: string }>`
   color: #000000;
+  border: 1px solid #ededed;
   cursor: pointer;
   display: flex;
   padding: 0 4px;
@@ -424,7 +407,6 @@ const NetworkCard = styled.div<{ color?: string }>`
   justify-content: center;
   border-radius: 4px;
   align-items: center;
-  background-color: ${({ color }) => color ?? 'rgba(255, 255, 255, 0.12)'};
   font-size: 13px;
   font-weight: 500;
   position: relative;
@@ -450,7 +432,7 @@ const NetworkCard = styled.div<{ color?: string }>`
       & > div {
         height: auto;
         margin-top: 10px;
-        border: 1px solid ${({ theme }) => theme.text5};
+        border: 1px solid #ededed;
         a {
           position: relative;
           & > svg {
@@ -478,25 +460,28 @@ const Dropdown = styled.div`
   flex-direction: column;
   width: 172px;
   > div {
-    color: #ffffff;
-    background-color: ${({ theme }) => theme.bg2};
+    color: ${({ theme }) => theme.text1};
+    background-color: ${({ theme }) => theme.bg1};
     text-decoration: none;
     padding: 14px 17px;
-    border-bottom: 1px solid ${({ theme }) => theme.text5};
+    border-bottom: 1px solid #ededed;
     transition: 0.5s;
     display: flex;
     align-items: center;
     padding-left: 35px;
-    > svg {
-      width: 26px;
-      height: 26px;
-      margin-right: 5px;
+    .icon {
+      margin-left: 10px;
+      margin-right: 10px;
+      svg {
+        width: 26px;
+        height: 26px;
+      }
     }
     :last-child {
       border: none;
     }
     :hover {
-      background-color: ${({ theme }) => theme.bg4};
+      background-color: ${({ theme }) => theme.bg1};
       color: ${({ theme }) => darken(0.1, theme.primary1)};
     }
   }
@@ -689,7 +674,7 @@ export default function Header() {
                                 <Check size={18} />
                               </span>
                             )}
-                            {info.linkIcon ?? info.icon}
+                            <span className="icon"> {info.linkIcon ?? info.icon}</span>
                             {info.title}
                           </div>
                         )
@@ -710,50 +695,40 @@ export default function Header() {
 
             <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
               {chainId === ChainId.MAINNET && !!account && aggregateBalance && (
-                <UNIWrapper>
-                  <UNIAmount style={{ pointerEvents: 'none' }}>
-                    {account && (
-                      <TYPE.gray
-                        style={{
-                          paddingRight: '.4rem'
-                        }}
-                      >
-                        <CountUp
-                          key={countUpValue}
-                          isCounting
-                          start={parseFloat(countUpValuePrevious)}
-                          end={parseFloat(countUpValue)}
-                          thousandsSeparator={','}
-                          duration={1}
-                        />
-                      </TYPE.gray>
-                    )}
-                    MATTER
-                  </UNIAmount>
-                </UNIWrapper>
+                <UNIAmount style={{ pointerEvents: 'none' }}>
+                  {account && (
+                    <CountUp
+                      key={countUpValue}
+                      isCounting
+                      start={parseFloat(countUpValuePrevious)}
+                      end={parseFloat(countUpValue)}
+                      thousandsSeparator={','}
+                      duration={1}
+                    />
+                  )}
+                  MATTER
+                </UNIAmount>
               )}
               {chainId !== ChainId.MAINNET && !!account && ETHBalance && (
-                <UNIWrapper>
-                  <UNIAmount style={{ pointerEvents: 'none' }}>
-                    {account && (
-                      <TYPE.gray
-                        style={{
-                          paddingRight: '.4rem'
-                        }}
-                      >
-                        <CountUp
-                          key={countETHUpValue}
-                          isCounting
-                          start={parseFloat(countETHUpValuePrevious)}
-                          end={parseFloat(countETHUpValue)}
-                          thousandsSeparator={','}
-                          duration={1}
-                        />
-                      </TYPE.gray>
-                    )}
-                    {NetworkInfo[chainId ?? 1] ? NetworkInfo[chainId ?? 1].symbol : ''}
-                  </UNIAmount>
-                </UNIWrapper>
+                <UNIAmount style={{ pointerEvents: 'none' }}>
+                  {account && (
+                    <TYPE.gray
+                      style={{
+                        paddingRight: '.4rem'
+                      }}
+                    >
+                      <CountUp
+                        key={countETHUpValue}
+                        isCounting
+                        start={parseFloat(countETHUpValuePrevious)}
+                        end={parseFloat(countETHUpValue)}
+                        thousandsSeparator={','}
+                        duration={1}
+                      />
+                    </TYPE.gray>
+                  )}
+                  {NetworkInfo[chainId ?? 1] ? NetworkInfo[chainId ?? 1].symbol : ''}
+                </UNIAmount>
               )}
               <Web3Status />
               {userInfo && userInfo.token ? (

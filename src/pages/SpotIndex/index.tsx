@@ -17,8 +17,8 @@ const Wrapper = styled.div`
 `
 const EmptyList = styled.div`
   transform: translateY(30px);
-  border: 1px solid ${({ theme }) => theme.text4};
-  color: ${({ theme }) => theme.text4};
+  border: 1px solid ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text1};
   padding: 16px 12px;
   border-radius: 12px;
   display: flex;

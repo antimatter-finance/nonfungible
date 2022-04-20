@@ -24,12 +24,12 @@ export const LightGreyCard = styled(Card)`
 `
 
 export const GreyCard = styled(Card)`
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
 `
 
 export const OutlineCard = styled(Card)<{ color?: string }>`
-  border: 1px solid ${({ theme, color }) => color ?? theme.text5};
-  color: ${({ theme }) => theme.text3};
+  border: 1px solid ${({ theme, color }) => color ?? theme.text1};
+  color: ${({ theme }) => theme.text2};
 `
 
 export const YellowCard = styled(Card)`
@@ -45,7 +45,7 @@ export const PinkCard = styled(Card)`
 `
 
 const BlueCardStyled = styled(Card)`
-  background-color: ${({ theme }) => theme.primary5};
+  background-color: ${({ theme }) => theme.primary1};
   color: ${({ theme }) => theme.primary1};
   border-radius: 12px;
   width: fit-content;

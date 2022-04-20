@@ -26,7 +26,7 @@ import { Dots } from 'components/Dots'
 
 const Wrapper = styled.div`
   width: 920px;
-  border:1px solid ${({ theme }) => theme.bg3}
+  border:1px solid ${({ theme }) => theme.text2}
   margin-bottom: auto;
   max-width: 1280px;
   border-radius: 32px; 
@@ -251,7 +251,7 @@ export default function GovernanceProposalCreation({
               <RowBetween>
                 <TYPE.largeHeader>Create a New Proposal</TYPE.largeHeader>
                 <ButtonEmpty width="auto" padding="0" onClick={onDismiss}>
-                  <X color={theme.text3} size={24} />
+                  <X color={theme.text2} size={24} />
                 </ButtonEmpty>
               </RowBetween>
               <TYPE.smallHeader fontSize={22}>Proposal Description</TYPE.smallHeader>
@@ -328,15 +328,15 @@ function GovernanceTimeline({
             overflow: 'visible'
           },
           '& circle': {
-            fill: theme.bg5
+            fill: theme.bg1
           },
           '& .MuiStepLabel-label': {
-            color: theme.text4,
+            color: theme.text1,
             fontSize: 16
           },
           '& .MuiStepIcon-active circle': {
             fill: theme.primary1,
-            stroke: theme.primary4,
+            stroke: theme.primary2,
             strokeWidth: 4
           },
           '& .MuiStepLabel-active': {
@@ -379,7 +379,7 @@ function ConfirmationModalContent({ onDismiss, onConfirm }: { onDismiss: () => v
       <RowBetween>
         <div style={{ width: 24 }} />
         <ButtonEmpty width="auto" padding="0" onClick={onDismiss}>
-          <X color={theme.text3} size={24} />
+          <X color={theme.text2} size={24} />
         </ButtonEmpty>
       </RowBetween>
 

@@ -6,7 +6,7 @@ import { Text } from 'rebass'
 import { X } from 'react-feather'
 import { RowBetween, RowFixed } from '../Row'
 import { CheckCircle } from 'react-feather'
-import { ButtonBlack as ButtonBlackUnstyled, ButtonGray } from '../Button'
+import { ButtonPrimary as ButtonPrimaryUnstyled, ButtonGray } from '../Button'
 import { AutoColumn } from '../Column'
 import MetaMaskLogo from '../../assets/images/metamask.png'
 import { useActiveWeb3React } from '../../hooks'
@@ -49,7 +49,7 @@ const StyledLogo = styled.img`
   margin-left: 6px;
 `
 
-const ButtonBlack = styled(ButtonBlackUnstyled)`
+const ButtonPrimary = styled(ButtonPrimaryUnstyled)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
   background-color: #ffffff;
   color: #000000;
@@ -186,9 +186,9 @@ export function TransactionErrorContent({ message, onDismiss }: { message: strin
             </TYPE.darkGray>
           </HideSmall>
         </AutoColumn>
-        <ButtonBlack onClick={onDismiss} height={60}>
+        <ButtonPrimary onClick={onDismiss} height={60}>
           Close
-        </ButtonBlack>
+        </ButtonPrimary>
       </Section>
     </Wrapper>
   )

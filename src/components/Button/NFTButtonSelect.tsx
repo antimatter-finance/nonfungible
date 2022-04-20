@@ -36,7 +36,7 @@ export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; wi
   font-weight: 400;
   height: 3rem;
   background-color: ${({ theme }) => theme.text1};
-  color: ${({ selected, theme }) => (selected ? theme.bg1 : theme.bg5)};
+  color: ${({ selected, theme }) => (selected ? theme.bg1 : theme.bg1)};
   border-radius: 10px;
   border: unset;
   padding: 0 10px 0 15px;
@@ -49,7 +49,7 @@ export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; wi
     box-shadow: none;
   }
   :hover {
-    border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.bg5))};
+    border: 1px solid ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.bg1))};
     box-shadow: none;
   }
   &:disabled {
@@ -58,7 +58,7 @@ export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; wi
     }
     opacity: 100%;
     cursor: auto;
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   }
 `
 const OptionWrapper = styled.div<{ isOpen: boolean; width?: string }>`
@@ -131,7 +131,7 @@ export default function ButtonSelect({
     <ButtonWrapper width={width} marginRight={marginRight}>
       {label && (
         <AutoRow style={{ marginBottom: '4px' }}>
-          <TYPE.body color={theme.text3} fontWeight={500} fontSize={14}>
+          <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
             {label}
           </TYPE.body>
         </AutoRow>

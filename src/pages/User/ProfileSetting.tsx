@@ -1,6 +1,6 @@
 import React, { /*useState,*/ useCallback } from 'react'
 import styled from 'styled-components'
-import { ButtonBlack } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import Modal from 'components/Modal'
 import TextInput from 'components/TextInput'
@@ -129,7 +129,7 @@ export default function ProfileSetting({
                 <TYPE.smallGray fontSize={14}>.jpg, .png, .jpeg formats</TYPE.smallGray>
               </AutoColumn>
             </AutoRow> */}
-            <ButtonBlack type="submit">Save</ButtonBlack>
+            <ButtonPrimary type="submit">Save</ButtonPrimary>
           </AutoColumn>
         </form>
       </AppBody>

@@ -11,9 +11,9 @@ const InfoCard = styled.button<{ active?: boolean }>`
   border-radius: 49px;
   width: 100% !important;
   &:focus {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.text3};
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.primary1};
   }
-  border-color: ${({ theme, active }) => (active ? theme.text3 : theme.text2)};
+  border-color: ${({ theme, active }) => (active ? theme.primary1 : 'transparent')};
 `
 
 const OptionCard = styled(InfoCard as any)`
@@ -48,9 +48,10 @@ const OptionCardLeft = styled.div`
 
 const OptionCardClickable = styled(OptionCard as any)<{ clickable?: boolean }>`
   margin-top: 0;
+  border: 1px solid ${({ clickable, theme }) => (clickable ? theme.text2 : theme.text2)};
   &:hover {
     cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
-    border: 1px solid ${({ clickable, theme }) => (clickable ? theme.text3 : theme.text3)};
+    border: 1px solid ${({ clickable, theme }) => (clickable ? theme.primary1 : theme.text2)};
   }
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `
@@ -69,16 +70,9 @@ const GreenCircle = styled.div`
   }
 `
 
-const CircleWrapper = styled.div`
-  color: ${({ theme }) => theme.text3};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
 const HeaderText = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
-  color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
   font-size: 1rem;
   font-weight: 500;
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -137,15 +131,8 @@ export default function Option({
       </IconWrapper>
       <OptionCardLeft>
         <HeaderText color={color}>
-          {active ? (
-            <CircleWrapper>
-              <GreenCircle>
-                <div />
-              </GreenCircle>
-            </CircleWrapper>
-          ) : (
-            ''
-          )}
+          {active && <GreenCircle />}
+
           {header}
         </HeaderText>
         {subheader && <SubHeader>{subheader}</SubHeader>}
