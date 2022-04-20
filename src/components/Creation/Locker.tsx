@@ -32,7 +32,7 @@ import { Currency, CurrencyAmount, JSBI, Token } from '@uniswap/sdk'
 import { TokenInfo } from '@uniswap/token-lists'
 import { LOCKER_721_ADDRESS } from 'constants/index'
 import { useActiveWeb3React } from 'hooks'
-import { tryParseAmount } from 'state/swap/hooks'
+import { tryParseAmount } from 'utils/tryParseAmount'
 import { useCurrencyBalances } from 'state/wallet/hooks'
 import { Dots } from 'components/Dots'
 

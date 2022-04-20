@@ -7,7 +7,7 @@ import { useActiveWeb3React } from '../hooks'
 import { useMultipleContractSingleData } from '../state/multicall/hooks'
 import { wrappedCurrency } from '../utils/wrappedCurrency'
 import { AssetsParameter } from '../components/Creation'
-import { tryParseAmount } from '../state/swap/hooks'
+import { tryParseAmount } from 'utils/tryParseAmount'
 import { BigNumber } from 'bignumber.js'
 
 const PAIR_INTERFACE = new Interface(IUniswapV2PairABI)

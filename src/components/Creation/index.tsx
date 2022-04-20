@@ -22,7 +22,7 @@ import TransactionConfirmationModal from '../TransactionConfirmationModal'
 import { useIndexCreateCall } from '../../hooks/useIndexCreateCallback'
 import { getLockerClaimParam, useLockerCreateCall } from '../../hooks/useLockerCreate'
 import { WrappedTokenInfo } from 'state/lists/hooks'
-import { tryParseAmount } from 'state/swap/hooks'
+import { tryParseAmount } from 'utils/tryParseAmount'
 import gradient from 'assets/svg/overlay_gradient.svg'
 
 const useStyles = makeStyles({
