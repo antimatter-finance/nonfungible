@@ -5,7 +5,7 @@ import { TransactionResponse } from '@ethersproject/providers'
 import { useMemo } from 'react'
 import { CurrencyAmount, JSBI } from '@uniswap/sdk'
 import { CreateLockerData, TimeScheduleType } from 'components/Creation'
-import { tryParseAmount } from 'state/swap/hooks'
+import { tryParseAmount } from 'utils/tryParseAmount'
 import { ApprovalState } from './useApproveCallback'
 
 export enum LockerCreateCallbackState {

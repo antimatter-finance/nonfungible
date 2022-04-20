@@ -237,7 +237,7 @@ const MobileHeader = styled.header`
   left: 0;
   z-index: 100;
   display: none;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
     display: inherit
 `};
 `
@@ -245,7 +245,7 @@ const MobileHeader = styled.header`
 const HeaderLinks = styled(Row)`
   justify-content: center;
   width: auto;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem 0 1rem 1rem;
     justify-content: flex-end;
     display: none

@@ -18,7 +18,7 @@ import TransactionConfirmationModal from 'components/TransactionConfirmationModa
 import { SubmittedView } from 'components/ModalViews'
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useApproveCallback, ApprovalState } from 'hooks/useApproveCallback'
-import { tryParseAmount } from 'state/swap/hooks'
+import { tryParseAmount } from 'utils/tryParseAmount'
 import { useGovernanceCreation } from 'hooks/useGovernanceDetail'
 import StaticOverlay from 'components/Modal/ModalOverlay'
 import { FACTORY_CHAIN_ID, GOVERNANCE_ADDRESS, MATTER_ADDRESS } from '../../constants'

@@ -7,7 +7,6 @@ import user from './user/reducer'
 import userInfo from './userInfo/reducer'
 import currentAccount from './currentAccount/reducer'
 import transactions from './transactions/reducer'
-import swap from './swap/reducer'
 import lists from './lists/reducer'
 
 import multicall from './multicall/reducer'
@@ -19,7 +18,6 @@ const store = configureStore({
     application,
     user,
     transactions,
-    swap,
     multicall,
     lists,
     userInfo,

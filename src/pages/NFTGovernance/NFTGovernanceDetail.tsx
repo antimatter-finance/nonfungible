@@ -15,7 +15,7 @@ import { useGovernanceDetails, useUserStaking } from '../../hooks/useGovernanceD
 import { DecisionForm } from './DecisionForm'
 import { GOVERNANCE_TOKEN } from '../../constants'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
-import { tryParseAmount } from '../../state/swap/hooks'
+import { tryParseAmount } from 'utils/tryParseAmount'
 import { useGovernanceContract } from 'hooks/useContract'
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { CardColor } from 'components/NFTCard'
