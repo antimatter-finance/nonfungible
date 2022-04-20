@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import { ButtonBlack } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import { AutoColumn, ColumnCenter } from 'components/Column'
 import Modal from '.'
 import { TYPE } from 'theme'
@@ -400,7 +400,7 @@ export default function WarningModal() {
               <TYPE.body
                 ml="10px"
                 fontSize="16px"
-                color={enableCheck ? theme.bg1 : theme.bg5}
+                color={enableCheck ? theme.bg1 : theme.bg1}
                 fontWeight={500}
                 onClick={() => setConfirmed(!confirmed)}
               >
@@ -412,9 +412,9 @@ export default function WarningModal() {
               Please read all and scroll down to bottom to confirm
             </TYPE.small> */}
 
-            <ButtonBlack disabled={!confirmed} onClick={handleClose} style={{ maxHeight: 49 }}>
+            <ButtonPrimary disabled={!confirmed} onClick={handleClose} style={{ maxHeight: 49 }}>
               Next
-            </ButtonBlack>
+            </ButtonPrimary>
           </Wapper>
         </Modal>
       )}

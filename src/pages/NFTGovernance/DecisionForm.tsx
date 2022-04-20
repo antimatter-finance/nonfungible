@@ -29,7 +29,7 @@ const VoteOptionCard = styled.div<{ selected?: boolean }>`
   height: 52px;
   display: flex;
   font-size: 14px;
-  color: ${({ theme, selected }) => (selected ? theme.text1 : theme.text3)};
+  color: ${({ theme, selected }) => (selected ? theme.text1 : theme.text2)};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -333,7 +333,7 @@ function ConfirmationModalContent({
         <div style={{ width: 24 }} />
         <TYPE.body fontSize={18}>{voteOption === VoteOption.FOR ? 'Vote For' : 'Vote Against'}</TYPE.body>
         <ButtonEmpty width="auto" padding="0" onClick={onDismiss}>
-          <X color={theme.text3} size={24} />
+          <X color={theme.text2} size={24} />
         </ButtonEmpty>
       </RowBetween>
 
@@ -369,7 +369,7 @@ function ConfirmationClaimModalContent({
         <div style={{ width: 24 }} />
         <TYPE.body fontSize={18}>Claim</TYPE.body>
         <ButtonEmpty width="auto" padding="0" onClick={onDismiss}>
-          <X color={theme.text3} size={24} />
+          <X color={theme.text2} size={24} />
         </ButtonEmpty>
       </RowBetween>
 

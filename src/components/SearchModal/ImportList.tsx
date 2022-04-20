@@ -22,7 +22,7 @@ import { useAllLists } from 'state/lists/hooks'
 export const SectionBreak = styled.div`
   height: 1px;
   width: 100%;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
 `
 
 const Wrapper = styled.div`

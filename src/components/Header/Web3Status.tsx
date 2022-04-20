@@ -1,7 +1,6 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { darken } from 'polished'
 import React, { useMemo } from 'react'
-import { Activity } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
 import { NetworkContextName } from '../../constants'
@@ -22,7 +21,6 @@ const Web3StatusGeneric = styled(ButtonOutlined)`
   width: 100%;
   align-items: center;
   padding: 0.5rem;
-  border-radius: 4px;
   cursor: pointer;
   user-select: none;
   :hover,
@@ -37,6 +35,7 @@ const Web3StatusError = styled(Web3StatusGeneric)`
   color: ${({ theme }) => theme.white};
   font-weight: 500;
   height: 100%;
+  padding: 0 20px;
   :hover,
   :focus {
     background-color: ${({ theme }) => darken(0.1, theme.red1)};
@@ -49,7 +48,6 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
   border-color: ${({ theme }) => theme.text1};
   background-color: ${({ theme }) => theme.text1};
   color: ${({ theme }) => theme.bg1};
-  font-weight: 400;
   border-radius: 49px;
   :hover,
   :focus {
@@ -76,7 +74,7 @@ const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
 
 const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
   cursor: auto;
-  color: ${({ pending, theme }) => (pending ? theme.text3 : theme.text4)};
+  color: ${({ pending, theme }) => (pending ? theme.text2 : theme.text1)};
   padding: 0;
   border: none
   :hover,
@@ -99,13 +97,7 @@ const Text = styled.p`
   font-size: 13px;
   width: fit-content;
   font-weight: 400;
-`
-
-const NetworkIcon = styled(Activity)`
-  margin-left: 0.25rem;
-  margin-right: 0.5rem;
-  width: 16px;
-  height: 16px;
+  color: ${({ theme }) => theme.text2};
 `
 
 // we want the latest one to come first, so return negative if a is after b
@@ -145,8 +137,8 @@ function Web3StatusInner() {
           {/* {!hasPendingTransactions && connector && <StatusIcon connector={connector} />} */}
           {hasPendingTransactions ? (
             <RowBetween style={{ padding: '0 5px' }}>
-              <Loader stroke={theme.bg3} />
-              <Text style={{ marginLeft: '12px' }} color={theme.bg3}>
+              <Loader stroke={theme.text2} />
+              <Text style={{ marginLeft: '12px' }} color={theme.text2}>
                 {pending?.length} Pending
               </Text>
             </RowBetween>
@@ -162,8 +154,7 @@ function Web3StatusInner() {
   } else if (error) {
     return (
       <Web3StatusError onClick={toggleWalletModal}>
-        <NetworkIcon />
-        <Text>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}</Text>
+        {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
       </Web3StatusError>
     )
   } else {

@@ -10,7 +10,7 @@ import { ReactComponent as CrossCircle } from '../../assets/svg/transaction_erro
 import { getEtherscanLink } from '../../utils'
 import { ExternalLink } from '../../theme/components'
 import useTheme from 'hooks/useTheme'
-import { ButtonBlack } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import Loader from 'components/Loader'
 import { Dots } from 'components/Dots'
 
@@ -30,7 +30,7 @@ const LoadingViewGrid = styled(AutoColumn)`
   `}
 `
 
-const ButtonBlackStyled = styled(ButtonBlack)`
+const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 32px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   background-color: #ffffff;
@@ -67,10 +67,10 @@ export function LoadingView({ children, onDismiss }: { children: any; onDismiss?
 
         {/* <TYPE.smallGray>Confirm this transaction in your wallet</TYPE.smallGray> */}
       </LoadingViewGrid>
-      <ButtonBlackStyled disabled height={60}>
+      <ButtonPrimaryStyled disabled height={60}>
         Confirmation
         <Dots />
-      </ButtonBlackStyled>
+      </ButtonPrimaryStyled>
     </ConfirmOrLoadingWrapper>
   )
 }
@@ -104,15 +104,15 @@ export function SubmittedView({
         {children}
         {!hideLink && !isError && chainId && hash && (
           <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>
-            <TYPE.main fontWeight={400} fontSize={14} color={theme.text4}>
+            <TYPE.main fontWeight={400} fontSize={14} color={theme.text1}>
               View on explorer
             </TYPE.main>
           </ExternalLink>
         )}
       </AutoColumn>
-      <ButtonBlackStyled onClick={onDismiss} height={60}>
+      <ButtonPrimaryStyled onClick={onDismiss} height={60}>
         Close
-      </ButtonBlackStyled>
+      </ButtonPrimaryStyled>
     </ConfirmOrLoadingWrapper>
   )
 }

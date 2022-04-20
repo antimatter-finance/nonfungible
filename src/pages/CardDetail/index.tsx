@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { ButtonBlack, ButtonEmpty, ButtonWhite } from 'components/Button'
+import { ButtonPrimary, ButtonEmpty, ButtonWhite } from 'components/Button'
 import { RowBetween, RowFixed } from 'components/Row'
 import { StyledTabItem, StyledTabs } from 'components/Tabs'
 import { AnimatedImg, AnimatedWrapper, HideMedium, HideSmall, TYPE } from 'theme'
@@ -506,7 +506,7 @@ export default function CardDetail({
                         </RowBetween>
                         <CurrencyETHShow />
                       </AutoColumn>
-                      <ButtonBlack
+                      <ButtonPrimary
                         onClick={() => {
                           setBuyConfirmModal(true)
                           setTimeout(() => {
@@ -517,7 +517,7 @@ export default function CardDetail({
                         disabled={!Number(buyAmount) || !thisNFTethAmount}
                       >
                         Buy
-                      </ButtonBlack>
+                      </ButtonPrimary>
                     </BuyPannel>
                   )}
 
@@ -549,7 +549,7 @@ export default function CardDetail({
                         <CurrencyETHShow />
                       </AutoColumn>
                       {account ? (
-                        <ButtonBlack
+                        <ButtonPrimary
                           onClick={() => {
                             setSellConfirmModal(true)
                           }}
@@ -557,16 +557,16 @@ export default function CardDetail({
                           disabled={!Number(sellAmount) || Number(sellAmount) > Number(NFTbalance?.toString())}
                         >
                           Sell
-                        </ButtonBlack>
+                        </ButtonPrimary>
                       ) : (
-                        <ButtonBlack
+                        <ButtonPrimary
                           onClick={() => {
                             toggleWalletModal()
                           }}
                           height={60}
                         >
                           Connect Wallet
-                        </ButtonBlack>
+                        </ButtonPrimary>
                       )}
                     </BuyPannel>
                   )}

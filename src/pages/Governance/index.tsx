@@ -24,13 +24,13 @@ const Wrapper = styled.div`
 // const VerticalDivider = styled.div`
 //   width: 1px;
 //   height: 36px;
-//   border-right: 1px solid ${({ theme }) => theme.bg4};
+//   border-right: 1px solid ${({ theme }) => theme.bg1};
 //   margin: 0 24px;
 // `
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  border-bottom: 1px solid ${({ theme }) => theme.bg5};
+  border-bottom: 1px solid ${({ theme }) => theme.bg1};
 `
 const DividerThin = styled.div`
   width: calc(100% + 48px);
@@ -39,7 +39,7 @@ const DividerThin = styled.div`
   border-bottom: 1px solid rgba(255,255,255,.2)};
 `
 const EmptyProposals = styled.div`
-  border: 1px solid ${({ theme }) => theme.text4};
+  border: 1px solid ${({ theme }) => theme.text1};
   padding: 16px 12px;
   border-radius: 12px;
   display: flex;

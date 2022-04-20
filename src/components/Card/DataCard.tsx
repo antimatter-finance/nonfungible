@@ -14,7 +14,7 @@ export function DataRow({ data: { title, content }, rowHeight }: { data: DataTyp
   const theme = useTheme()
   return (
     <RowBetween style={{ height: rowHeight ?? 'auto' }}>
-      <TYPE.small color={theme.text3}>{title}</TYPE.small>
+      <TYPE.small color={theme.text2}>{title}</TYPE.small>
       <TYPE.small color={theme.text1}>{content}</TYPE.small>
     </RowBetween>
   )
@@ -37,7 +37,7 @@ export default function DataCard({
   return (
     <OutlineCard style={{ backgroundColor: bgColor, padding: '0' }}>
       {cardTitle && (
-        <RowBetween style={{ padding: '12px 24px', borderBottom: `1px solid ${theme.text5}` }}>
+        <RowBetween style={{ padding: '12px 24px', borderBottom: `1px solid ${theme.text1}` }}>
           <TYPE.subHeader fontWeight={500} fontSize={14} color={theme.text1} width="100%">
             {cardTitle}
           </TYPE.subHeader>
@@ -49,7 +49,7 @@ export default function DataCard({
         ))}
       </AutoColumn>
       {cardBottom && (
-        <RowBetween style={{ padding: '12px 24px', borderTop: `1px solid ${theme.text5}` }}>
+        <RowBetween style={{ padding: '12px 24px', borderTop: `1px solid ${theme.text1}` }}>
           <TYPE.subHeader fontWeight={500} fontSize={14} color={theme.text1} width="100%">
             {cardBottom}
           </TYPE.subHeader>

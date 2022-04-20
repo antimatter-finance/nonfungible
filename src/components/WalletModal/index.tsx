@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
@@ -34,28 +35,18 @@ const CloseIcon = styled.div`
   `}
 `
 
-const CloseColor = styled(Close)``
+const CloseColor = styled(Close)`
+  color: ${({ theme }) => theme.text1};
+`
 
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
   padding: 0;
   width: 100%;
-  background-color: ${({ theme }) => theme.text1};
+  background-color: ${({ theme }) => theme.bg1};
   overflow: hidden;
   position: relative;
-  :after {
-    z-index: 0;
-    content: '';
-    position: absolute;
-    width: 800px;
-    height: 180px;
-    left: -50px;
-    top: 500px;
-    background: rgba(178, 243, 85, 0.5);
-    filter: blur(120px);
-    border-radius: 120px;
-  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
     background-color: #000000;
     :after {
@@ -66,9 +57,9 @@ const Wrapper = styled.div`
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
-  font-weight: 500;
-  font-size: 40px;
-  color: ${({ theme }) => theme.bg1};
+  font-weight: 700;
+  font-size: 30px;
+  color: ${({ theme }) => theme.text1};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -82,9 +73,6 @@ const HeaderRow = styled.div`
 
 const ContentWrapper = styled.div`
   padding: 2rem 3rem 52px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem 1rem 3rem`};
 `
 
@@ -110,18 +98,6 @@ const UpperSection = styled.div`
   }
 `
 
-// const Blurb = styled.div`
-//   ${({ theme }) => theme.flexRowNoWrap}
-//   align-items: center;
-//   justify-content: center;
-//   flex-wrap: wrap;
-//   margin-top: 2rem;
-//   ${({ theme }) => theme.mediaWidth.upToMedium`
-//     margin: 1rem;
-//     font-size: 12px;
-//   `};
-// `
-
 const OptionGrid = styled.div`
   display: grid;
   grid-gap: 10px;
@@ -132,15 +108,6 @@ const OptionGrid = styled.div`
     grid-gap: 10px;
     width:auto;
   `};
-`
-
-const HoverText = styled.div`
-  :hover {
-    cursor: pointer;
-  }
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    color: #ffffff
-  `}
 `
 
 const WALLET_VIEWS = {
@@ -319,11 +286,13 @@ export default function WalletModal({
           </CloseIcon>
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
-            {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
-            ) : (
-              'Error connecting. Try refreshing the page.'
-            )}
+            <Box style={{ display: 'flex', justifyContent: 'center' }}>
+              {error instanceof UnsupportedChainIdError ? (
+                <h5>Please connect to the appropriate Ethereum network.</h5>
+              ) : (
+                'Error connecting. Try refreshing the page.'
+              )}
+            </Box>
           </ContentWrapper>
         </UpperSection>
       )
@@ -344,11 +313,7 @@ export default function WalletModal({
         <CloseIcon onClick={toggleWalletModal}>
           <CloseColor />
         </CloseIcon>
-        {walletView === WALLET_VIEWS.ACCOUNT && (
-          <HeaderRow>
-            <HoverText>Connect your wallet</HoverText>
-          </HeaderRow>
-        )}
+        {walletView === WALLET_VIEWS.ACCOUNT && <HeaderRow>Connect your wallet</HeaderRow>}
         <ContentWrapper>
           {walletView === WALLET_VIEWS.PENDING ? (
             <PendingView
@@ -369,12 +334,6 @@ export default function WalletModal({
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>
           )}
-          {/* {walletView !== WALLET_VIEWS.PENDING && (
-            <Blurb>
-              <span>New to Ethereum? &nbsp;</span>{' '}
-              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
-            </Blurb>
-          )} */}
         </ContentWrapper>
       </UpperSection>
     )

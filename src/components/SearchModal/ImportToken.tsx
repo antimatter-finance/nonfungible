@@ -21,7 +21,7 @@ import { PaddedColumn, Checkbox } from './styleds'
 export const SectionBreak = styled.div`
   height: 1px;
   width: 100%;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
 `
 
 const Wrapper = styled.div`
@@ -100,7 +100,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                 {list !== undefined ? (
                   <RowFixed>
                     {list.logoURI && <ListLogo logoURI={list.logoURI} size="12px" />}
-                    <TYPE.small ml="6px" color={theme.text3}>
+                    <TYPE.small ml="6px" color={theme.text2}>
                       via {list.name}
                     </TYPE.small>
                   </RowFixed>

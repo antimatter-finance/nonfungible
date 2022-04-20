@@ -15,16 +15,16 @@ const CustomInput = styled(StyledInput)<{
   width: 100%;
   font-size: 16px;
   font-weight: 400;
-  color: ${({ theme, disabled }) => (disabled ? theme.text3 : theme.bg1)};
+  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.bg1)};
   align-items: center;
   padding: ${({ padding }) => padding + ' 20px'};
   width: 100%;
   background-color: ${({ disabled }) => (disabled ? 'rgba(0, 0, 0, 0.1)' : '#ffffff')};
   border-radius: 10px;
   height:${({ height }) => height ?? 'auto'}
-  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? theme.text3)};
+  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? theme.text2)};
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   } 
 `
 
@@ -34,7 +34,7 @@ export const CustomTextArea = styled.textarea<{
   align?: string
   borderColor?: string
 }>`
-  color: ${({ theme, disabled }) => (disabled ? theme.text3 : theme.bg1)};
+  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.bg1)};
   width: 100%
   position: relative;
   font-size: 16px;
@@ -42,14 +42,14 @@ export const CustomTextArea = styled.textarea<{
   border: none;
   padding: 20px 1rem;
   border-radius: 14px;
-  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? theme.text3)};
+  border: 1px solid ${({ theme, error, borderColor }) => (error ? theme.red1 : borderColor ?? theme.text2)};
   background-color: ${({ disabled }) => (disabled ? 'rgba(0, 0, 0, 0.1)' : '#ffffff')};
   text-align: ${({ align }) => align && align};
   ::-webkit-search-decoration {
     -webkit-appearance: none;
   }
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   } 
   resize: none;
 `
@@ -66,7 +66,7 @@ const LabelRow = styled.div`
   line-height: 1rem;
   span:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text2};
   }
   margin-bottom: 8px;
   ${({ theme }) => theme.flexRowNoWrap}

@@ -64,7 +64,7 @@ const InputPanel = styled.div<{ negativeMarginTop?: string }>`
 
 const StyledBalanceMax = styled.button`
   height: 28px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.text2};
   border: 1px solid transparent;
   border-radius: 49px;
   font-size: 0.875rem;
@@ -126,14 +126,14 @@ export default function NumberInputPanel({
         <LabelRow>
           <AutoRow justify="space-between">
             {!hideLabel && (
-              <TYPE.body color={theme.text3} fontWeight={500} fontSize={14}>
+              <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
                 {label}
               </TYPE.body>
             )}
             {account && (
               <TYPE.body
                 onClick={onMax}
-                color={theme.text3}
+                color={theme.text2}
                 fontWeight={500}
                 fontSize={14}
                 style={{ display: 'inline', cursor: 'pointer' }}

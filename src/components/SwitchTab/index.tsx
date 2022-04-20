@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 export const SwitchTabWrapper = styled.div<{ isWhite?: boolean }>`
-  border-bottom: 1px solid ${({ theme, isWhite }) => (isWhite ? theme.text5 : theme.text2)};
+  border-bottom: 1px solid ${({ theme, isWhite }) => (isWhite ? theme.text1 : theme.text2)};
   white-space: nowrap;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    border-color:${theme.text5};
+    border-color:${theme.text1};
     overflow-x: auto;
     overflow-y: hidden;
     `};
@@ -18,7 +18,7 @@ export const Tab = styled.button<{ selected: boolean; isWhite?: boolean }>`
   font-size: 16px;
   font-weight: 700;
   color: ${({ selected, theme, isWhite }) =>
-    isWhite ? (selected ? '#ffffff' : theme.text5) : selected ? '#000000' : theme.text2};
+    isWhite ? (selected ? '#ffffff' : theme.text1) : selected ? '#000000' : theme.text2};
   border-bottom: 3px solid
     ${({ selected, isWhite }) =>
       isWhite ? (selected ? '#ffffff' : 'transparent') : selected ? '#000000' : 'transparent'};
@@ -30,7 +30,7 @@ export const Tab = styled.button<{ selected: boolean; isWhite?: boolean }>`
   }
   ${({ theme, selected }) => theme.mediaWidth.upToSmall`
   border-color: ${selected ? '#ffffff' : 'transparent'};
-  color: ${selected ? '#ffffff' : theme.text5};
+  color: ${selected ? '#ffffff' : theme.text1};
   &:hover {
     color: #ffffff;
   }

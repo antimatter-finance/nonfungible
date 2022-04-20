@@ -12,7 +12,7 @@ import {
   UnlockData
 } from './index'
 import { TextValueInput } from 'components/TextInput'
-import { ButtonBlack, ButtonOutlined } from 'components/Button'
+import { ButtonPrimary, ButtonOutlined } from 'components/Button'
 import { RowBetween } from 'components/Row'
 import { FormControlLabel, RadioGroup } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers'
@@ -98,29 +98,32 @@ function LockerConfirm({
 
       if (!currencyBalances) {
         return (
-          <ButtonBlack key={index} disabled>
+          <ButtonPrimary key={index} disabled>
             Insufficient balance
-          </ButtonBlack>
+          </ButtonPrimary>
         )
       }
 
       if (currencyBalances.lessThan(currencyToken ?? JSBI.BigInt(0))) {
         return (
-          <ButtonBlack key={index} disabled>{`Insufficient ${currencyBalances.currency.symbol} balance`}</ButtonBlack>
+          <ButtonPrimary
+            key={index}
+            disabled
+          >{`Insufficient ${currencyBalances.currency.symbol} balance`}</ButtonPrimary>
         )
       }
       if (approvalState === ApprovalState.PENDING) {
         return (
-          <ButtonBlack key={index} disabled>
+          <ButtonPrimary key={index} disabled>
             Allow Amitmatter to use your {currencyBalances.currency.symbol} <Dots />
-          </ButtonBlack>
+          </ButtonPrimary>
         )
       }
       if (approvalState !== ApprovalState.APPROVED) {
         return (
-          <ButtonBlack key={index} onClick={approve}>
+          <ButtonPrimary key={index} onClick={approve}>
             Allow Amitmatter to use your {currencyBalances.currency.symbol}
-          </ButtonBlack>
+          </ButtonPrimary>
         )
       }
 
@@ -132,9 +135,9 @@ function LockerConfirm({
     <AutoColumn gap="5px">
       {btnGroups.map(item => item)}
       {!confirmButton.disabled && (
-        <ButtonBlack key={'a1'} onClick={onConfirm} height={60} disabled={confirmButton.disabled}>
+        <ButtonPrimary key={'a1'} onClick={onConfirm} height={60} disabled={confirmButton.disabled}>
           {confirmButton.text}
-        </ButtonBlack>
+        </ButtonPrimary>
       )}
     </AutoColumn>
   )
@@ -334,9 +337,9 @@ export default function LockerIndex({
             hint="Maximum 100 characters"
           />
 
-          <ButtonBlack height={60} disabled={!isPassLockerContent} onClick={() => setCurrent(++current)}>
+          <ButtonPrimary height={60} disabled={!isPassLockerContent} onClick={() => setCurrent(++current)}>
             Next Step
-          </ButtonBlack>
+          </ButtonPrimary>
         </AutoColumn>
       )}
 
@@ -398,9 +401,9 @@ export default function LockerIndex({
             <ButtonOutlined height={60} onClick={addAsset} disabled={assetParams.length === 8}>
               + Add asset
             </ButtonOutlined>
-            <ButtonBlack height={60} onClick={toColorStep} disabled={assetsBtnDIsabled}>
+            <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled}>
               Next Step
-            </ButtonBlack>
+            </ButtonPrimary>
           </AutoColumn>
         </AutoColumn>
       )}
@@ -517,7 +520,7 @@ export default function LockerIndex({
             </>
           )}
 
-          <ButtonBlack
+          <ButtonPrimary
             height={60}
             disabled={!isPassLockerSchedule}
             onClick={() => {
@@ -525,7 +528,7 @@ export default function LockerIndex({
             }}
           >
             Next Step
-          </ButtonBlack>
+          </ButtonPrimary>
         </AutoColumn>
       )}
 
@@ -540,9 +543,9 @@ export default function LockerIndex({
               setData('color', color)
             }}
           />
-          <ButtonBlack height={60} onClick={() => setCurrent(++current)}>
+          <ButtonPrimary height={60} onClick={() => setCurrent(++current)}>
             Generate
-          </ButtonBlack>
+          </ButtonPrimary>
         </AutoColumn>
       )}
 

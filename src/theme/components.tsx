@@ -53,7 +53,7 @@ export const Button = styled.button.attrs<{ warning: boolean }, { backgroundColo
 
   :disabled {
     background-color: ${({ theme }) => theme.bg1};
-    color: ${({ theme }) => theme.text4};
+    color: ${({ theme }) => theme.text1};
     cursor: auto;
   }
 `
@@ -181,7 +181,7 @@ export const TrashIcon = styled(Trash)`
   height: 16px;
   width: 18px;
   margin-left: 10px;
-  stroke: ${({ theme }) => theme.text3};
+  stroke: ${({ theme }) => theme.text2};
 
   cursor: pointer;
   align-items: center;

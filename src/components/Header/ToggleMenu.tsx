@@ -18,18 +18,6 @@ const ToggleMenuButton = styled(Base)`
     border: none;
   }
 `
-// const TogggleMenuWrapper = styled.div`
-//   z-index: 100;
-//   position: absolute;
-//   left: 0;
-//   width: 100vw;
-//   background: #000000;
-//   top: 0;
-//   height: 100vh;
-//   border: 1px solid ${({ theme }) => theme.bg3};
-//   border-bottom: none;
-//   overflow-y: auto;
-// `
 
 const Overlay = styled(StyledDialogOverlay)`
   &[data-reach-dialog-overlay] {
@@ -52,7 +40,7 @@ const TabMobile = styled(NavLink)<{ isSubTab?: boolean }>`
       ? `
   font-size: 16px;
   padding: 8px 32px;
-  color: ${theme.text3};
+  color: ${theme.text2};
   `
       : ''}
 `
@@ -62,7 +50,7 @@ const SubTabMobile = styled(ExternalLink)`
   padding: 8px 32px;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text2};
   :focus,
   :active,
   :hover {
@@ -93,7 +81,7 @@ const ToggleTabMobile = styled.div<{ isopen: 'true' | 'false' }>`
 
 const CloseButton = styled(ButtonEmpty)`
   position: absolute;
-  color: #ffffff;
+  color: #252525;
   top: 16px;
   right: 25px;
   width: auto;
@@ -139,7 +127,7 @@ export default function ToggleMenu({ onCreate }: { onCreate: () => void }) {
   return (
     <>
       <ToggleMenuButton onClick={handleOpen}>
-        <Menu style={{ height: 30, width: 24 }} />
+        <Menu style={{ height: 30, width: 24, fill: '#252525' }} />
       </ToggleMenuButton>
       {isOpen && (
         <Overlay>

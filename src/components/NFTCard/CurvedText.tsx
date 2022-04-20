@@ -16,7 +16,7 @@ export default function CurvedText({ text, inverted }: { text: string; inverted?
     >
       <path id="curve" opacity="1" d="M0 9 h123 c0 0 12.5 5 16 16v40" stroke="none" fill="transparent" />
       <text width="151">
-        <textPath xlinkHref="#curve" fontSize={12} alignmentBaseline="middle" fill={theme.text3}>
+        <textPath xlinkHref="#curve" fontSize={12} alignmentBaseline="middle" fill={theme.text2}>
           {text}
         </textPath>
       </text>

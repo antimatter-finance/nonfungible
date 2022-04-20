@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { TYPE } from '../../theme'
-import { ButtonBlack } from '../Button'
+import { ButtonPrimary } from '../Button'
 import { AutoColumn } from '../Column'
 import Modal from '../Modal'
 import styled from 'styled-components'
@@ -54,7 +54,7 @@ const StyledErrorLine = styled.div`
 `
 
 const RightText = styled(TYPE.small)`
-  color: ${({ theme }) => theme.text6};
+  color: ${({ theme }) => theme.text1};
   max-width: 152px;
   text-align: right;
   /* align-self: flex-start; */
@@ -150,9 +150,9 @@ export function BuyComfirmModel({
               <RightText>{slippage}</RightText>
             </RowBetween> */}
           </InfoWrapper>
-          <ButtonBlack onClick={onConfirm} disabled={btn.disabled} height={60}>
+          <ButtonPrimary onClick={onConfirm} disabled={btn.disabled} height={60}>
             {btn.text}
-          </ButtonBlack>
+          </ButtonPrimary>
         </AutoColumn>
       </Wrapper>
     </Modal>
@@ -171,9 +171,9 @@ export function BuyComfirmNoticeModel({ isOpen, onDismiss }: { isOpen: boolean; 
             </TYPE.largeHeader>
           </div>
           <div>I confirm I have checked the underlying assets and take my own responsibility for the trade.</div>
-          <ButtonBlack onClick={onDismiss} height={60}>
+          <ButtonPrimary onClick={onDismiss} height={60}>
             I confirm
-          </ButtonBlack>
+          </ButtonPrimary>
         </AutoColumn>
       </Wrapper>
     </Modal>
@@ -250,18 +250,18 @@ export function SellComfirmModel({
             </RowBetween> */}
           </InfoWrapper>
           {approvalState === ApprovalState.PENDING ? (
-            <ButtonBlack disabled={true}>
+            <ButtonPrimary disabled={true}>
               Approving
               <Dots />
-            </ButtonBlack>
+            </ButtonPrimary>
           ) : approvalState === ApprovalState.NOT_APPROVED ? (
-            <ButtonBlack onClick={approveCallback}>Approval</ButtonBlack>
+            <ButtonPrimary onClick={approveCallback}>Approval</ButtonPrimary>
           ) : approvalState === ApprovalState.APPROVED ? (
-            <ButtonBlack onClick={onConfirm} disabled={btn.disabled} height={60}>
+            <ButtonPrimary onClick={onConfirm} disabled={btn.disabled} height={60}>
               {btn.text}
-            </ButtonBlack>
+            </ButtonPrimary>
           ) : (
-            <ButtonBlack disabled={true}>UNKNOWN</ButtonBlack>
+            <ButtonPrimary disabled={true}>UNKNOWN</ButtonPrimary>
           )}
         </AutoColumn>
       </Wrapper>
@@ -316,16 +316,16 @@ export function Locker721ClaimComfirmModel({
 
       if (approvalState === ApprovalState.PENDING) {
         return (
-          <ButtonBlack key={index} disabled>
+          <ButtonPrimary key={index} disabled>
             Allow Amitmatter to use your {assetsCurrency.currencyToken?.symbol} <Dots />
-          </ButtonBlack>
+          </ButtonPrimary>
         )
       }
       if (approvalState !== ApprovalState.APPROVED) {
         return (
-          <ButtonBlack key={index} onClick={approve}>
+          <ButtonPrimary key={index} onClick={approve}>
             Allow Amitmatter to use your {assetsCurrency.currencyToken?.symbol}
-          </ButtonBlack>
+          </ButtonPrimary>
         )
       }
 
@@ -380,9 +380,9 @@ export function Locker721ClaimComfirmModel({
           {btnAmountCheck.isApprove ? (
             btnGroups.map(item => item)
           ) : (
-            <ButtonBlack disabled={btnAmountCheck.disabled} onClick={onConfirm} height="60px">
+            <ButtonPrimary disabled={btnAmountCheck.disabled} onClick={onConfirm} height="60px">
               {btnAmountCheck.text}
-            </ButtonBlack>
+            </ButtonPrimary>
           )}
         </AutoColumn>
       </Wrapper>
@@ -453,9 +453,9 @@ export function LockerShowTimeScheduleModel({
               {/* <RightText>{item.currencyAmountToken ? item.currencyAmountToken.toSignificant() : '0'}</RightText> */}
             </RowBetween>
           </InfoWrapper>
-          <ButtonBlack onClick={onDismiss} height="60px">
+          <ButtonPrimary onClick={onDismiss} height="60px">
             Close
-          </ButtonBlack>
+          </ButtonPrimary>
         </AutoColumn>
       </Wrapper>
     </Modal>

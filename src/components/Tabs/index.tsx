@@ -7,9 +7,9 @@ const StyledTabs = styled(RowFixed)`
 `
 
 const StyledTabItem = styled(ButtonEmpty)<{ current?: string | boolean }>`
-  color: ${({ theme, current }) => (current ? theme.black : theme.text4)};
+  color: ${({ theme, current }) => (current ? theme.black : theme.text1)};
   width: auto;
-  font-family: Roboto;
+  font-family: SF Pro;
   font-weight: bold;
   margin-right: 32px;
   border-radius: 0;

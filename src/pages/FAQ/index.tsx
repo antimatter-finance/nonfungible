@@ -8,14 +8,14 @@ import useTheme from 'hooks/useTheme'
 import styled from 'styled-components'
 
 const Badge = styled.div`
-  border: 1px solid ${({ theme }) => theme.bg5};
+  border: 1px solid ${({ theme }) => theme.bg1};
   padding:8px 16px
   height: 36px;
   border-radius: 6px;
   width: fit-content
 `
 const Divider = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.bg3};
+  border-bottom: 1px solid ${({ theme }) => theme.text2};
   height: 0;
   margin-bottom: 20px;
 `

@@ -41,7 +41,7 @@ const ActionBar = styled.div`
 width: 100%;
 height: ${({ theme }) => theme.headerHeight}
 position: relative;
-border-bottom: 1px solid ${({ theme }) => theme.text5};
+border-bottom: 1px solid ${({ theme }) => theme.text1};
 display: flex;
 justify-content: space-between;
 padding: 0 124px;

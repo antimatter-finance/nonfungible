@@ -24,7 +24,7 @@ const Wrapper = styled(AutoColumn)`
   `}
 `
 const RightText = styled(TYPE.small)`
-  color: ${({ theme }) => theme.text6};
+  color: ${({ theme }) => theme.text1};
   max-width: 160px;
   text-align: right;
   align-self: flex-start;

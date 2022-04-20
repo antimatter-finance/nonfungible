@@ -198,7 +198,7 @@ export default function GovernancePageDetail({
         <AutoColumn gap="50px" style={{ width: '100%' }}>
           <AutoColumn gap="14px">
             <RowBetween>
-              <ButtonEmpty width="106px" color={theme.text3} onClick={handleBackClick}>
+              <ButtonEmpty width="106px" color={theme.text2} onClick={handleBackClick}>
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
                   <circle cx="18" cy="18" r="17.5" stroke="black" strokeOpacity="0.1" />
                   <path d="M27 18H11M11 18L16 13M11 18L16 23" stroke="black" strokeWidth="1.5" />

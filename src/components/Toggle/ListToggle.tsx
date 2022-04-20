@@ -23,7 +23,7 @@ const ToggleElement = styled.span<{ isActive?: boolean; bgColor?: string }>`
   border-radius: 50%;
   height: 15px;
   width: 15px;
-  background-color: ${({ isActive, bgColor, theme }) => (isActive ? theme.primary1 : theme.bg5)};
+  background-color: ${({ isActive, bgColor, theme }) => (isActive ? theme.primary1 : theme.bg1)};
   :hover {
     opacity: 0.8;
   }
@@ -33,7 +33,7 @@ const StatusText = styled.div<{ isActive?: boolean }>`
   margin: 0 10px;
   width: 24px;
   font-weight: 500;
-  color: ${({ theme, isActive }) => (isActive ? theme.primary1 : theme.text3)};
+  color: ${({ theme, isActive }) => (isActive ? theme.primary1 : theme.text2)};
 `
 
 export interface ToggleProps {

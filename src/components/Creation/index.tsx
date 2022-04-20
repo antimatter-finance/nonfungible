@@ -14,7 +14,7 @@ import Modal from '../Modal'
 import { AutoColumn } from 'components/Column'
 import { TYPE, ShowSmall, HideSmall } from 'theme'
 import { RowFixed } from 'components/Row'
-import { ButtonBlack, ButtonPrimary } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import SpotIndex from './SpotIndex'
 import LockerIndex from './Locker'
 import { CardColor } from 'components/NFTCard'
@@ -403,14 +403,14 @@ export default function CreationNFTModal() {
                     </StyledRadioGroup>
                   </AutoColumn>
                   <HideSmall>
-                    <ButtonBlack
+                    <ButtonPrimary
                       height={60}
                       style={{ marginTop: 20 }}
                       onClick={toCreateNext}
                       disabled={currentCreation === Step.FutureIndex}
                     >
                       {currentCreation !== Step.FutureIndex ? 'Confirm' : 'Coming soon'}
-                    </ButtonBlack>
+                    </ButtonPrimary>
                   </HideSmall>
                 </AutoColumn>
                 <ShowSmall style={{ marginTop: 'auto' }}>

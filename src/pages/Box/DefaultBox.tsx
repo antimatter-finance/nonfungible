@@ -1,7 +1,7 @@
 import React from 'react'
 import { AutoColumn } from 'components/Column'
 import { TYPE } from 'theme'
-import { ButtonBlack, Base } from 'components/Button'
+import { ButtonPrimary, Base } from 'components/Button'
 import { OutlineCard } from 'components/Card'
 import { RowBetween } from 'components/Row'
 import { ApprovalState } from 'hooks/useApproveCallback'
@@ -56,7 +56,7 @@ export default function DefaultBox({
         </TYPE.body>
       </div>
       {!account ? (
-        <ButtonBlack onClick={toggleWalletModal}>Connect</ButtonBlack>
+        <ButtonPrimary onClick={toggleWalletModal}>Connect</ButtonPrimary>
       ) : !remainingNFT ? (
         <Base disabled backgroundColor="#aaaaaa">
           Closed
@@ -66,21 +66,21 @@ export default function DefaultBox({
           You already have nft
         </Base>
       ) : matterBalance?.lessThan(JSBI.BigInt(drawDepositAmount)) ? (
-        <ButtonBlack disabled>Insufficient MATTER Balance</ButtonBlack>
+        <ButtonPrimary disabled>Insufficient MATTER Balance</ButtonPrimary>
       ) : approval === ApprovalState.APPROVED ? (
-        <ButtonBlack onClick={onDraw}>Buy</ButtonBlack>
+        <ButtonPrimary onClick={onDraw}>Buy</ButtonPrimary>
       ) : approval === ApprovalState.PENDING ? (
-        <ButtonBlack disabled>
+        <ButtonPrimary disabled>
           Approve
           <Dots />
-        </ButtonBlack>
+        </ButtonPrimary>
       ) : approval === ApprovalState.UNKNOWN ? (
-        <ButtonBlack disabled>
+        <ButtonPrimary disabled>
           Loading
           <Dots />
-        </ButtonBlack>
+        </ButtonPrimary>
       ) : (
-        <ButtonBlack onClick={onApprove}>Approve</ButtonBlack>
+        <ButtonPrimary onClick={onApprove}>Approve</ButtonPrimary>
       )}
     </AutoColumn>
   )

@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Loader from '../Loader'
 import { RowBetween } from 'components/Row'
-import { ButtonBlack } from 'components/Button'
+import { ButtonPrimary } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import { TYPE } from 'theme'
 
@@ -96,14 +96,14 @@ export default function PendingView({
         <ButtonGroup>
           {children}
           {error && (
-            <ButtonBlack
+            <ButtonPrimary
               onClick={() => {
                 setPendingError(false)
                 connector && tryActivation(connector)
               }}
             >
               Try Again
-            </ButtonBlack>
+            </ButtonPrimary>
           )}
         </ButtonGroup>
       )}

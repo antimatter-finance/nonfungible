@@ -14,7 +14,7 @@ import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
 import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
 import PortisIcon from '../../assets/images/portisIcon.png'
-import { ButtonSecondary, ButtonOutlinedBlack, ButtonBlack } from '../Button'
+import { ButtonSecondary, ButtonOutlinedBlack, ButtonPrimary } from '../Button'
 
 import { LinkStyledButton, TYPE } from '../../theme'
 import { AutoColumn } from 'components/Column'
@@ -123,7 +123,7 @@ const WalletName = styled.div`
   width: initial;
   font-size: 0.825rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.bg3};
+  color: ${({ theme }) => theme.text2};
 `
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -351,14 +351,14 @@ export default function AccountDetails({
       </UpperSection>
       <LowerSection>
         <ButtonOutlinedBlack onClick={toggleWalletModal}>Close</ButtonOutlinedBlack>
-        <ButtonBlack
+        <ButtonPrimary
           onClick={() => {
             openOptions()
           }}
           style={{ marginLeft: '20px' }}
         >
           Change
-        </ButtonBlack>
+        </ButtonPrimary>
       </LowerSection>
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>

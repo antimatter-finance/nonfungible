@@ -24,7 +24,7 @@ const AppWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   overflow-x: hidden;
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.bg2};
   min-height: 100vh;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   flex-direction: column;
