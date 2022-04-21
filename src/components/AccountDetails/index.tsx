@@ -1,6 +1,6 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import styled, { ThemeContext } from 'styled-components'
+import styled from 'styled-components'
 import { useActiveWeb3React } from '../../hooks'
 import { AppDispatch } from '../../state'
 import { clearAllTransactions } from '../../state/transactions/actions'
@@ -57,7 +57,7 @@ const AccountGroupingRow = styled.div`
   justify-content: space-between;
   align-items: center;
   font-weight: 400;
-  color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
 
   div {
     ${({ theme }) => theme.flexRowNoWrap}
@@ -100,7 +100,7 @@ const AccountControl = styled.div`
   width: 100%;
   font-weight: 500;
   font-size: 1.25rem;
-  color: ${({ theme }) => theme.bg1}
+  color: ${({ theme }) => theme.text1}
 
   a:hover {
     text-decoration: underline;
@@ -194,7 +194,6 @@ export default function AccountDetails({
   openOptions
 }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React()
-  const theme = useContext(ThemeContext)
   const dispatch = useDispatch<AppDispatch>()
 
   function formatConnectorName() {
@@ -377,7 +376,7 @@ export default function AccountDetails({
         </LowerSection>
       ) : (
         <LowerSection>
-          <TYPE.body color={theme.bg1}>Your transactions will appear here...</TYPE.body>
+          <TYPE.body>Your transactions will appear here...</TYPE.body>
         </LowerSection>
       )}
     </>

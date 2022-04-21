@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
-import NFTCard, { CardColor, NFTCardProps } from 'components/NFTCard'
-import Search from 'components/Search'
+import NFTCard, { CardColor, NFTCardProps, NFTCardWidth } from 'components/NFTCard'
+import Search, { MobileSearch } from 'components/Search'
 import useNFTList from 'hooks/useNFTList'
 import CurrencyLogo from 'components/CurrencyLogo'
 import Pagination from 'components/Pagination'
-import { AnimatedImg, AnimatedWrapper, TYPE } from 'theme'
+import { AnimatedImg, AnimatedWrapper, ShowSmall, TYPE } from 'theme'
 import Loader from 'assets/svg/antimatter_icon.svg'
 import { SportIndexSearchProps } from 'utils/option/httpFetch'
 import { useToken } from 'hooks/Tokens'
@@ -56,7 +56,7 @@ const ContentWrapper = styled.div`
   margin: auto;
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: repeat(auto-fill, 271px);
+  grid-template-columns: repeat(auto-fill, ${NFTCardWidth});
   padding: 52px 0;
   justify-content: center;
   ${({ theme }) => theme.mediaWidth.upToLarge`
@@ -157,6 +157,9 @@ with a variety of lock and unlock mechanism."
           val2={'114'}
           subVal2={'Total Number of Indices'}
         />
+        <ShowSmall>
+          <MobileSearch onSearch={handleSearch} />
+        </ShowSmall>
         <Wrapper>
           <Search onSearch={handleSearch} />
           <Divider
@@ -197,15 +200,17 @@ with a variety of lock and unlock mechanism."
                   />
                 ))}
               </ContentWrapper>
-              <Pagination
-                page={currentPage}
-                count={countPages}
-                setPage={page => {
-                  setShowLoading(true)
-                  setLastChangeLoading(new Date().getTime())
-                  setCurrentPage(page)
-                }}
-              />
+              {countPages > 1 && (
+                <Pagination
+                  page={currentPage}
+                  count={countPages}
+                  setPage={page => {
+                    setShowLoading(true)
+                    setLastChangeLoading(new Date().getTime())
+                    setCurrentPage(page)
+                  }}
+                />
+              )}
             </>
           )}
         </Wrapper>

@@ -5,7 +5,6 @@ import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { isMobile } from 'react-device-detect'
 import '@reach/dialog/styles.css'
 import { useGesture } from 'react-use-gesture'
-import { transparentize } from 'polished'
 import { Marginer } from '../../pages/App'
 
 const AnimatedDialogOverlay = animated(DialogOverlay)
@@ -36,6 +35,9 @@ export const StyledDialogOverlay = styled(AnimatedDialogOverlay)<{
       justify-content: flex-end;
       z-index: 12;
     `}
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+    background: ${({ theme }) => theme.bg2};
+  `}
   }
 `
 export const Wrapper = styled.div`
@@ -63,7 +65,6 @@ export const StyledDialogContent = styled(
   overflow-y: ${({ mobile }) => (mobile ? 'auto' : 'hidden')};
 
   &[data-reach-dialog-content] {
-    box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadow1)};
     padding: 0px;
     width: ${({ width }) => width ?? '42vw'};
     ${({ minWidth }) =>
@@ -103,10 +104,11 @@ export const StyledDialogContent = styled(
       max-width:unset;
       min-height:unset;
       max-height:${`calc(100vh - ${theme.headerHeight})`};
-      height: ${`calc(100vh - ${theme.headerHeight})`};
+      height: auto;
       overflow-y: auto;
       border-radius: 0;
-      margin-bottom:${theme.headerHeight};
+      align-self: flex-start;
+      margin-bottom:auto;
     `}
     ${({ theme }) => theme.mediaWidth.upToSmall`
     background: ${theme.bg2};

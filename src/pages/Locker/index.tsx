@@ -1,7 +1,6 @@
 import React, { useMemo, useCallback } from 'react'
 import styled from 'styled-components'
 import { AutoColumn } from 'components/Column'
-import { CardColor } from 'components/NFTCard'
 import { TYPE } from 'theme'
 import { RowBetween } from 'components/Row'
 import { ButtonOutlinedBlack, ButtonPrimary } from 'components/Button'
@@ -14,54 +13,31 @@ import { useHistory } from 'react-router-dom'
 import { useLogin, useCurrentUserInfo } from 'state/userInfo/hooks'
 import { LockerIndexEventType, useLockerIndexData } from '../../hooks/useLockerIndex'
 import Pagination from 'components/Pagination'
+import NumericalCard from 'components/Card/NumericalCard'
+import { Typography } from '@mui/material'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const Wrapper = styled.div`
   width: 100%;
   margin-bottom: auto;
-  padding: 80px 124px;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
-  padding: 40px;
+  padding: 60px;
+  max-width: ${({ theme }) => theme.maxContentWidth}
+    ${({ theme }) => theme.mediaWidth.upToLarge`
+  padding: 60px;
   `}
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+    ${({ theme }) => theme.mediaWidth.upToMedium`
   padding: 24px;
-  `}
+  `};
 `
 
 const CardWrapper = styled.div`
   display: grid;
   grid-gap: 26px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
   grid-template-columns: 100%;
-  grid-template-rows: 1fr,1fr,1fr;
-  `}
-`
-
-const StyledCard = styled.div<{ color: CardColor }>`
-  width: 380px;
-  height: 140px;
-  background: #ffffff;
-  border-radius: 40px;
-  position: relative;
-  overflow: hidden;
-  padding: 30px 52px;
-  :before {
-    position: absolute;
-    content: '';
-    z-index: 0;
-    height: 117px;
-    width: 420px;
-    top: 0;
-    border-radius: 120px;
-    background: ${({ theme, color }) => theme[color]};
-    filter: blur(100px);
-    border-radius: 120px;
-    opacity: 0.9;
-    transform: translateY(-70%);
-  }
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
+  grid-template-rows: 1fr,1fr;
   `}
 `
 
@@ -77,6 +53,7 @@ export default function Locker() {
   const userInfo = useCurrentUserInfo()
   const { login } = useLogin()
   const history = useHistory()
+  const isDownMd = useBreakpoint('md')
   const {
     data,
     page: { currentPage, totalPages, setCurrentPage }
@@ -131,7 +108,7 @@ export default function Locker() {
 
   return (
     <Wrapper>
-      <AutoColumn gap="72px">
+      <AutoColumn gap={isDownMd ? '40px' : '72px'}>
         <CardWrapper>
           {/* <Card
             color={CardColor.BLUE}
@@ -142,24 +119,31 @@ export default function Locker() {
               </>
             }
           /> */}
-          <Card color={CardColor.RED} title="Number of lockers created" value={<>{data.lockerCreatedCount}</>} />
-          <Card
-            color={CardColor.GREEN}
-            title="Number of owners"
-            value={
-              <>
-                {data.ownerCount}&nbsp;<span style={{ fontSize: 18 }}>Addresses</span>
-              </>
-            }
+          <NumericalCard
+            value={data.lockerCreatedCount}
+            subValue={<Typography fontSize={isDownMd ? 18 : 16}>Number of lockers created</Typography>}
+            padding={isDownMd ? '20px' : '30px'}
+            fontSize={isDownMd ? '28px' : '40px'}
+          />
+          <NumericalCard
+            value={data.ownerCount}
+            unit="Addresses"
+            subValue={<Typography fontSize={isDownMd ? 18 : 16}>Number of owners</Typography>}
+            padding={isDownMd ? '20px' : '30px'}
+            fontSize={isDownMd ? '28px' : '40px'}
           />
         </CardWrapper>
         <AutoColumn gap="24px">
           <RowBetween>
-            <TYPE.body fontWeight={500} fontSize={30}>
+            <TYPE.body fontWeight={700} fontSize={30}>
               Activity
             </TYPE.body>
             {userInfo && userInfo.token && (
-              <ButtonPrimary width="160px" onClick={handleLockerClick}>
+              <ButtonPrimary
+                width={isDownMd ? '108px' : '160px'}
+                onClick={handleLockerClick}
+                height={isDownMd ? '40px' : '44px'}
+              >
                 My Locker
               </ButtonPrimary>
             )}
@@ -175,20 +159,5 @@ export default function Locker() {
         </AutoColumn>
       </AutoColumn>
     </Wrapper>
-  )
-}
-
-function Card({ color, value, title }: { color: CardColor; value: JSX.Element; title: string }) {
-  return (
-    <StyledCard color={color}>
-      <AutoColumn gap="12px">
-        <TYPE.black fontSize={40} fontWeight={700}>
-          {value}
-        </TYPE.black>
-        <TYPE.darkGray fontSize={20} fontWeight={500}>
-          {title}
-        </TYPE.darkGray>
-      </AutoColumn>
-    </StyledCard>
   )
 }

@@ -9,6 +9,7 @@ import { ReactComponent as Menu } from '../../assets/svg/menu.svg'
 import arrowUpUrl from 'assets/svg/arrow_up.svg'
 import { ExternalLink } from 'theme'
 import { StyledDialogOverlay } from 'components/Modal'
+import { UserInfoTabRoute, UserInfoTabs } from 'pages/User'
 
 const ToggleMenuButton = styled(Base)`
   background: none;
@@ -134,7 +135,7 @@ export default function ToggleMenu({ onCreate }: { onCreate: () => void }) {
           <CloseButton onClick={handleClose}>
             <X size={24} />
           </CloseButton>
-          <AutoColumn style={{ marginTop: 148, width: '100vw', alignSelf: 'flex-start' }}>
+          <AutoColumn style={{ marginTop: 40, width: '100vw', alignSelf: 'flex-start' }}>
             {tabs.map(({ title, route, subTab }) =>
               subTab ? (
                 <ToggleTab key={title} title={title}>
@@ -159,6 +160,18 @@ export default function ToggleMenu({ onCreate }: { onCreate: () => void }) {
                 </TabMobile>
               )
             )}
+            <TabMobile to={'/profile/' + UserInfoTabs.POSITION} onClick={() => setIsOpen(!isOpen)}>
+              {UserInfoTabRoute[UserInfoTabs.POSITION]}
+            </TabMobile>
+            <TabMobile to={'/profile/' + UserInfoTabs.INDEX} onClick={() => setIsOpen(!isOpen)}>
+              {UserInfoTabRoute[UserInfoTabs.INDEX]}
+            </TabMobile>
+            <TabMobile to={'/profile/' + UserInfoTabs.LOCKER} onClick={() => setIsOpen(!isOpen)}>
+              {UserInfoTabRoute[UserInfoTabs.LOCKER]}
+            </TabMobile>
+            <TabMobile to={'/profile/' + UserInfoTabs.NFT} onClick={() => setIsOpen(!isOpen)}>
+              {UserInfoTabRoute[UserInfoTabs.NFT]}
+            </TabMobile>
             <CreateButton onClick={handleCreate}>+ Create</CreateButton>
           </AutoColumn>
         </Overlay>

@@ -6,7 +6,7 @@ import { Check } from 'react-feather'
 import { CountUp } from 'use-count-up'
 import { useActiveWeb3React } from '../../hooks'
 import { useAggregateUniBalance, useETHBalances } from '../../state/wallet/hooks'
-import { ButtonText, ExternalLink, HideSmall, TYPE } from '../../theme'
+import { ButtonText, ExternalLink, HideMedium, TYPE } from '../../theme'
 import Row, { RowFixed, RowBetween } from '../Row'
 import Web3Status from './Web3Status'
 import usePrevious from '../../hooks/usePrevious'
@@ -27,6 +27,7 @@ import { ReactComponent as ETH } from '../../assets/svg/eth_logo.svg'
 import { useWeb3React } from '@web3-react/core'
 import { Modal } from '@material-ui/core'
 import { CHAIN_ETH_NAME } from '../../constants'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const activeClassName = 'ACTIVE'
 
@@ -105,13 +106,16 @@ const HeaderFrame = styled.div`
   top: 0;
   height: ${({ theme }) => theme.headerHeight};
   position: relative;
-  padding: 21px 0 0;
+  padding: 21px 32px 0;
   z-index: 6;
   background-color: ${({ theme }) => theme.bg1};
+
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  padding: 21px 20px 0;
+`}
   ${({ theme }) => theme.mediaWidth.upToMedium`
   height: ${({ theme }) => theme.mobileHeaderHeight};
     grid-template-columns: 1fr;
-    padding: 0 1rem;
     width: 100%;
     position: relative;
   `};
@@ -144,7 +148,6 @@ const HeaderControls = styled.div`
 
 const HeaderRow = styled(RowFixed)`
   width: 100%;
-  padding-left: 2rem;
   align-items: flex-start
     ${({ theme }) => theme.mediaWidth.upToMedium`
    align-items: center
@@ -161,8 +164,6 @@ const AccountElement = styled.div<{ active: boolean }>`
   padding: ${({ active }) => (active ? '14px 16px' : 'unset')};
   padding-right: 0;
   height: 44px;
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  width:100%`}
 `
 
 const UNIAmount = styled.div`
@@ -257,7 +258,7 @@ const StyledNavLink = styled(NavLink).attrs({
   text-decoration: none;
   color: ${({ theme }) => theme.text2};
   width: fit-content;
-  margin: 0 20px;
+  margin: 0 15px;
   font-weight: 400;
   padding: 10px 0 31px;
   white-space: nowrap;
@@ -271,6 +272,9 @@ const StyledNavLink = styled(NavLink).attrs({
   :focus {
     color: ${({ theme }) => theme.text1};
   }
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  margin: 0 10px;
+  `}
 `
 const StyledExternalLink = styled(ExternalLink)`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -280,7 +284,7 @@ const StyledExternalLink = styled(ExternalLink)`
   text-decoration: none;
   color: ${({ theme }) => theme.text2};
   width: fit-content;
-  margin: 0 20px;
+  margin: 0 15px;
   font-weight: 400;
   padding: 10px 0 31px;
   white-space: nowrap;
@@ -294,6 +298,9 @@ const StyledExternalLink = styled(ExternalLink)`
   :focus {
     color: ${({ theme }) => theme.text1};
   }
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  margin: 0 10px;
+  `}
 `
 
 const UserButtonWrap = styled.div`
@@ -328,7 +335,7 @@ const UserButton = styled(ButtonText)<{ isOpen: boolean; size?: string }>`
 
 const UserMenuWrapper = styled.div`
   position: absolute;
-  top: 60px;
+  top: 50px;
   right: 0;
   z-index: 2000;
   min-width: 15rem;
@@ -387,7 +394,7 @@ const NetworkCard = styled.div<{ color?: string }>`
   border: 1px solid #ededed;
   cursor: pointer;
   display: flex;
-  padding: 4px 16px;
+  padding: 4px 10px;
   height: 40px;
   margin-top: 2px;
   margin-right: 12px;
@@ -436,7 +443,11 @@ const NetworkCard = styled.div<{ color?: string }>`
   }
   ${({ theme }) => theme.mediaWidth.upToSmall`
     margin: 0
-    margin-right: 10px
+    margin-right: 10px;
+    :hover {
+      cursor: auto;
+      .dropdown_wrapper {display:none}
+    }
   `};
 `
 
@@ -514,6 +525,7 @@ export default function Header() {
   const userInfo = useCurrentUserInfo()
   const { login } = useLogin()
   const history = useHistory()
+  const isDownLg = useBreakpoint('lg')
   const match = useRouteMatch('/profile')
   const toggleCreationModal = useToggleCreationModal()
   const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
@@ -560,7 +572,7 @@ export default function Header() {
             return null
           })}
         </HeaderLinks>
-        <div style={{ paddingLeft: 8, display: 'flex', alignItems: 'center', marginLeft: 'auto', marginRight: '2rem' }}>
+        <div style={{ paddingLeft: 8, display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
           <HeaderControls>
             <HeaderElement show={!!account}>
               {chainId && NetworkInfo[chainId] && (
@@ -568,7 +580,10 @@ export default function Header() {
                   {NetworkInfo[chainId as number]?.icon}
                   <span style={{ width: 5 }}></span>
                   {NetworkInfo[chainId].title}
-                  <ChevronDown size={18} style={{ marginLeft: '5px' }} />
+                  <HideMedium>
+                    <ChevronDown size={18} style={{ marginLeft: '5px' }} />
+                  </HideMedium>
+                  <span style={{ width: 5 }}></span>
                   <div className="dropdown_wrapper">
                     <Dropdown>
                       {Object.keys(NetworkInfo).map(key => {
@@ -675,11 +690,15 @@ export default function Header() {
             </HeaderElement>
 
             {account && (
-              <HideSmall>
-                <ButtonOutlinedPrimary width="120px" marginRight="16px" height={44} onClick={onCreateOrLogin}>
-                  Create
+              <HideMedium>
+                <ButtonOutlinedPrimary
+                  width={isDownLg ? '35px' : '120px'}
+                  height={isDownLg ? 35 : 44}
+                  onClick={onCreateOrLogin}
+                >
+                  {isDownLg ? '+' : ' Create'}
                 </ButtonOutlinedPrimary>
-              </HideSmall>
+              </HideMedium>
             )}
 
             <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>

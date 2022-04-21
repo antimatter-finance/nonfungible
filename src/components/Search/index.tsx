@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { RowFixed } from 'components/Row'
 import NFTButtonSelect from 'components/Button/NFTButtonSelect'
-import { ButtonOutlinedPrimary, ButtonPrimary } from 'components/Button'
+import { ButtonEmpty, ButtonOutlinedPrimary, ButtonPrimary } from 'components/Button'
 import { ReactComponent as SearchIcon } from '../../assets/svg/search.svg'
 import { TextValueInput } from 'components/TextInput'
 import useMediaWidth from 'hooks/useMediaWidth'
+import { CloseIcon, TYPE } from 'theme'
 
 const SearchParams = [
   {
@@ -68,39 +69,42 @@ const ButtonWrapper = styled(RowFixed)`
 `};
 `
 
-// const MobileSearchWrapper = styled.div`
-//   position: fixed;
-//   top: 0;
-//   right: 0;
-//   padding: ${({ theme }) => theme.mobileHeaderHeight} 24px 24px
-//   width: 100%;
-//   background-color: ${({ theme }) => theme.bg1};
-//   z-index: 12;
-//   height: 100vh;
-// `
+const MobileSearchWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: ${({ theme }) => theme.mobileHeaderHeight} 24px 24px
+  width: 100%;
+  background-color: ${({ theme }) => theme.bg2};
+  z-index: 12;
+  height: 100vh;
+`
 
-// const MobileSearchButton = styled(ButtonEmpty)`
-//   position: fixed;
-//   top: 21px;
-//   z-index: 11;
-//   right: 72px;
-//   width: fit-content;
-//   height: auto;
-//   svg {
-//     z-index: 11;
-//   }
-// `
+const MobileSearchButton = styled(ButtonEmpty)`
+  position: fixed;
+  top: 4px;
+  z-index: 11;
+  right: 72px;
+  width: fit-content;
+  height: auto;
+  svg {
+    z-index: 11;
+  }
+`
 
-// const MobileCloseIcon = styled(CloseIcon)`
-//   position: absolute;
-//   top: 32px;
-//   right: 25px;
-//   > * {
-//     stroke: #ffffff;
-//   }
-// `
+const MobileCloseIcon = styled(CloseIcon)`
+  position: absolute;
+  top: 32px;
+  right: 25px;
+`
 
-export default function Search({ onSearch }: { onSearch: (searchParam: string, searchBy: string) => void }) {
+export default function Search({
+  onSearch,
+  isMobile
+}: {
+  onSearch: (searchParam: string, searchBy: string) => void
+  isMobile?: boolean
+}) {
   const [searchParam, setSearchParam] = useState('')
   const [searchBy, setSearchBy] = useState('')
   const match = useMediaWidth('upToMedium')
@@ -121,6 +125,7 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
       <WrapperSearch>
         <StyledSearch>
           <NFTButtonSelect
+            backgroundColor={isMobile ? '#ffffff' : undefined}
             onSelection={id => {
               setSearchParam(id)
             }}
@@ -130,8 +135,9 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
             selectedId={searchParam}
             placeholder="Select search parameter"
             marginRight={match ? '0' : '10px'}
-          />
+          />{' '}
           <TextValueInput
+            backgroundColor={isMobile ? '#ffffff' : undefined}
             value={searchBy}
             onUserInput={val => {
               setSearchBy(val)
@@ -157,41 +163,41 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
   )
 }
 
-// export function MobileSearch({ onSearch }: { onSearch: (searchParam: string, searchBy: string) => void }) {
-//   const [isOpen, setIsOpen] = useState(false)
-//   const match = useMediaWidth('upToSmall' as keyof typeof MEDIA_WIDTHS)
+export function MobileSearch({ onSearch }: { onSearch: (searchParam: string, searchBy: string) => void }) {
+  const [isOpen, setIsOpen] = useState(false)
+  const match = useMediaWidth('upToSmall')
 
-//   useEffect(() => {
-//     if (!match) {
-//       setIsOpen(false)
-//     }
-//   }, [match])
+  useEffect(() => {
+    if (!match) {
+      setIsOpen(false)
+    }
+  }, [match])
 
-//   const handleOpen = useCallback(() => {
-//     setIsOpen(true)
-//   }, [])
+  const handleOpen = useCallback(() => {
+    setIsOpen(true)
+  }, [])
 
-//   const handleClose = useCallback(() => {
-//     setIsOpen(false)
-//   }, [])
+  const handleClose = useCallback(() => {
+    setIsOpen(false)
+  }, [])
 
-//   return (
-//     <>
-//       <MobileSearchButton onClick={handleOpen} id="mobileSearch">
-//         <SearchIcon style={{ fill: '#ffffff' }} />
-//       </MobileSearchButton>
-//       {isOpen && (
-//         <MobileSearchWrapper>
-//           <MobileCloseIcon onClick={handleClose} />
-//           {/* <ButtonEmpty onClick={handleClose}>
-//             <X size={24} />
-//           </ButtonEmpty> */}
-//           <TYPE.body fontSize={28} fontWeight={500}>
-//             Search a sport index
-//           </TYPE.body>
-//           <Search onSearch={onSearch} />
-//         </MobileSearchWrapper>
-//       )}
-//     </>
-//   )
-// }
+  return (
+    <>
+      <MobileSearchButton onClick={handleOpen} id="mobileSearch">
+        <SearchIcon style={{ fill: '#252525', height: 30 }} />
+      </MobileSearchButton>
+      {isOpen && (
+        <MobileSearchWrapper>
+          <MobileCloseIcon onClick={handleClose} />
+          {/* <ButtonEmpty onClick={handleClose}>
+            <X size={24} />
+          </ButtonEmpty> */}
+          <TYPE.body fontSize={28} fontWeight={700} style={{ marginBottom: 20 }}>
+            Search a spot index
+          </TYPE.body>
+          <Search onSearch={onSearch} isMobile />
+        </MobileSearchWrapper>
+      )}
+    </>
+  )
+}

@@ -12,9 +12,9 @@ import { TransactionDetails } from '../../state/transactions/reducer'
 import { shortenAddress } from '../../utils'
 import { ButtonOutlined, ButtonPrimary } from '../Button'
 import Loader from '../Loader'
-import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
 import useTheme from 'hooks/useTheme'
+import { Box } from '@mui/material'
 
 const Web3StatusGeneric = styled(ButtonOutlined)`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -106,12 +106,12 @@ function Web3StatusInner() {
         <Web3StatusConnected id="web3-status-connected" pending={hasPendingTransactions}>
           {/* {!hasPendingTransactions && connector && <StatusIcon connector={connector} />} */}
           {hasPendingTransactions ? (
-            <RowBetween style={{ padding: '0 5px' }}>
+            <Box style={{ padding: '0 5px' }} display="flex" alignItems="center">
               <Loader stroke={theme.text2} />
               <Text style={{ marginLeft: '12px' }} color={theme.text2}>
                 {pending?.length} Pending
               </Text>
-            </RowBetween>
+            </Box>
           ) : (
             <>
               {hasSocks ? SOCK : null}

@@ -4,9 +4,9 @@ import { darken } from 'polished'
 import { AutoRow } from '../Row'
 import { TYPE } from '../../theme'
 import { Input as NumericalInput } from '../NumericalInput'
-
 import { useActiveWeb3React } from '../../hooks'
 import useTheme from '../../hooks/useTheme'
+import { ButtonPrimary } from 'components/Button'
 
 const InputRow = styled.div<{ disabled?: boolean }>`
   align-items: center;
@@ -62,24 +62,12 @@ const InputPanel = styled.div<{ negativeMarginTop?: string }>`
   ${({ negativeMarginTop }) => `${negativeMarginTop ? 'margin-top: ' + negativeMarginTop : ''}`}
 `
 
-const StyledBalanceMax = styled.button`
-  height: 28px;
-  background-color: ${({ theme }) => theme.text2};
-  border: 1px solid transparent;
-  border-radius: 49px;
+const StyledBalanceMax = styled(ButtonPrimary)`
   font-size: 0.875rem;
   padding: 0 1rem;
+  width: max-content;
+  height: 28px;
   font-weight: 500;
-  cursor: pointer;
-  color: ${({ theme }) => theme.text1};
-  :hover {
-    border: 1px solid ${({ theme }) => theme.primary1};
-  }
-  :focus {
-    border: 1px solid ${({ theme }) => theme.primary1};
-    outline: none;
-  }
-
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     margin-right: 0.5rem;
   `};

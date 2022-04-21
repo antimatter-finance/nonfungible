@@ -4,11 +4,11 @@ import styled from 'styled-components'
 import { ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles'
 import { createTheme } from '@material-ui/core/styles'
 
-const materialTheme = createTheme({
-  palette: {
-    type: 'dark'
-  }
-})
+// const materialTheme = createTheme({
+//   palette: {
+//     type: 'dark'
+//   }
+// })
 
 const materialThemeLight = createTheme({
   palette: {
@@ -31,10 +31,10 @@ interface PaginationProps {
   onChange?: (event: object, page: number) => void
   isLightBg?: boolean
 }
-export default function Pagination({ count, page, onChange, setPage, isLightBg }: PaginationProps) {
+export default function Pagination({ count, page, onChange, setPage }: PaginationProps) {
   return (
-    <MaterialThemeProvider theme={isLightBg ? materialThemeLight : materialTheme}>
-      {count && (
+    <MaterialThemeProvider theme={materialThemeLight}>
+      {count > 1 && (
         <StyledPagination>
           <MuiPagination
             count={count}

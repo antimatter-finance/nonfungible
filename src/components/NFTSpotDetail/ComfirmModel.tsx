@@ -29,7 +29,6 @@ export const Wrapper = styled.div`
   position: relative;
   max-height: 100%;
   overflow-y: auto;
-  background: ${({ theme }) => theme.text1};
 `
 const InfoWrapper = styled(AutoColumn)`
   padding: 24px 28px;
@@ -37,6 +36,7 @@ const InfoWrapper = styled(AutoColumn)`
   border-radius: 10px;
   max-height: 40vh;
   overflow-y: auto;
+  background: ${({ theme }) => theme.bg1};
 `
 
 const StyledErrorLine = styled.div`

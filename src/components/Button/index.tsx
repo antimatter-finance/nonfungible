@@ -187,9 +187,8 @@ export const ButtonEmpty = styled(Base)<{ color?: string }>`
 `
 export const ButtonWhite = styled(Base)`
   border: 1px solid transparent;
-  background-color: ${({ theme }) => theme.text1};
-  color: black;
-
+  background-color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
   &:focus {
     opacity: 0.9;
   }
