@@ -21,7 +21,7 @@ export function Paragraph({ header, children, textWidth }: { header: string; chi
   return (
     <StyledParagraph>
       <AutoColumn gap="5px">
-        <TYPE.subHeader color={theme.text1}>{header}</TYPE.subHeader>
+        <TYPE.subHeader color={theme.text3}>{header}</TYPE.subHeader>
         <TYPE.small
           fontSize={16}
           fontWeight={500}
@@ -29,7 +29,7 @@ export function Paragraph({ header, children, textWidth }: { header: string; chi
             wordBreak: 'break-all',
             maxWidth: textWidth ? textWidth : 'auto'
           }}
-          color={theme.black}
+          color={theme.text1}
         >
           {children}
         </TYPE.small>

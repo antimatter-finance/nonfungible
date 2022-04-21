@@ -109,6 +109,7 @@ const HeaderFrame = styled.div`
   z-index: 6;
   background-color: ${({ theme }) => theme.bg1};
   ${({ theme }) => theme.mediaWidth.upToMedium`
+  height: ${({ theme }) => theme.mobileHeaderHeight};
     grid-template-columns: 1fr;
     padding: 0 1rem;
     width: 100%;
@@ -143,11 +144,9 @@ const HeaderControls = styled.div`
 
 const HeaderRow = styled(RowFixed)`
   width: 100%;
-  min-width: 1100px;
   padding-left: 2rem;
   align-items: flex-start
     ${({ theme }) => theme.mediaWidth.upToMedium`
-    background: red
    align-items: center
   `};
 `
@@ -226,11 +225,10 @@ const MobileHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-  position: relative;
   background-color: ${({ theme }) => theme.bg1};
   height: ${({ theme }) => theme.mobileHeaderHeight};
-  position: fixed;
   top: 0;
+  position: fixed;
   left: 0;
   z-index: 100;
   display: none;
@@ -400,6 +398,7 @@ const NetworkCard = styled.div<{ color?: string }>`
   font-size: 13px;
   font-weight: 500;
   position: relative;
+  background: ${({ theme }) => theme.bg1};
   & > svg:first-child {
     height: 20px;
     width: 20px;

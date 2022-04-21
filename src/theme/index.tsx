@@ -42,7 +42,7 @@ export function colors(): Colors {
     // text
     text1: '#252525',
     text2: 'rgba(37, 37, 37, .6)',
-    text3: '#999999',
+    text3: 'rgba(37, 37, 37, .4)',
 
     // backgrounds / greys
     bg1: '#FFFFFF',
@@ -111,7 +111,7 @@ export function theme(): DefaultTheme {
     desktop: css`
       ${mediaWidthTemplates.upToSmall`display:none;`}
     `,
-    mobileHeaderHeight: '90px',
+    mobileHeaderHeight: '68px',
     headerHeight: '82px',
     maxContentWidth: '1280px',
     minContentWidth: '350px',

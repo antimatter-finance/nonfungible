@@ -17,7 +17,7 @@ export const StyledDialogOverlay = styled(AnimatedDialogOverlay)<{
   zindex?: number
 }>`
   &[data-reach-dialog-overlay] {
-    z-index: ${({ zindex }) => zindex ?? 5};
+    z-index: ${({ zindex }) => zindex ?? 200};
     overflow: ${({ overflow }) => overflow ?? 'hidden'};
 
     display: flex;
@@ -28,10 +28,10 @@ export const StyledDialogOverlay = styled(AnimatedDialogOverlay)<{
     height: 100vh;
     top: 0;
 
-    ${({ theme }) => theme.mediaWidth.upToMedium`
-      height: 100vh;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+      height: ${`calc(100vh - ${theme.headerHeight})`};
       top: 0;
-      bottom: ${({ theme }) => theme.headerHeight};
+      bottom: ${theme.headerHeight};
       background: ${({ theme }) => theme.bg2};
       justify-content: flex-end;
       z-index: 12;
@@ -54,6 +54,7 @@ export const Wrapper = styled.div`
 export const AnimatedDialogContent = animated(DialogContent)
 // destructure to not pass custom props to Dialog DOM element
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 export const StyledDialogContent = styled(
   ({ minHeight, maxHeight, mobile, isOpen, maxWidth, minWidth, width, ...rest }) => <AnimatedDialogContent {...rest} />
 ).attrs({
@@ -72,10 +73,8 @@ export const StyledDialogContent = styled(
       `}
     overflow-y: ${({ mobile }) => (mobile ? 'auto' : 'hidden')};
     overflow-x: hidden;
-    background-color: ${({ theme }) => theme.white};
-
+    background-color: ${({ theme }) => theme.bg1};
     align-self: center;
-
     max-width: 480px;
         ${({ maxWidth }) =>
           maxWidth &&
@@ -103,12 +102,16 @@ export const StyledDialogContent = styled(
       width: 100vw;
       max-width:unset;
       min-height:unset;
-      max-height:100vh;
-      height: 100vh;
+      max-height:${`calc(100vh - ${theme.headerHeight})`};
+      height: ${`calc(100vh - ${theme.headerHeight})`};
       overflow-y: auto;
       border-radius: 0;
-      background-color:${theme.bg2};
+      margin-bottom:${theme.headerHeight};
     `}
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+    background: ${theme.bg2};
+    `}
+  
   }
 `
 

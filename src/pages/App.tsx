@@ -37,6 +37,7 @@ const ContentWrapper = styled.div`
   max-height: 100vh;
   overflow: auto;
   align-items: center;
+  padding-bottom: ${({ theme }) => theme.headerHeight};
   ${({ theme }) => theme.mediaWidth.upToLarge`
     overflow-x:hidden;
   `}
@@ -48,21 +49,13 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
   flex-direction: column;
   ${({ theme }) => theme.flexRowNoWrap};
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  height:0;
-  `}
-  position: fixed;
-`
-
-const HeaderFiller = styled.div`
-  height: ${({ theme }) => theme.headerHeight};
 `
 
 const BodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: calc(100vh - ${({ theme }) => theme.headerHeight});
+  min-height: calc(100vh - ${({ theme }) => theme.mobileHeaderHeight});
   justify-content: center;
   align-items: center;
   flex: 1;
@@ -94,7 +87,6 @@ export default function App() {
           <HeaderWrapper id="header">
             <Header />
           </HeaderWrapper>
-          <HeaderFiller />
           <BodyWrapper id="body">
             <Popups />
             <Polling />

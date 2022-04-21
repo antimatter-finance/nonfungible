@@ -13,16 +13,8 @@ export interface SerializedPair {
   token1: SerializedToken
 }
 
-export const updateUserExpertMode = createAction<{ userExpertMode: boolean }>('user/updateUserExpertMode')
-export const updateUserSingleHopOnly = createAction<{ userSingleHopOnly: boolean }>('user/updateUserSingleHopOnly')
 export const updateUserSlippageTolerance = createAction<{ userSlippageTolerance: number }>(
   'user/updateUserSlippageTolerance'
-)
-export const updateUserRedeemSlippageTolerance = createAction<{ userRedeemSlippageTolerance: number }>(
-  'user/updateUserRedeemSlippageTolerance'
-)
-export const updateUserGenerationSlippageTolerance = createAction<{ userGenerationSlippageTolerance: number }>(
-  'user/updateUserGenerationSlippageTolerance'
 )
 export const updateUserDeadline = createAction<{ userDeadline: number }>('user/updateUserDeadline')
 export const addSerializedToken = createAction<{ serializedToken: SerializedToken }>('user/addSerializedToken')

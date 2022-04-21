@@ -23,7 +23,7 @@ const Overlay = styled(StyledDialogOverlay)`
   &[data-reach-dialog-overlay] {
     z-index: 11;
     top: 0;
-    height: 100vh;
+    background-color: ${({ theme }) => theme.bg2};
   }
 `
 
