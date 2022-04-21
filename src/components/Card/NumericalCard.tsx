@@ -14,8 +14,6 @@ interface Props {
   unitSize?: string
   fontSize?: string
   gray?: boolean
-  rate?: string
-  dayChange?: string
   actions?: React.ReactNode
   children?: React.ReactNode
   border?: boolean
@@ -36,8 +34,6 @@ export default function NumericalCard(props: Props) {
     fontSize,
     width,
     height,
-    rate,
-    dayChange,
     actions,
     children,
     border,
@@ -56,8 +52,8 @@ export default function NumericalCard(props: Props) {
         sx={{
           padding: padding ?? '20px 20px 16px',
           gap: {
-            xs: 10,
-            md: 24
+            xs: 4,
+            md: 12
           },
           height: height || 'auto',
           display: 'flex',
@@ -65,7 +61,7 @@ export default function NumericalCard(props: Props) {
           justifyContent: 'space-between'
         }}
       >
-        {(title || rate) && (
+        {title && (
           <Box display="flex">
             {title && (
               <Typography
@@ -74,28 +70,6 @@ export default function NumericalCard(props: Props) {
               >
                 {title}
               </Typography>
-            )}
-            {rate && (
-              <Box
-                sx={{
-                  ml: 15,
-                  backgroundColor: 'rgba(17, 191, 45, 0.16)',
-                  width: '56px',
-                  height: '24px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: '12px'
-                }}
-              >
-                <Typography
-                  sx={{
-                    color: '#11BF2D'
-                  }}
-                >
-                  +{rate}%
-                </Typography>
-              </Box>
             )}
           </Box>
         )}
@@ -119,30 +93,6 @@ export default function NumericalCard(props: Props) {
           </Typography>
           {unit && (
             <Typography sx={{ fontSize: unitSize || 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>{unit}</Typography>
-          )}
-          {dayChange && (
-            <Box
-              component="div"
-              borderRadius={22}
-              color="#31B047"
-              bgcolor="rgba(49, 176, 71, 0.16)"
-              fontSize={14}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              width={120}
-              height={24}
-              ml={10}
-            >
-              <Typography
-                sx={{
-                  color: '#11BF2D',
-                  fontSize: '12px'
-                }}
-              >
-                {dayChange}
-              </Typography>
-            </Box>
           )}
         </Box>
         {subValue && (

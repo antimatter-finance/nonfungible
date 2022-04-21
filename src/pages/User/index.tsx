@@ -5,11 +5,11 @@ import styled from 'styled-components'
 import { Text } from 'rebass'
 import { AutoColumn } from 'components/Column'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
-import { ButtonPrimary, ButtonOutlinedBlack, ButtonOutlinedWhite } from 'components/Button'
+import { ButtonPrimary, ButtonWhite } from 'components/Button'
 import { AnimatedImg, AnimatedWrapper, HideSmall, TYPE, ShowSmall } from 'theme'
 import CopyHelper from 'components/AccountDetails/Copy'
 import ProfileFallback from 'assets/images/profile-fallback.png'
-import NFTCard /*, { NFTArtCard }*/ from 'components/NFTCard'
+import NFTCard, { NFTCardWidth /*, { NFTArtCard }*/ } from 'components/NFTCard'
 import Table /*, { OwnerCell }*/ from 'components/Table'
 // import { ReactComponent as Buy } from 'assets/svg/buy.svg'
 // import { ReactComponent as Send } from 'assets/svg/send.svg'
@@ -29,6 +29,7 @@ import { SwitchTabWrapper, Tab } from 'components/SwitchTab'
 import { isMobile } from 'react-device-detect'
 import { shortenAddress } from 'utils'
 import { useMyBlindBox } from 'hooks/useBlindBox'
+import { Box } from '@mui/material'
 
 export enum UserInfoTabs {
   POSITION = 'my_position',
@@ -65,7 +66,7 @@ const ContentWrapper = styled.div`
   display: grid;
   width: 100%;
   grid-gap: 12px;
-  grid-template-columns: repeat(auto-fill, 280px);
+  grid-template-columns: repeat(auto-fill, ${NFTCardWidth});
   padding-bottom: 52px;
   justify-content: center;
   ${({ theme }) => theme.mediaWidth.upToLarge`padding: 0`}
@@ -95,16 +96,13 @@ const ContentWrapper = styled.div`
 // `
 
 const Wrapper = styled.div`
-  padding: 78px 0 88px;
-  width: 90vw;
-  max-width: 1284px;
-  display: flex;
-  justify-content: center;
-  min-height: calc(100vh - ${({ theme }) => theme.headerHeight});
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  padding: 0 0 40px;
-  color: #ffffff
+  padding: 78px 20px 88px;
+  max-width: ${({ theme }) => theme.maxContentWidth}
+  display: grid;
   width: 100%;
+  margin-bottom: auto;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  padding: 0 20px 40px;
   `}
 `
 
@@ -112,10 +110,10 @@ const AppBody = styled.div`
   width: 100%;
   background: #ffffff;
   border-radius: 32px;
-  padding: 52px;
+  padding: 48px 20px 52px;
   max-width: 1284px;
+  min-height: 400px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  background: transparent;
   padding: 32px 24px;
   `}
 `
@@ -126,6 +124,7 @@ const ProfileImg = styled.div<{ url?: string }>`
   border-radius: 50%;
   object-fit: cover;
   margin-right: 8px;
+  margin-bottom: auto;
   background: ${({ url }) => (url ? `url(${url})` : `url(${ProfileFallback})`)};
 `
 
@@ -136,10 +135,6 @@ const Capsule = styled.p`
   font-size: 12px;
   font-weight: 400;
   margin-left: 12px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  border-color: #ffffff;
-  color: #ffffff
-  `}
 `
 
 const Synopsis = styled.p`
@@ -153,23 +148,10 @@ const Synopsis = styled.p`
   `}
 `
 
-const ButtonOutlined = styled(ButtonOutlinedWhite)`
-  color: #ffffff;
-  * {
-    fill: #ffffff;
-  }
-`
-
 const HeaderWrapper = styled(AutoColumn)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    justify-content: center
-  `}
-`
-
-const ProfileWrapper = styled(AutoRow)`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    flex-direction: column;
-    width: auto
+    justify-content: center;
+    padding:30px 20px;
   `}
 `
 
@@ -181,9 +163,8 @@ const AddressWrapper = styled(AutoRow)`
 
 const ClaimWrapper = styled(RowBetween)`
   justify-content: flex-end;
-  margin-bottom: -20px;
+  margin-bottom: 30px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  margin-bottom: 20px;
   justify-content: center;
 `}
 `
@@ -191,7 +172,6 @@ const CardImgWrapper = styled(AutoColumn)`
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 30px;
   padding: 20px 20px 15px;
-  background: linear-gradient(rgba(223, 249, 186, 0.5), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 1));
   grid-gap: 10px;
   span:first-child {
     color: #000;
@@ -225,8 +205,17 @@ const CardImg = styled.img`
 const Divider = styled.div`
   width: 80px;
   height: 0;
-  border-bottom: 1px solid ${({ theme }) => theme.text1};
+  border-bottom: 1px solid border: 1px solid rgba(37, 37, 37, 0.1);
   margin: 20px auto 0;
+`
+
+const NoContent = styled.div`
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
 `
 
 const NameWrapper = styled(RowFixed)`
@@ -308,75 +297,79 @@ export default function User() {
     <>
       <ProfileSetting isOpen={showSetting} onDismiss={handleHideSetting} userInfo={userInfo} />
       <Wrapper>
+        <HeaderWrapper>
+          <Box display="flex" alignItems={{ xs: 'flex-start', md: 'center' }} justifyContent="space-between">
+            <ShowSmall />
+            <Box
+              display={{ xs: 'grid', md: 'flex' }}
+              alignItems={'flex-start'}
+              gap={18}
+              justifyItems={{ xs: 'center', sm: 'flex-start' }}
+            >
+              <ProfileImg />
+              <AutoColumn>
+                <NameWrapper>
+                  <Text fontSize={28} fontWeight={500}>
+                    {userInfo?.username}
+                  </Text>
+                  <Capsule>#{userInfo?.id}</Capsule>
+                </NameWrapper>
+                <TYPE.darkGray fontWeight={400}>
+                  <AddressWrapper>
+                    {isMobile ? userInfo && userInfo.account && shortenAddress(userInfo.account) : userInfo?.account}{' '}
+                    <CopyHelper toCopy={userInfo?.account ?? ''} />
+                  </AddressWrapper>
+                </TYPE.darkGray>
+                <Synopsis>{userInfo?.bio}</Synopsis>
+              </AutoColumn>
+            </Box>
+            <ShowSmall />
+            <HideSmall>
+              <RowFixed>
+                <ButtonWhite width="134px" marginRight="12px" onClick={handleShowSetting}>
+                  <Settings style={{ marginRight: 15 }} />
+                  Settings
+                </ButtonWhite>
+                <ButtonWhite width="134px" onClick={handleLogOut}>
+                  <LogOut style={{ marginRight: 15 }} /> Log Out
+                </ButtonWhite>
+              </RowFixed>
+            </HideSmall>
+          </Box>
+          <ShowSmall>
+            <Divider />
+          </ShowSmall>
+
+          <ClaimWrapper>
+            <Box display="grid" gap="8px" justifyItems={'flex-end'}>
+              <TYPE.darkGray style={{ display: 'flex', alignItems: 'center' }} fontSize={14}>
+                Unclaim Fees:&nbsp;&nbsp; <TYPE.black fontSize={20}> {claimFee ?? '-'}</TYPE.black>
+              </TYPE.darkGray>
+              <ButtonPrimary
+                width="134px"
+                // disabled={!!(Number(claimFee) <= 0)}
+                onClick={() => {
+                  setClaimModal(true)
+                }}
+              >
+                Claim Fees
+              </ButtonPrimary>
+            </Box>
+          </ClaimWrapper>
+          <ShowSmall style={{ justifyContent: 'center' }}>
+            <RowFixed>
+              <ButtonWhite width="134px" marginRight="12px" onClick={handleShowSetting}>
+                <Settings style={{ marginRight: 15 }} />
+                Settings
+              </ButtonWhite>
+              <ButtonWhite width="134px" onClick={handleLogOut}>
+                <LogOut style={{ marginRight: 15 }} /> Log Out
+              </ButtonWhite>
+            </RowFixed>
+          </ShowSmall>
+        </HeaderWrapper>
         <AppBody>
-          <AutoColumn gap="40px">
-            <HeaderWrapper>
-              <RowBetween>
-                <ShowSmall />
-                <ProfileWrapper gap="12px">
-                  <ProfileImg />
-                  <AutoColumn>
-                    <NameWrapper>
-                      <Text fontSize={28} fontWeight={500}>
-                        {userInfo?.username}
-                      </Text>
-                      <Capsule>#{userInfo?.id}</Capsule>
-                    </NameWrapper>
-                    <TYPE.darkGray fontWeight={400}>
-                      <AddressWrapper>
-                        {isMobile
-                          ? userInfo && userInfo.account && shortenAddress(userInfo.account)
-                          : userInfo?.account}{' '}
-                        <CopyHelper toCopy={userInfo?.account ?? ''} />
-                      </AddressWrapper>
-                    </TYPE.darkGray>
-                  </AutoColumn>
-                </ProfileWrapper>
-                <ShowSmall />
-                <HideSmall>
-                  <RowFixed>
-                    <ButtonOutlinedBlack width="134px" marginRight="12px" onClick={handleShowSetting}>
-                      <Settings style={{ marginRight: 15 }} />
-                      Settings
-                    </ButtonOutlinedBlack>
-                    <ButtonOutlinedBlack width="134px" onClick={handleLogOut}>
-                      <LogOut style={{ marginRight: 15 }} /> Log Out
-                    </ButtonOutlinedBlack>
-                  </RowFixed>
-                </HideSmall>
-              </RowBetween>
-              <ShowSmall>
-                <Divider />
-              </ShowSmall>
-              <Synopsis>{userInfo?.bio}</Synopsis>
-              <ClaimWrapper>
-                <AutoColumn gap="8px" justify="end">
-                  <TYPE.darkGray style={{ display: 'flex', alignItems: 'center' }}>
-                    Unclaim Fees: <TYPE.black fontSize={20}> {claimFee ?? '-'}</TYPE.black>
-                  </TYPE.darkGray>
-                  <ButtonPrimary
-                    width="134px"
-                    // disabled={!!(Number(claimFee) <= 0)}
-                    onClick={() => {
-                      setClaimModal(true)
-                    }}
-                  >
-                    Claim Fees
-                  </ButtonPrimary>
-                </AutoColumn>
-              </ClaimWrapper>
-              <ShowSmall style={{ justifyContent: 'center' }}>
-                <RowFixed>
-                  <ButtonOutlined width="134px" marginRight="12px" onClick={handleShowSetting}>
-                    <Settings style={{ marginRight: 15 }} />
-                    Settings
-                  </ButtonOutlined>
-                  <ButtonOutlined width="134px" onClick={handleLogOut}>
-                    <LogOut style={{ marginRight: 15 }} /> Log Out
-                  </ButtonOutlined>
-                </RowFixed>
-              </ShowSmall>
-            </HeaderWrapper>
+          <AutoColumn gap="40px" style={{ position: 'relative' }}>
             <SwitchTab onTabClick={handleTabClick} currentTab={currentTab} />
             {((currentTab === UserInfoTabs.INDEX && indexIsLoading) ||
               (currentTab === UserInfoTabs.POSITION && positionIsLoading) ||
@@ -402,7 +395,7 @@ export default function User() {
             {!positionIsLoading && currentTab === UserInfoTabs.POSITION /*|| currentTab === Tabs.LOCKER*/ && (
               <>
                 {positionCardList.length === 0 ? (
-                  <span>You have no NFT at the moment</span>
+                  <NoContent>You have no NFT at the moment</NoContent>
                 ) : (
                   <>
                     <ContentWrapper>
@@ -458,7 +451,7 @@ export default function User() {
             {!myLockerIsLoading && currentTab === UserInfoTabs.LOCKER /*|| currentTab === Tabs.LOCKER*/ && (
               <>
                 {myLockerList.length === 0 && !myMlindBoxLoading ? (
-                  <span>You have no NFT at the moment</span>
+                  <NoContent>You have no NFT at the moment</NoContent>
                 ) : (
                   <>
                     <ContentWrapper>
@@ -498,7 +491,7 @@ export default function User() {
             {currentTab === UserInfoTabs.NFT && !myMlindBoxLoading && (
               <>
                 {myMlindBoxData.length === 0 ? (
-                  <span>You have no NFT at the moment</span>
+                  <NoContent>You have no NFT at the moment</NoContent>
                 ) : (
                   <ContentWrapper style={{ justifyContent: 'flex-start' }}>
                     {myMlindBoxData.map(({ id, tokenURI }) => (

@@ -31,7 +31,6 @@ export const Break = styled.div`
 `
 
 const ModalUpper = styled(AutoColumn)`
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   background: #fff;
   padding: 1rem;
   border-radius: 12px;

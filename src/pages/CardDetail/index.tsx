@@ -45,6 +45,7 @@ import { useActiveWeb3React } from 'hooks'
 import { ReactComponent as BNBIcon } from '../../assets/svg/bnb_icon.svg'
 import { ReactComponent as ETHIcon } from '../../assets/svg/eth_logo.svg'
 import { getEtherscanLink } from 'utils'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 export const Wrapper = styled.div`
   /* min-height: calc(100vh - ${({ theme }) => theme.headerHeight}); */
@@ -108,7 +109,7 @@ export const InfoPanel = styled.div`
     margin-top: 0px;
   `}
     ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  padding: 16px;
+  padding: 20px;
   border-radius: 30px;
 `};
 `
@@ -230,6 +231,7 @@ const ContentWrapper = styled.div`
   align-items: center;
   margin-top: 0;
   min-width: 312px;
+  grid-gap: 16px;
   `}
 `
 export const StyledLink = styled.a`
@@ -275,6 +277,7 @@ export default function CardDetail({
   const { chainId } = useActiveWeb3React()
   const toggleWalletModal = useWalletModalToggle()
   const theme = useTheme()
+  const isDownMd = useBreakpoint('md')
   const history = useHistory()
   const [transactionModalOpen, setTransactionModalOpen] = useState(false)
   const [attemptingTxn, setAttemptingTxn] = useState(false)
@@ -400,7 +403,7 @@ export default function CardDetail({
   }
   return (
     <>
-      <RowBetween style={{ padding: '27px 20px' }}>
+      <RowBetween style={{ padding: isDownMd ? '20px 20px 30px' : '27px 20px' }}>
         <ButtonEmpty width="auto" color={theme.text1}>
           <RowFixed onClick={() => history.goBack()}>
             <StyledArrowLeftCircle />

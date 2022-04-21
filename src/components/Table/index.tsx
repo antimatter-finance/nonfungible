@@ -5,6 +5,7 @@ import useMediaWidth from 'hooks/useMediaWidth'
 import { AutoColumn } from 'components/Column'
 import { RowBetween } from 'components/Row'
 import { TYPE } from 'theme'
+import { Box } from '@mui/material'
 
 interface StyleProps {
   isHeaderGray?: boolean
@@ -38,6 +39,7 @@ const useStyles = makeStyles({
     display: 'table',
     backgroundColor: '#ffffff',
     borderRadius: '40px',
+    position: 'relative',
     '& .MuiTableCell-root': {
       fontSize: '16px',
       borderBottom: 'none',
@@ -54,7 +56,8 @@ const useStyles = makeStyles({
     },
     '& table': {
       width: '100%',
-      borderCollapse: 'collapse'
+      borderCollapse: 'collapse',
+      minHeight: 300
     }
   },
   tableHeader: {
@@ -64,9 +67,9 @@ const useStyles = makeStyles({
     '& .MuiTableCell-root': {
       padding: '22px 20px',
       fontSize: '14px',
-      fontWeight: 500,
-      color: '#000000',
-      borderBottom: ({ isHeaderGray }: StyleProps) => (isHeaderGray ? 'none' : '1px solid #000000'),
+      fontWeight: 700,
+      color: '#252525',
+      borderBottom: ({ isHeaderGray }: StyleProps) => (isHeaderGray ? 'none' : '1px solid #25252520'),
       '&:first-child': {
         paddingLeft: 50
       },
@@ -110,6 +113,15 @@ const CardRow = styled(RowBetween)`
   }
 `
 
+const NoContent = styled.div`
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+`
+
 export default function Table({
   header,
   rows,
@@ -119,17 +131,17 @@ export default function Table({
   rows: (string | number | JSX.Element)[][]
   isHeaderGray?: boolean
 }) {
-  const match = useMediaWidth('upToSmall')
+  const match = useMediaWidth('upToMedium')
   const classes = useStyles({ isHeaderGray })
   return (
     <>
       {match ? (
-        <>
+        <Box position="relative">
           {rows.map((data, index) => (
             <Card key={index}>
               <AutoColumn gap="16px">
                 {header.map((headerString, index) => (
-                  <CardRow>
+                  <CardRow key={headerString}>
                     <TYPE.darkGray>{headerString}</TYPE.darkGray>
                     <TYPE.body color="#000000"> {data[index] ?? null}</TYPE.body>
                   </CardRow>
@@ -137,9 +149,13 @@ export default function Table({
               </AutoColumn>
             </Card>
           ))}
-        </>
+          {!rows.length && <NoContent>No activity at the moment</NoContent>}
+        </Box>
       ) : (
         <TableContainer className={classes.root}>
+          <div style={{ position: 'absolute', bottom: 130, left: '50%', transform: 'translateX(-50%)' }}>
+            No activity at the moment
+          </div>
           <table>
             <TableHead className={classes.tableHeader}>
               <TableRow>

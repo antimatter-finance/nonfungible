@@ -46,7 +46,7 @@ const ButtonGroup = styled(RowBetween)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
   flex-direction: column
   button:first-child{
-    margin-left: unset
+    margin: unset
     margin-bottom: 12px;
   };
   padding-bottom: 20px
@@ -76,9 +76,9 @@ export default function PendingView({
       <PendingSection>
         {error ? (
           <AutoColumn justify="flex-start" gap="16px">
-            <TYPE.black fontSize={30} fontWeight={700}>
+            <TYPE.body fontSize={30} fontWeight={700}>
               Oops!
-            </TYPE.black>
+            </TYPE.body>
             Error connecting. Please try again
           </AutoColumn>
         ) : (

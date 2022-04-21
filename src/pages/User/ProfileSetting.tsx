@@ -4,7 +4,6 @@ import { ButtonPrimary } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import Modal from 'components/Modal'
 import TextInput from 'components/TextInput'
-import AppBody from 'pages/AppBody'
 import { CloseIcon, TYPE } from 'theme'
 // import { AutoRow } from 'components/Row'
 // import fallbackImg from 'assets/svg/fallback_image.svg'
@@ -88,7 +87,7 @@ export default function ProfileSetting({
   )
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxWidth={600} zIndex={6}>
-      <AppBody maxWidth="100%" style={{ position: 'relative', padding: 0, border: 'none', boxShadow: 'none' }}>
+      <div style={{ position: 'relative', padding: 0, border: 'none', boxShadow: 'none', width: '100%' }}>
         <Close onClick={onDismiss} />
         <form onSubmit={handleSubmit} name="userInfo">
           <AutoColumn gap="40px" style={{ padding: '52px' }}>
@@ -132,7 +131,7 @@ export default function ProfileSetting({
             <ButtonPrimary type="submit">Save</ButtonPrimary>
           </AutoColumn>
         </form>
-      </AppBody>
+      </div>
     </Modal>
   )
 }

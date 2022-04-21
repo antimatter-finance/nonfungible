@@ -16,10 +16,11 @@ import { Dots } from 'components/Dots'
 
 const ConfirmOrLoadingWrapper = styled.div`
   width: 100%;
-  padding: 24px;
+  padding: 52px 48px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   color: #ffffff
   height: 100%;
+  padding: 24px;
   `}
 `
 

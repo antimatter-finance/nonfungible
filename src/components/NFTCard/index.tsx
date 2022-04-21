@@ -21,7 +21,7 @@ export enum CardColor {
   GREEN = 'pastelGreen',
   BLUE = 'pastelBlue'
 }
-
+export const NFTCardWidth = '271px'
 export interface NFTCardProps {
   icons: React.ReactNode[]
   indexId: string
@@ -54,7 +54,7 @@ const formatSynposis = (synopsis: string) => {
 
 const CardWrapper = styled.div`
   height: 394px;
-  width: 271px;
+  width: ${NFTCardWidth};
   background: #ffffff;
   border: 1px solid #ebecf2;
   border-radius: 30px;
@@ -130,7 +130,7 @@ function NFTCardBase({
       </CardContent>
       <Box display="flex" alignItems={'center'} sx={{ opacity: 0.5 }}>
         <CopyHelper toCopy={address} />
-        <TYPE.smallGray>{shortenAddress(address, 12)}</TYPE.smallGray>
+        <TYPE.smallGray>{address ? shortenAddress(address, 12) : ''}</TYPE.smallGray>
       </Box>
     </CardWrapper>
   )

@@ -32,11 +32,15 @@ const ButtonWrapper = styled.div<{ width: string; marginRight: string; minWidth?
   `};
 `
 
-export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; width?: string }>`
+export const ButtonSelectStyle = styled(ButtonOutlined)<{
+  selected?: boolean
+  width?: string
+  backgroundColor?: string
+}>`
   width: ${({ width }) => (width ? width : '100%')};
   font-weight: 400;
   height: 3rem;
-  background-color: ${({ theme }) => theme.bg2};
+  background-color: ${({ theme, backgroundColor }) => backgroundColor ?? theme.bg2};
   color: ${({ theme, selected }) => (selected ? theme.text1 : theme.text2)};
   border-radius: 10px;
   border: unset;
@@ -104,7 +108,8 @@ export default function ButtonSelect({
   disabled,
   placeholder = 'Select Option Type',
   marginRight = '20px',
-  minWidth
+  minWidth,
+  backgroundColor
 }: ButtonProps & {
   disabled?: boolean
   label?: string
@@ -116,6 +121,7 @@ export default function ButtonSelect({
   width?: string
   marginRight?: string
   minWidth?: string
+  backgroundColor?: string
 }) {
   const node = useRef<HTMLDivElement>()
   const theme = useTheme()
@@ -144,7 +150,12 @@ export default function ButtonSelect({
           </TYPE.body>
         </AutoRow>
       )}
-      <ButtonSelectStyle onClick={handleClick} selected={!!selectedId} disabled={disabled}>
+      <ButtonSelectStyle
+        onClick={handleClick}
+        selected={!!selectedId}
+        disabled={disabled}
+        backgroundColor={backgroundColor}
+      >
         <RowBetween>
           <div style={{ display: 'flex', alignItems: 'center' }}>{buttonContent}</div>
           {!disabled && <StyledDropDown />}
