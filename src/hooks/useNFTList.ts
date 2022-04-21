@@ -61,8 +61,8 @@ export default function useNFTList(
             }
           }
         )
-        idList && setNftIdList(idList)
-        _recordList && setRecordList(_recordList)
+        setNftIdList(idList || [])
+        setRecordList(_recordList)
       } catch (error) {
         console.error('fetch NFT List', error)
       }
@@ -79,6 +79,17 @@ export default function useNFTList(
   }, [nftRes])
 
   return useMemo(() => {
+    if (!nftIdList.length) {
+      return {
+        loading: false,
+        data: [],
+        page: {
+          countPages: 0,
+          currentPage: 1,
+          setCurrentPage
+        }
+      }
+    }
     const data = successNFTRes
       .map((res, idx) => {
         if (!res.result) {
@@ -123,5 +134,5 @@ export default function useNFTList(
         setCurrentPage: setCurrentPage
       }
     }
-  }, [nftRes, successNFTRes, reqLoading, countPages, currentPage, recordList, tokens])
+  }, [nftIdList.length, successNFTRes, reqLoading, nftRes, countPages, currentPage, recordList, tokens])
 }
