@@ -1,23 +1,30 @@
-import { Paper, Theme } from '@mui/material'
-import { SxProps } from '@mui/system'
+import { Paper } from '@mui/material'
 import React from 'react'
 
 export default function Card({
   children,
   color,
-  style
+  style,
+  padding,
+  width
 }: {
   children?: React.ReactNode
   color?: string
-  style?: React.CSSProperties & SxProps<Theme>
+  style?: any
+  padding?: string | number
+  width?: string | number
 }) {
   return (
     <Paper
+      style={{
+        boxShadow: 'none'
+      }}
       sx={{
         background: color ?? '#ffffff',
         borderRadius: '20px',
-        boxShadow: 'unset',
-        ...style
+        padding,
+        width,
+        ...(style ? style : {})
       }}
     >
       {children}
@@ -36,17 +43,20 @@ export function OutlinedCard({
   color?: string
   padding?: string | number
   width?: string | number
-  style?: React.CSSProperties & SxProps<Theme>
+  style?: any
 }) {
   return (
     <Paper
       variant="outlined"
+      style={{
+        boxShadow: 'none'
+      }}
       sx={{
         backgroundColor: 'transparent',
         border: `1px solid ${color ?? 'rgba(0, 0, 0, 0.1)'}`,
         padding,
         width,
-        ...style
+        ...(style ? style : {})
       }}
     >
       {children}

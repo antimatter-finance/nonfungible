@@ -26,10 +26,11 @@ const AppWrapper = styled.div`
   overflow-x: hidden;
   background-color: ${({ theme }) => theme.bg2};
   min-height: 100vh;
+  min-width: ${({ theme }) => theme.minContentWidth};
   ${({ theme }) => theme.mediaWidth.upToSmall`
   flex-direction: column;
   height: 100vh;
-  `}
+  `};
 `
 const ContentWrapper = styled.div`
   width: 100%;

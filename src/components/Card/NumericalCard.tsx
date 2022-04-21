@@ -34,7 +34,6 @@ export default function NumericalCard(props: Props) {
     unit,
     unitSize,
     fontSize,
-    gray,
     width,
     height,
     rate,
@@ -50,8 +49,6 @@ export default function NumericalCard(props: Props) {
 
   return (
     <Card
-      primary={primary}
-      gray={gray}
       width={width || '100%'}
       style={{ position: 'relative', border: border ? '1px solid #00000010' : undefined, height: height || 'auto' }}
     >

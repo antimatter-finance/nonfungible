@@ -13,7 +13,7 @@ import ApplicationUpdater from './state/application/updater'
 import ListsUpdater from './state/lists/updater'
 import MulticallUpdater from './state/multicall/updater'
 import TransactionUpdater from './state/transactions/updater'
-import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
+import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle, MuiThemeProvider } from './theme'
 import getLibrary from './utils/getLibrary'
 import BigNumber from 'bignumber.js'
 BigNumber.config({ EXPONENTIAL_AT: [-7, 40] })
@@ -45,9 +45,11 @@ ReactDOM.render(
             <Updaters />
             <ThemeProvider>
               <ThemedGlobalStyle />
-              <HashRouter>
-                <App />
-              </HashRouter>
+              <MuiThemeProvider>
+                <HashRouter>
+                  <App />
+                </HashRouter>
+              </MuiThemeProvider>
             </ThemeProvider>
           </Provider>
         </Blocklist>

@@ -2,7 +2,7 @@ import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { darken } from 'polished'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { NetworkContextName } from '../../constants'
 import useENSName from '../../hooks/useENSName'
 import { useHasSocks } from '../../hooks/useSocksBalance'
@@ -10,7 +10,7 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 import { TransactionDetails } from '../../state/transactions/reducer'
 import { shortenAddress } from '../../utils'
-import { ButtonOutlined } from '../Button'
+import { ButtonOutlined, ButtonPrimary } from '../Button'
 import Loader from '../Loader'
 import { RowBetween } from '../Row'
 import WalletModal from '../WalletModal'
@@ -40,36 +40,6 @@ const Web3StatusError = styled(Web3StatusGeneric)`
   :focus {
     background-color: ${({ theme }) => darken(0.1, theme.red1)};
   }
-`
-
-const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
-  padding: 8px 25px;
-  border: 1px solid ${({ theme }) => theme.text1};
-  border-color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.text1};
-  color: ${({ theme }) => theme.bg1};
-  border-radius: 49px;
-  :hover,
-  :focus {
-    opacity: 0.7;
-    color: ${({ theme }) => theme.bg1};
-  }
-
-  ${({ faded }) =>
-    faded &&
-    css`
-      background-color: ${({ theme }) => theme.text1};
-      border: 1px solid ${({ theme }) => theme.text1};
-      color: ${({ theme }) => theme.bg1};
-
-      :hover,
-      :focus {
-        border: 1px solid ${({ theme }) => darken(0.05, theme.text1)};
-        color: ${({ theme }) => darken(0.05, theme.bg1)};
-      }
-    `};
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-  width:100%`}
 `
 
 const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
@@ -159,9 +129,9 @@ function Web3StatusInner() {
     )
   } else {
     return (
-      <Web3StatusConnect id="connect-wallet" onClick={toggleWalletModal} faded={!account}>
+      <ButtonPrimary onClick={toggleWalletModal} style={{ height: '40px', padding: '8px 25px' }}>
         {t('Connect Wallet')}
-      </Web3StatusConnect>
+      </ButtonPrimary>
     )
   }
 }
