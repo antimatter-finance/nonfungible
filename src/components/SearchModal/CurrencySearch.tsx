@@ -46,7 +46,6 @@ const ButtonEmpty = styled(ButtonEmptyUnstyled)`
   top: 12px;
   right: 12px;
   position: absolute;
-  color: #ffffff;
   margin-left: auto;
 `
 
@@ -181,11 +180,11 @@ export function CurrencySearch({
           </RowBetween>
         </HideSmall>
         <ShowSmall>
-          <Text fontWeight={500} fontSize={28} style={{ marginTop: 40, marginBottom: 40, color: '#ffffff' }}>
+          <Text fontWeight={500} fontSize={28} style={{ marginTop: 40, marginBottom: 40 }}>
             Select a token
           </Text>
           <ButtonEmpty>
-            <X onClick={onDismiss} color="#ffffff" />
+            <X onClick={onDismiss} />
           </ButtonEmpty>
         </ShowSmall>
         <Row>

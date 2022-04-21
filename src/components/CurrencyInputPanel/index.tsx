@@ -101,7 +101,6 @@ const CurrencyNFTSelect = styled.button<{ selected: boolean; halfWidth?: boolean
   ${({ theme, selected }) => theme.mediaWidth.upToSmall`
   right: 0;
   width: 50%;
-  z-index: 3;
   height: 48px;
   // color:${selected ? theme.text1 : theme.primary1}
   // border: 1px solid ${selected ? theme.text1 : theme.primary1}
