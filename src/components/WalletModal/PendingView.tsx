@@ -28,7 +28,7 @@ const LoadingMessage = styled.div`
   border-radius: 12px;
   margin: 20px;
   width: 500px;
-  border: 1px solid ${({ theme }) => theme.bg1};
+  border: 1px solid ${({ theme }) => theme.primary1};
 
   & > * {
     padding: 1rem;

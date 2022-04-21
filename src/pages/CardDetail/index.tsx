@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { ButtonPrimary, ButtonEmpty, ButtonWhite } from 'components/Button'
+import { ButtonPrimary, ButtonEmpty, ButtonOutlinedBlack } from 'components/Button'
 import { RowBetween, RowFixed } from 'components/Row'
 import { StyledTabItem, StyledTabs } from 'components/Tabs'
 import { AnimatedImg, AnimatedWrapper, HideMedium, HideSmall, TYPE } from 'theme'
@@ -48,25 +48,23 @@ import { getEtherscanLink } from 'utils'
 
 export const Wrapper = styled.div`
   /* min-height: calc(100vh - ${({ theme }) => theme.headerHeight}); */
-  width: 1192px;
-  margin: auto;
+  margin-bottom: auto;
+  width: 100%;
+  padding:0 20px;
   color: ${({ theme }) => theme.black};
-  ${({ theme }) => theme.mediaWidth.upToLarge`
-    width: 94%
-  `}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 100%;
-    padding:0 24px;
-  `}
+  max-width:${({ theme }) => theme.maxContentWidth};
 `
-const TabButton = styled(ButtonWhite)<{ current?: string | boolean }>`
+const TabButton = styled(ButtonOutlinedBlack)<{ current?: string | boolean }>`
   width: 152px;
-  color: ${({ theme, current }) => (current ? theme.black : theme.white)};
+  color: ${({ theme }) => theme.text1};
   background-color: ${({ theme, current }) => (current ? theme.white : 'transparent')};
-  border-color: ${({ theme }) => theme.white};
+  border-color: ${({ theme, current }) => (current ? theme.white : theme.text1)};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 108px;
-  `}
+  `};
+  :hover {
+    opacity: 0.8;
+  }
 `
 const TabWrapper = styled(RowBetween)`
   width: 320px
@@ -92,35 +90,40 @@ const StyledCurrencyShow = styled.div`
 export const InfoPanel = styled.div`
   background: #ffffff;
   border-radius: 40px;
-  width: 69%;
+  width: 100%;
   padding: 26px 52px;
-  min-height: 490px;
-  max-height: 490px;
+  min-height: 508px;
   ${({ theme }) => theme.mediaWidth.upToLarge`
-    padding: 26px 24px;
+    padding: 26px 24px 60px;
     max-height: unset;
   `}
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-  padding: 26px 52px;
+    ${({ theme }) => theme.mediaWidth.upToMedium`
+  padding: 26px 52px 60px;
   width: 80%;
+  margin-top: 40px;
   `}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+    ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
-    min-width: 312px;
+    min-width: 312px ;
+    margin-top: 0px;
   `}
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    ${({ theme }) => theme.mediaWidth.upToExtraSmall`
   padding: 16px;
   border-radius: 30px;
-`}
+`};
 `
 export const StyledNFTCard = styled.div`
-  transform-origin: 0 0;
-  transform: scale(1.29);
-  width: 361.2px;
-  height: 490.2px;
+  padding: 0 70px 70px 0;
   flex-shrink: 0;
+  > div {
+    transform-origin: 0 0;
+    transform: scale(1.29);
+  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  transform: unset;
+  padding: 0;
+  > div {
+    transform: unset;
+  }
   width: 100%;
   height: auto;
   `}
@@ -178,8 +181,8 @@ export const TokenWrapper = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    width; 100%;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+    width: 100%;
   `}
 `
 export const AssetsWrapper = styled.div`
@@ -188,7 +191,7 @@ export const AssetsWrapper = styled.div`
   grid-column-gap: 40px;
   grid-template-rows: repeat(4, 1fr);
   height: 388px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToLarge`
   grid-template-columns: 1fr;
   `}
 `
@@ -198,12 +201,6 @@ const TradeWrapper = styled(AutoColumn)`
   grid-template-columns: auto;
   `}
 `
-const BackButton = styled(ButtonEmpty)`
-  color: rgba(255, 255, 255, 0.6);
-  :hover {
-    color: rgba(255, 255, 255, 1);
-  }
-`
 
 const StyledArrowLeftCircle = styled(ArrowLeftCircle)`
   margin-right: 12px;
@@ -212,27 +209,26 @@ const StyledArrowLeftCircle = styled(ArrowLeftCircle)`
     fill: #ffffff;
   }
   path {
-    stroke: #000000;
+    stroke: ${({ theme }) => theme.text1};
   }
   ${({ theme }) => theme.mediaWidth.upToSmall`
   circle {
     fill: none;
-    stroke: #ffffff
+    stroke: ${({ theme }) => theme.text1}
   }  
-  path {
-    stroke: #ffffff;
-  }
   `}
 `
 
-const ContentWrapper = styled(RowBetween)`
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: max-content auto;
   margin-top: 30px;
-  align-items: flex-start;
-  grid-gap: 8px;
+  grid-gap: 24px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
-  flex-direction: column;
+  grid-template-columns: 1fr;
+  justify-items:center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 0;
   min-width: 312px;
   `}
 `
@@ -405,12 +401,12 @@ export default function CardDetail({
   return (
     <>
       <RowBetween style={{ padding: '27px 20px' }}>
-        <BackButton width="auto" color={theme.text1}>
+        <ButtonEmpty width="auto" color={theme.text1}>
           <RowFixed onClick={() => history.goBack()}>
             <StyledArrowLeftCircle />
             <HideSmall>Go Back</HideSmall>
           </RowFixed>
-        </BackButton>
+        </ButtonEmpty>
         <TabWrapper>
           <TabButton current={currentTab === TabType.Information} onClick={() => setCurrentTab(TabType.Information)}>
             Information
@@ -484,7 +480,9 @@ export default function CardDetail({
                   {currentTradeTab === TradeTabType.Buy && (
                     <BuyPannel>
                       <AutoColumn gap="8px" style={{ width: '100%' }}>
-                        <TYPE.black color="black">Amount </TYPE.black>
+                        <TYPE.body fontSize={14} fontWeight={500}>
+                          Amount
+                        </TYPE.body>
                         <CustomNumericalInput
                           style={{
                             width: 'unset',
@@ -501,7 +499,9 @@ export default function CardDetail({
                       </AutoColumn>
                       <AutoColumn gap="8px" style={{ width: '100%' }}>
                         <RowBetween>
-                          <TYPE.black color="black">Payment Currency </TYPE.black>
+                          <TYPE.body fontSize={14} fontWeight={500}>
+                            Payment Currency
+                          </TYPE.body>
                           <SettingsTab onlySlippage={true} />
                         </RowBetween>
                         <CurrencyETHShow />

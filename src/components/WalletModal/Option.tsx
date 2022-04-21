@@ -35,7 +35,6 @@ const OptionCard = styled(InfoCard as any)`
     position:absolute;
   }
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    background-color: transparent;
     justify-content: center;
   `}
 `
@@ -48,10 +47,10 @@ const OptionCardLeft = styled.div`
 
 const OptionCardClickable = styled(OptionCard as any)<{ clickable?: boolean }>`
   margin-top: 0;
-  border: 1px solid ${({ clickable, theme }) => (clickable ? theme.text2 : theme.text2)};
+  border: 1px solid ${({ clickable, theme }) => (clickable ? theme.primary1 : theme.primary5)};
   &:hover {
     cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
-    border: 1px solid ${({ clickable, theme }) => (clickable ? theme.primary1 : theme.text2)};
+    border: 1px solid ${({ clickable, theme }) => (clickable ? theme.primary4 : theme.primary5)};
   }
   opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `

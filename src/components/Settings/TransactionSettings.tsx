@@ -7,6 +7,7 @@ import { AutoColumn } from '../Column'
 import { RowBetween, RowFixed } from '../Row'
 
 import { darken } from 'polished'
+import { Box } from '@mui/material'
 
 enum SlippageError {
   InvalidInput = 'InvalidInput',
@@ -31,7 +32,7 @@ const FancyButton = styled.button`
   padding: 14px;
   background: ${({ theme }) => theme.translucent};
   :hover {
-    border: 1px solid ${({ theme }) => theme.bg1};
+    border: 1px solid ${({ theme }) => theme.primary1};
   }
   :focus {
     border: 1px solid ${({ theme }) => theme.primary1};
@@ -43,8 +44,11 @@ const Option = styled(FancyButton)<{ active: boolean }>`
   :hover {
     cursor: pointer;
   }
-  border: 1px solid ${({ active, theme }) => (active ? theme.primary1 : '#eee')};
-  color: ${({ active, theme }) => (active ? theme.black : theme.text1)};
+  border: 1px solid ${({ theme }) => theme.text3};
+  color: ${({ active, theme }) => (active ? theme.text1 : theme.text1)};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  margin-right: 0;
+  `}
 `
 
 const Input = styled.input`
@@ -62,8 +66,7 @@ const Input = styled.input`
 
 const OptionCustom = styled(FancyButton)<{ active?: boolean; warning?: boolean }>`
   position: relative;
-  color: ${({ theme }) => theme.text1};
-  /* flex: 1; */
+  color: ${({ theme }) => theme.text2};
   width: 50%;
   flex-shrink: 0;
   border: ${({ theme, active, warning }) => active && `1px solid ${warning ? theme.red1 : theme.primary1}`};
@@ -78,6 +81,9 @@ const OptionCustom = styled(FancyButton)<{ active?: boolean; warning?: boolean }
     border: 0px;
     border-radius: 2rem;
   }
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 100%;
+  `}
 `
 
 const SlippageEmojiContainer = styled.span`
@@ -154,15 +160,15 @@ export default function SlippageTabs({
   }
 
   return (
-    <AutoColumn gap="24px">
-      <AutoColumn gap="sm">
+    <Box display={'flex'} flexDirection="column" justifyContent={'flex-start'} gap="24px" style={{ width: '100%' }}>
+      <Box display="grid" gap="10px" style={{ width: '100%' }}>
         <RowFixed>
           <TYPE.black fontWeight={400} fontSize={14} color={theme.text1}>
             Slippage tolerance
           </TYPE.black>
           <QuestionHelper text="Your transaction will revert if the price changes unfavorably by more than this percentage." />
         </RowFixed>
-        <RowBetween>
+        <Box display={{ xs: 'grid', sm: 'flex' }} gap={10}>
           <Option
             onClick={() => {
               setSlippageInput('')
@@ -214,7 +220,7 @@ export default function SlippageTabs({
               %
             </RowBetween>
           </OptionCustom>
-        </RowBetween>
+        </Box>
         {!!slippageError && (
           <RowBetween
             style={{
@@ -230,7 +236,7 @@ export default function SlippageTabs({
               : 'Your transaction may be frontrun'}
           </RowBetween>
         )}
-      </AutoColumn>
+      </Box>
 
       {!onlySlippage && (
         <AutoColumn gap="sm">
@@ -258,6 +264,6 @@ export default function SlippageTabs({
           </RowFixed>
         </AutoColumn>
       )}
-    </AutoColumn>
+    </Box>
   )
 }

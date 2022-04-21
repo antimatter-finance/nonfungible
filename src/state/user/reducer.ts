@@ -8,13 +8,9 @@ import {
   removeSerializedToken,
   SerializedPair,
   SerializedToken,
-  updateUserExpertMode,
   updateUserSlippageTolerance,
-  updateUserRedeemSlippageTolerance,
-  updateUserGenerationSlippageTolerance,
   updateUserDeadline,
-  toggleURLWarning,
-  updateUserSingleHopOnly
+  toggleURLWarning
 } from './actions'
 
 const currentTimestamp = () => new Date().getTime()
@@ -23,17 +19,8 @@ export interface UserState {
   // the timestamp of the last updateVersion action
   lastUpdateVersionTimestamp?: number
 
-  userDarkMode: boolean | null // the user's choice for dark mode or light mode
-  matchesDarkMode: boolean // whether the dark mode media query matches
-
-  userExpertMode: boolean
-
-  userSingleHopOnly: boolean // only allow swaps on direct pairs
-
   // user defined slippage tolerance in bips, used in all txns
   userSlippageTolerance: number
-  userRedeemSlippageTolerance: number
-  userGenerationSlippageTolerance: number
 
   // deadline set by user in minutes, used in all txns
   userDeadline: number
@@ -60,13 +47,7 @@ function pairKey(token0Address: string, token1Address: string) {
 }
 
 export const initialState: UserState = {
-  userDarkMode: true,
-  matchesDarkMode: false,
-  userExpertMode: false,
-  userSingleHopOnly: false,
   userSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,
-  userRedeemSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,
-  userGenerationSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   tokens: {},
   pairs: {},
@@ -91,28 +72,13 @@ export default createReducer(initialState, builder =>
 
       state.lastUpdateVersionTimestamp = currentTimestamp()
     })
-    .addCase(updateUserExpertMode, (state, action) => {
-      state.userExpertMode = action.payload.userExpertMode
-      state.timestamp = currentTimestamp()
-    })
     .addCase(updateUserSlippageTolerance, (state, action) => {
       state.userSlippageTolerance = action.payload.userSlippageTolerance
-      state.timestamp = currentTimestamp()
-    })
-    .addCase(updateUserRedeemSlippageTolerance, (state, action) => {
-      state.userRedeemSlippageTolerance = action.payload.userRedeemSlippageTolerance
-      state.timestamp = currentTimestamp()
-    })
-    .addCase(updateUserGenerationSlippageTolerance, (state, action) => {
-      state.userGenerationSlippageTolerance = action.payload.userGenerationSlippageTolerance
       state.timestamp = currentTimestamp()
     })
     .addCase(updateUserDeadline, (state, action) => {
       state.userDeadline = action.payload.userDeadline
       state.timestamp = currentTimestamp()
-    })
-    .addCase(updateUserSingleHopOnly, (state, action) => {
-      state.userSingleHopOnly = action.payload.userSingleHopOnly
     })
     .addCase(addSerializedToken, (state, { payload: { serializedToken } }) => {
       if (!state.tokens) {

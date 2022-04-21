@@ -126,7 +126,7 @@ export default function NumberInputPanel({
         <LabelRow>
           <AutoRow justify="space-between">
             {!hideLabel && (
-              <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
+              <TYPE.body color={theme.text2} fontSize={14} fontWeight={500}>
                 {label}
               </TYPE.body>
             )}
@@ -186,7 +186,7 @@ export function NumberNFTInputPanel({
         <LabelRow style={{ margin: '2px 0 9px' }}>
           <AutoRow justify="space-between">
             {!hideLabel && (
-              <TYPE.body color={theme.black} fontWeight={500} fontSize={16}>
+              <TYPE.body color={theme.text1} fontSize={14} fontWeight={500}>
                 {label}
               </TYPE.body>
             )}

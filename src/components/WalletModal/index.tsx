@@ -25,14 +25,11 @@ const CloseIcon = styled.div`
   position: absolute;
   right: 2rem;
   top: 2rem;
-  color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text3};
   &:hover {
     cursor: pointer;
     opacity: 0.6;
   }
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  color: ${({ theme }) => theme.text1};
-  `}
 `
 
 const CloseColor = styled(Close)`
@@ -48,17 +45,14 @@ const Wrapper = styled.div`
   overflow: hidden;
   position: relative;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    background-color: #000000;
-    :after {
-      background: transparent;
-    }
+  background-color: ${({ theme }) => theme.bg2};
   `}
 `
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
-  font-weight: 700;
-  font-size: 30px;
+  font-weight: 500;
+  font-size: 28px;
   color: ${({ theme }) => theme.text1};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
@@ -347,7 +341,6 @@ export default function WalletModal({
       maxHeight={90}
       maxWidth={640}
       width="100%"
-      zIndex={5}
     >
       <Wrapper>{getModalContent()}</Wrapper>
     </Modal>

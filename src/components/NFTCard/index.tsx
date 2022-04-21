@@ -62,6 +62,7 @@ const CardWrapper = styled.div`
   justify-content: center;
   padding: 21px 20px;
   gap: 12px;
+  cursor: pointer;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
   height: auto;
@@ -76,7 +77,6 @@ const CardContent = styled.div<{ color: CardColor; padding?: string | number }>`
   position: relative;
   overflow: hidden;
   padding: ${({ padding }) => padding ?? '20px'};
-  cursor: pointer;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   height: 145px;
   width: 264px;
@@ -116,9 +116,9 @@ function NFTCardBase({
   icons?: React.ReactNode[]
 }) {
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick}>
       {children}
-      <CardContent padding={noBorderArea ? 0 : '20px'} color={color} onClick={onClick}>
+      <CardContent padding={noBorderArea ? 0 : '20px'} color={color}>
         {icons && <CurrencyLogosOverlay icons={icons} />}
         {/* {!noBorderArea && (
           <>

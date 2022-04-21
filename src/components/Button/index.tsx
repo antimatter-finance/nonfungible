@@ -58,7 +58,7 @@ export const ButtonPrimary = styled(Base)`
     background-color: ${({ theme }) => theme.primary5};
     border: 1px solid transparent;
     outline: none;
-    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
+    opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.3' : '1')};
   }
 `
 
@@ -113,20 +113,14 @@ export const ButtonOutlined = styled(Base)`
   border: 1px solid ${({ theme }) => theme.text1};
   background-color: transparent;
   color: ${({ theme }) => theme.text1};
-
-  &:focus {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.text1};
-    border: 1px solid ${({ theme }) => theme.text1};
-  }
   &:hover {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.text1};
     border: 1px solid ${({ theme }) => theme.text1};
   }
   &:active {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.text1};
+    border: 1px solid ${({ theme }) => theme.text1};
   }
   &:disabled {
-    opacity: 50%;
+    opacity: 0.3;
     cursor: auto;
   }
 `
@@ -146,28 +140,26 @@ export const ButtonOutlinedPrimary = styled(Base)`
   }
 
   &:disabled {
-    opacity: 0.5;
-    border-color: ${({ theme }) => theme.primary5};
-    color: ${({ theme }) => theme.primary5};
+    opacity: 0.3;
     cursor: auto;
   }
 `
 
 export const ButtonOutlinedBlack = styled(Base)`
-  border: 1px solid ${({ theme }) => theme.bg1};
+  border: 1px solid ${({ theme }) => theme.text1};
   background-color: transparent;
-  color: ${({ theme }) => theme.bg1};
-
+  color: ${({ theme }) => theme.text1};
   :hover,
   :focus {
-    opacity: 0.7;
+    border-color: ${({ theme }) => theme.primary1};
+    color: ${({ theme }) => theme.primary1};
   }
   :active {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.text2};
+    border-color: ${({ theme }) => theme.primary5};
+    color: ${({ theme }) => theme.primary5};
   }
-
   &:disabled {
-    opacity: 0.4;
+    opacity: 0.3;
     cursor: auto;
   }
 `
