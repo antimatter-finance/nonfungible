@@ -15,7 +15,7 @@ const CustomInput = styled(StyledInput)<{
   width: 100%;
   font-size: 16px;
   font-weight: 400;
-  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.bg1)};
+  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.text1)};
   align-items: center;
   padding: ${({ padding }) => padding + ' 20px'};
   width: 100%;
@@ -34,7 +34,7 @@ export const CustomTextArea = styled.textarea<{
   align?: string
   borderColor?: string
 }>`
-  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.bg1)};
+  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.text1)};
   width: 100%
   position: relative;
   font-size: 16px;

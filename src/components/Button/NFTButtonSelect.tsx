@@ -16,27 +16,28 @@ export const StyledDropDown = styled(DropDown)`
   height: 17px;
   path {
     stroke-width: 1.5px;
-    stroke: ${({ theme }) => theme.bg1};
+    stroke: ${({ theme }) => theme.text1};
   }
 `
 
-const ButtonWrapper = styled.div<{ width: string; marginRight: string }>`
+const ButtonWrapper = styled.div<{ width: string; marginRight: string; minWidth?: string }>`
   width: ${({ width }) => (width ? width : '100%')};
   position: relative;
   flex: 1 0;
   margin-right: ${({ marginRight }) => marginRight ?? 0};
+  min-width: ${({ minWidth }) => minWidth};
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
     margin-right:0;
-  `}
+  `};
 `
 
 export const ButtonSelectStyle = styled(ButtonOutlined)<{ selected?: boolean; width?: string }>`
   width: ${({ width }) => (width ? width : '100%')};
   font-weight: 400;
   height: 3rem;
-  background-color: ${({ theme }) => theme.text1};
-  color: ${({ selected, theme }) => (selected ? theme.bg1 : theme.bg1)};
+  background-color: ${({ theme }) => theme.bg2};
+  color: ${({ theme, selected }) => (selected ? theme.text1 : theme.text2)};
   border-radius: 10px;
   border: unset;
   padding: 0 10px 0 15px;
@@ -70,20 +71,25 @@ const OptionWrapper = styled.div<{ isOpen: boolean; width?: string }>`
   overflow: hidden;
   z-index: 10;
   margin-top: 4px;
-  background-color: ${({ theme }) => theme.text1};
+  background-color: ${({ theme }) => theme.bg1};
+  border: 1px solid #ededed;
 `
 const SelectOption = styled(Base)<{ selected: boolean }>`
   border: none;
   font-weight: 400;
   border-radius: unset;
-  color: ${({ theme }) => theme.bg1};
-  background-color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text1};
+  background-color: ${({ theme }) => theme.bg1};
   padding: 14px;
   justify-content: space-between;
+  border-bottom: 1px solid #ededed;
   :hover,
   :focus,
   :active {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: ${({ theme }) => theme.primary2};
+  }
+  :last-child {
+    border-bottom: none;
   }
 `
 
@@ -97,7 +103,8 @@ export default function ButtonSelect({
   width = '100%',
   disabled,
   placeholder = 'Select Option Type',
-  marginRight = '20px'
+  marginRight = '20px',
+  minWidth
 }: ButtonProps & {
   disabled?: boolean
   label?: string
@@ -108,6 +115,7 @@ export default function ButtonSelect({
   placeholder?: string
   width?: string
   marginRight?: string
+  minWidth?: string
 }) {
   const node = useRef<HTMLDivElement>()
   const theme = useTheme()
@@ -128,7 +136,7 @@ export default function ButtonSelect({
     onClick && onClick()
   }, [isOpen, onClick])
   return (
-    <ButtonWrapper width={width} marginRight={marginRight}>
+    <ButtonWrapper width={width} marginRight={marginRight} minWidth={minWidth}>
       {label && (
         <AutoRow style={{ marginBottom: '4px' }}>
           <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>

@@ -1,12 +1,10 @@
-import React, { useState, useCallback, useEffect } from 'react'
-// import { X } from 'react-feather'
+import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { RowFixed } from 'components/Row'
 import NFTButtonSelect from 'components/Button/NFTButtonSelect'
-import { ButtonEmpty, ButtonOutlinedPrimary, ButtonPrimary } from 'components/Button'
+import { ButtonOutlinedPrimary, ButtonPrimary } from 'components/Button'
 import { ReactComponent as SearchIcon } from '../../assets/svg/search.svg'
 import { TextValueInput } from 'components/TextInput'
-import { CloseIcon, MEDIA_WIDTHS, TYPE } from 'theme'
 import useMediaWidth from 'hooks/useMediaWidth'
 
 const SearchParams = [
@@ -32,9 +30,7 @@ const SearchParams = [
   // }
 ]
 
-const WrapperSearch = styled.div`
-  border-bottom: 1px solid #e6edf8;
-`
+const WrapperSearch = styled.div``
 
 const StyledSearch = styled.div`
   margin: auto;
@@ -47,69 +43,68 @@ const StyledSearch = styled.div`
   & > div {
     flex-shrink: 1;
   }
-  ${({ theme }) => theme.mediaWidth.upToLarge`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
     flex-wrap: wrap
     flex-direction: column
     width: 100%;
-    grid-gap:10px;
+    grid-gap:8px;
   `}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  grid-gap: 24px
-`}
 `
 
 const ButtonWrapper = styled(RowFixed)`
   margin-left: 32px;
+  ${({ theme }) => theme.mediaWidth.upToLarge`
+  margin-left: 10px;`}
   ${({ theme }) => theme.mediaWidth.upToSmall`
   margin-left: 0;
-  margin-top: 35px;
   flex-direction: column
   width: 100%;
   button{
     width: 100%;
     :first-child{
-      margin-bottom: 16px
+      margin-bottom: 8px
     }
   }
 `};
 `
 
-const MobileSearchWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: ${({ theme }) => theme.mobileHeaderHeight} 24px 24px
-  width: 100%;
-  background-color: ${({ theme }) => theme.bg1};
-  z-index: 12;
-  height: 100vh;
-`
+// const MobileSearchWrapper = styled.div`
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   padding: ${({ theme }) => theme.mobileHeaderHeight} 24px 24px
+//   width: 100%;
+//   background-color: ${({ theme }) => theme.bg1};
+//   z-index: 12;
+//   height: 100vh;
+// `
 
-const MobileSearchButton = styled(ButtonEmpty)`
-  position: fixed;
-  top: 21px;
-  z-index: 11;
-  right: 72px;
-  width: fit-content;
-  height: auto;
-  svg {
-    z-index: 11;
-  }
-`
+// const MobileSearchButton = styled(ButtonEmpty)`
+//   position: fixed;
+//   top: 21px;
+//   z-index: 11;
+//   right: 72px;
+//   width: fit-content;
+//   height: auto;
+//   svg {
+//     z-index: 11;
+//   }
+// `
 
-const MobileCloseIcon = styled(CloseIcon)`
-  position: absolute;
-  top: 32px;
-  right: 25px;
-  > * {
-    stroke: #ffffff;
-  }
-`
+// const MobileCloseIcon = styled(CloseIcon)`
+//   position: absolute;
+//   top: 32px;
+//   right: 25px;
+//   > * {
+//     stroke: #ffffff;
+//   }
+// `
 
 export default function Search({ onSearch }: { onSearch: (searchParam: string, searchBy: string) => void }) {
   const [searchParam, setSearchParam] = useState('')
   const [searchBy, setSearchBy] = useState('')
-  const match = useMediaWidth('upToLarge')
+  const match = useMediaWidth('upToMedium')
+  const matchLg = useMediaWidth('upToLarge')
 
   const handleSearch = useCallback(() => {
     onSearch(searchParam, searchBy)
@@ -129,7 +124,8 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
             onSelection={id => {
               setSearchParam(id)
             }}
-            width={match ? '100%' : '280px'}
+            width={match ? '100%' : '240px'}
+            minWidth={'220px'}
             options={SearchParams}
             selectedId={searchParam}
             placeholder="Select search parameter"
@@ -142,7 +138,8 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
             }}
             placeholder="Search by"
             height="3rem"
-            maxWidth={match ? 'unset' : '552px'}
+            width="100%"
+            maxWidth={match ? 'unset' : matchLg ? '400px' : '552px'}
           />
           <ButtonWrapper>
             <ButtonPrimary width="152px" onClick={handleSearch}>
@@ -150,7 +147,7 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
               Search
             </ButtonPrimary>
             <div style={{ width: 10 }} />
-            <ButtonOutlinedPrimary width="152px" onClick={handleClear}>
+            <ButtonOutlinedPrimary width="152px" onClick={handleClear} style={{ whiteSpace: 'nowrap' }}>
               Show All
             </ButtonOutlinedPrimary>
           </ButtonWrapper>
@@ -160,41 +157,41 @@ export default function Search({ onSearch }: { onSearch: (searchParam: string, s
   )
 }
 
-export function MobileSearch({ onSearch }: { onSearch: (searchParam: string, searchBy: string) => void }) {
-  const [isOpen, setIsOpen] = useState(false)
-  const match = useMediaWidth('upToSmall' as keyof typeof MEDIA_WIDTHS)
+// export function MobileSearch({ onSearch }: { onSearch: (searchParam: string, searchBy: string) => void }) {
+//   const [isOpen, setIsOpen] = useState(false)
+//   const match = useMediaWidth('upToSmall' as keyof typeof MEDIA_WIDTHS)
 
-  useEffect(() => {
-    if (!match) {
-      setIsOpen(false)
-    }
-  }, [match])
+//   useEffect(() => {
+//     if (!match) {
+//       setIsOpen(false)
+//     }
+//   }, [match])
 
-  const handleOpen = useCallback(() => {
-    setIsOpen(true)
-  }, [])
+//   const handleOpen = useCallback(() => {
+//     setIsOpen(true)
+//   }, [])
 
-  const handleClose = useCallback(() => {
-    setIsOpen(false)
-  }, [])
+//   const handleClose = useCallback(() => {
+//     setIsOpen(false)
+//   }, [])
 
-  return (
-    <>
-      <MobileSearchButton onClick={handleOpen} id="mobileSearch">
-        <SearchIcon style={{ fill: '#ffffff' }} />
-      </MobileSearchButton>
-      {isOpen && (
-        <MobileSearchWrapper>
-          <MobileCloseIcon onClick={handleClose} />
-          {/* <ButtonEmpty onClick={handleClose}>
-            <X size={24} />
-          </ButtonEmpty> */}
-          <TYPE.body fontSize={28} fontWeight={500}>
-            Search a sport index
-          </TYPE.body>
-          <Search onSearch={onSearch} />
-        </MobileSearchWrapper>
-      )}
-    </>
-  )
-}
+//   return (
+//     <>
+//       <MobileSearchButton onClick={handleOpen} id="mobileSearch">
+//         <SearchIcon style={{ fill: '#ffffff' }} />
+//       </MobileSearchButton>
+//       {isOpen && (
+//         <MobileSearchWrapper>
+//           <MobileCloseIcon onClick={handleClose} />
+//           {/* <ButtonEmpty onClick={handleClose}>
+//             <X size={24} />
+//           </ButtonEmpty> */}
+//           <TYPE.body fontSize={28} fontWeight={500}>
+//             Search a sport index
+//           </TYPE.body>
+//           <Search onSearch={onSearch} />
+//         </MobileSearchWrapper>
+//       )}
+//     </>
+//   )
+// }

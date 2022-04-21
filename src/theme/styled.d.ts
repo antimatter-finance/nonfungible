@@ -81,6 +81,7 @@ declare module 'styled-components' {
     mobileHeaderHeight: string
     headerHeight: string
 
-    maxContentWidth:string
+    maxContentWidth: string
+    minContentWidth: string
   }
 }

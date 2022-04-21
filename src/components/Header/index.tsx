@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react'
 import { Link, NavLink, useHistory, useRouteMatch } from 'react-router-dom'
 import styled from 'styled-components'
 import { Check } from 'react-feather'
-import { darken } from 'polished'
 import { CountUp } from 'use-count-up'
 import { useActiveWeb3React } from '../../hooks'
 import { useAggregateUniBalance, useETHBalances } from '../../state/wallet/hooks'
@@ -137,10 +136,8 @@ const HeaderControls = styled.div`
     left: 0px;
     width: 100%;
     z-index: 99;
-    background-color: ${theme.bg2};
+    background-color: ${theme.bg1};
     justify-content: center;
-    border-top: 1px solid;
-    border-top-color: #303030;
   `};
 `
 
@@ -224,6 +221,7 @@ const StyledLogo = styled(Logo)`
 
 const MobileHeader = styled.header`
   width: 100%;
+  min-width: ${({ theme }) => theme.minContentWidth};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -380,7 +378,6 @@ const HeaderElement = styled.div<{
   & > *:not(:first-child) {
     margin-left: 8px;
   }
-
   ${({ theme }) => theme.mediaWidth.upToMedium`
    flex-direction: row-reverse;
     align-items: center;
@@ -409,6 +406,7 @@ const NetworkCard = styled.div<{ color?: string }>`
   }
   .dropdown_wrapper {
     & > div {
+      background: ${({ theme }) => theme.bg1};
       a {
         padding: 12px 12px 12px 44px;
       }
@@ -474,8 +472,7 @@ const Dropdown = styled.div`
       border: none;
     }
     :hover {
-      background-color: ${({ theme }) => theme.bg1};
-      color: ${({ theme }) => darken(0.1, theme.primary1)};
+      background: ${({ theme }) => theme.primary2};
     }
   }
 `

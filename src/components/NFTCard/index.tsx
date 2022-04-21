@@ -64,7 +64,6 @@ const CardWrapper = styled.div`
   gap: 12px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
-  min-width: 312px;
   height: auto;
 `}
 `

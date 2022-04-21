@@ -2,16 +2,17 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import NFTCard, { CardColor, NFTCardProps } from 'components/NFTCard'
-import Search, { MobileSearch } from 'components/Search'
+import Search from 'components/Search'
 import useNFTList from 'hooks/useNFTList'
 import CurrencyLogo from 'components/CurrencyLogo'
 import Pagination from 'components/Pagination'
-import { AnimatedImg, AnimatedWrapper, HideSmall, TYPE, ShowSmall } from 'theme'
+import { AnimatedImg, AnimatedWrapper, TYPE } from 'theme'
 import Loader from 'assets/svg/antimatter_icon.svg'
 import { SportIndexSearchProps } from 'utils/option/httpFetch'
 import { useToken } from 'hooks/Tokens'
 import ProductBanner from 'components/ProductBanner'
 import spotBannerUrl from 'assets/svg/spot_banner.svg'
+import { Divider } from '@mui/material'
 
 const Layout = styled.div`
   padding: 20px;
@@ -29,6 +30,9 @@ const Wrapper = styled.div`
   margin: 0 auto auto;
   min-height: 100vh;
   padding: 40px 28px;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  padding: 20px 12px;
+  `}
 `
 const EmptyList = styled.div`
   transform: translateY(30px);
@@ -59,7 +63,8 @@ const ContentWrapper = styled.div`
   padding: 30px;
  `}
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    padding: 24px;
+    padding: 24px 0;
+    grid-gap: 8px;
    `}
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
   grid-template-columns: repeat(auto-fill, 312px);
@@ -141,20 +146,26 @@ export default function SpotIndex() {
 
   return (
     <>
-      <ShowSmall>
-        <MobileSearch onSearch={handleSearch} />
-      </ShowSmall>
       <Layout>
         <ProductBanner
           title="Non-Fungible Finance"
           text="A basket for multiple assets and store assets 
 with a variety of lock and unlock mechanism."
           imgUrl={spotBannerUrl}
+          val1={'574'}
+          subVal1={'Total NFT Issued'}
+          val2={'114'}
+          subVal2={'Total Number of Indices'}
         />
         <Wrapper>
-          <HideSmall>
-            <Search onSearch={handleSearch} />
-          </HideSmall>
+          <Search onSearch={handleSearch} />
+          <Divider
+            sx={{
+              backgroundColor: '#EBECF2',
+              margin: '0 -12px',
+              width: { xs: 'calc(100% + 24px)', md: '100%' }
+            }}
+          />
           {showLoading && loading ? (
             <AnimatedWrapper style={{ marginTop: 100, opacity: 0.8 }}>
               <AnimatedImg>

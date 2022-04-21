@@ -5,17 +5,17 @@ import styled, {
   css,
   DefaultTheme
 } from 'styled-components'
-import { useIsDarkMode } from '../state/user/hooks'
+import { createTheme, ThemeProvider as MuiThemeProviderRaw } from '@mui/material/styles'
 import { Text, TextProps } from 'rebass'
 import { Colors } from './styled'
 
 export * from './components'
 
 export const MEDIA_WIDTHS = {
-  upToExtraSmall: 500,
-  upToSmall: 720,
-  upToMedium: 960,
-  upToLarge: 1280
+  upToExtraSmall: 600,
+  upToSmall: 600,
+  upToMedium: 900,
+  upToLarge: 1200
 }
 
 const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
@@ -114,6 +114,7 @@ export function theme(): DefaultTheme {
     mobileHeaderHeight: '90px',
     headerHeight: '82px',
     maxContentWidth: '1280px',
+    minContentWidth: '350px',
 
     // css snippets
     flexColumnNoWrap: css`
@@ -128,9 +129,7 @@ export function theme(): DefaultTheme {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const darkMode = useIsDarkMode()
-
-  const themeObject = useMemo(() => theme(), [darkMode])
+  const themeObject = useMemo(() => theme(), [])
 
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>
 }
@@ -242,3 +241,27 @@ body {
   background-repeat: no-repeat;
 }
 `
+
+const MuiTheme = createTheme({
+  spacing: (factor: number) => `${1 * factor}px`,
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        'html, input, textarea, button, body': {
+          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+          fontDisplay: 'fallback'
+        },
+        '@supports (font-variation-settings: normal)': {
+          'html, input, textarea, button, body': {
+            fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+            fontDisplay: 'fallback'
+          }
+        }
+      }
+    }
+  }
+})
+
+export function MuiThemeProvider({ children }: any) {
+  return <MuiThemeProviderRaw theme={MuiTheme}>{children}</MuiThemeProviderRaw>
+}
