@@ -76,14 +76,7 @@ export default function CurrencySearchModal({
   const minHeight = modalView === CurrencyModalView.importToken || modalView === CurrencyModalView.importList ? 50 : 60
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onDismiss={onDismiss}
-      maxHeight={80}
-      minHeight={minHeight}
-      zIndex={5}
-      alignitems="flex-start"
-    >
+    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={minHeight} alignitems="flex-start">
       {modalView === CurrencyModalView.search ? (
         <CurrencySearch
           tokenList={tokenList}

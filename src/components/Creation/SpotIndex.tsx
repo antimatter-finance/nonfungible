@@ -25,6 +25,7 @@ import { useNFTETHPrice } from 'data/Reserves'
 import { TokenAmount } from '@uniswap/sdk'
 import { useCheckSpotCreateButton } from 'hooks/useIndexCreateCallback'
 import { TokenInfo } from '@uniswap/token-lists'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 export const StyledCurrencyInputPanel = styled.div<{ lessTwo: boolean }>`
   padding-right: ${({ lessTwo }) => (lessTwo ? '0' : '40px')};
@@ -40,7 +41,8 @@ export const StyledCurrencyInputPanel = styled.div<{ lessTwo: boolean }>`
 `
 
 export const IndexIcon = styled.div<{ current?: boolean }>`
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid;
+  border-color: ${({ current }) => (current ? 'black' : 'rgba(0, 0, 0, 0.2)')};
   width: 32px;
   height: 32px;
   font-weight: 500;
@@ -52,12 +54,10 @@ export const IndexIcon = styled.div<{ current?: boolean }>`
   margin-left: 10px;
   flex-shrink: 0;
   color: ${({ current }) => (current ? 'black' : 'rgba(0, 0, 0, 0.2)')};
-  ${({ theme, current }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 28px;
     height: 28px;
     line-height: 28px;
-    color: ${current ? '#ffffff' : 'rgba(255, 255, 255, 0.2)'};
-    border-color: rgba(255, 255, 255, 0.2);
   `}
 `
 export const InputRow = styled.div<{ disabled?: boolean }>`
@@ -134,12 +134,8 @@ const BackgroundItem = styled.div<{ selected?: boolean; color: CardColor }>`
 `
 const CreationTitleBox = styled.div`
   position: sticky;
-  background: #fff;
   top: 0;
   z-index: 2;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  background: #000;
-  `}
 `
 
 const ButtonPrimary = styled(ButtonPrimaryDesktop)`
@@ -147,16 +143,16 @@ const ButtonPrimary = styled(ButtonPrimaryDesktop)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
   margin-top: auto;
   background-color: ${({ theme }) => theme.primary1};
-  color: #000000;
+  color: #ffffff;
   :hover{
-    background: ${({ theme }) => theme.primary2};
+    background: ${({ theme }) => theme.primary3};
+  };
+  :active{
+    background: ${({ theme }) => theme.primary4};
   }
-  `}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    :disabled {
-      color: ${({ theme }) => theme.text2};
-      background: ${({ theme }) => theme.bg1};
-    }
+  :disabled{
+    background: ${({ theme }) => theme.primary5};
+  }
   `}
 `
 
@@ -210,6 +206,7 @@ export default function SpotIndex({
 }) {
   const [assetParams, setAssetParams] = useState<AssetsParameter[]>(data.assetsParameters)
   const userInfo = useCurrentUserInfo()
+  const isDownSm = useBreakpoint('sm')
 
   const handleParameterInput = useCallback(
     (index: number, value: AssetsParameter) => {
@@ -313,6 +310,7 @@ export default function SpotIndex({
               onUserInput={val => {
                 setData('name', val)
               }}
+              backgroundColor={isDownSm ? '#ffffff' : undefined}
               maxLength={20}
               label="Index Name"
               placeholder="Please enter the name of your index"
@@ -324,19 +322,20 @@ export default function SpotIndex({
               onUserInput={val => {
                 setData('description', val)
               }}
+              backgroundColor={isDownSm ? '#ffffff' : undefined}
               maxLength={100}
               label="Description"
               placeholder="Please explain why this index is meaningful"
               hint="Maximum 100 characters"
             />
+            <ButtonPrimary
+              height={60}
+              onClick={() => setCurrent(++current)}
+              disabled={!data.description.trim() || !data.name.trim()}
+            >
+              Next Step
+            </ButtonPrimary>
           </AutoColumn>
-          <ButtonPrimary
-            height={60}
-            onClick={() => setCurrent(++current)}
-            disabled={!data.description.trim() || !data.name.trim()}
-          >
-            Next Step
-          </ButtonPrimary>
         </>
       )}
 
@@ -413,7 +412,7 @@ export default function SpotIndex({
             <ButtonOutlined height={60} onClick={addAsset} disabled={assetParams.length === 8}>
               + Add asset
             </ButtonOutlined>
-            <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled}>
+            <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled} marginTop={20}>
               Next Step
             </ButtonPrimary>
           </ButtonGroup>

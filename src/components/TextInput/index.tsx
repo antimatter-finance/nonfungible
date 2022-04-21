@@ -74,9 +74,6 @@ const LabelRow = styled.div`
   }
   margin-bottom: 8px;
   ${({ theme }) => theme.flexRowNoWrap}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    color: #ffffff
-  `}
 `
 
 export const TextInput = React.memo(function InnerInput({

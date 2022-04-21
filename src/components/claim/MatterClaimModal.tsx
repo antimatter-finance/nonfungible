@@ -31,7 +31,6 @@ export const Break = styled.div`
 `
 
 const ModalUpper = styled(AutoColumn)`
-  background: #fff;
   padding: 1rem;
   border-radius: 12px;
   width: 100%;
@@ -91,7 +90,7 @@ export default function AddressClaimModal({
   }
 
   return (
-    <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss} maxHeight={90}>
+    <Modal isOpen={isOpen} onDismiss={wrappedOnDismiss}>
       {!attempting && (
         <ContentWrapper gap="lg">
           <ModalUpper>
@@ -112,7 +111,7 @@ export default function AddressClaimModal({
                 The protocol will use fees to market purchase MATTER and send to you as reward
               </TYPE.subHeader>
             )}
-            <ButtonPrimary padding="16px 16px" width="100%" borderRadius="12px" mt="1rem" onClick={onClaim}>
+            <ButtonPrimary padding="16px 16px" width="100%" mt="1rem" onClick={onClaim}>
               Claim {chainId === 1 ? 'MATTER' : ''}
             </ButtonPrimary>
           </AutoColumn>
@@ -135,17 +134,13 @@ export default function AddressClaimModal({
           </ConfirmedIcon>
           <AutoColumn gap="100px" justify={'center'}>
             <AutoColumn gap="12px" justify={'center'}>
-              <TYPE.largeHeader fontWeight={600} color="black">
-                {claimConfirmed ? 'Claimed' : 'Claiming'}
-              </TYPE.largeHeader>
+              <TYPE.body color="black">{claimConfirmed ? 'Claimed' : 'Claiming'}</TYPE.body>
               {!claimConfirmed && (
-                <Text fontSize={36} color={'#000000'} fontWeight={800}>
+                <Text fontSize={36} color={'#000000'} fontWeight={700}>
                   {claimFee} {CHAIN_ETH_NAME[chainId ?? 1]}
                 </Text>
               )}
-              <TYPE.largeHeader fontWeight={600} color="black">
-                for {shortenAddress(account ?? '')}
-              </TYPE.largeHeader>
+              <TYPE.smallGray color="black">for {shortenAddress(account ?? '')}</TYPE.smallGray>
             </AutoColumn>
             {attempting && !hash && (
               <TYPE.subHeader color="black">Confirm this transaction in your wallet</TYPE.subHeader>

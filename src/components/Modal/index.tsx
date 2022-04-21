@@ -109,6 +109,7 @@ export const StyledDialogContent = styled(
       border-radius: 0;
       align-self: flex-start;
       margin-bottom:auto;
+      padding-top: 30px;
     `}
     ${({ theme }) => theme.mediaWidth.upToSmall`
     background: ${theme.bg2};

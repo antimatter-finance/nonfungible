@@ -12,7 +12,7 @@ import IconClose, { IconBack } from 'components/Icons/IconClose'
 import { ReactComponent as AlertCircle } from '../../assets/svg/alert_circle.svg'
 import Modal from '../Modal'
 import { AutoColumn } from 'components/Column'
-import { TYPE, ShowSmall, HideSmall } from 'theme'
+import { TYPE } from 'theme'
 import { RowFixed } from 'components/Row'
 import { ButtonPrimary } from 'components/Button'
 import SpotIndex from './SpotIndex'
@@ -23,7 +23,6 @@ import { useIndexCreateCall } from '../../hooks/useIndexCreateCallback'
 import { getLockerClaimParam, useLockerCreateCall } from '../../hooks/useLockerCreate'
 import { WrappedTokenInfo } from 'state/lists/hooks'
 import { tryParseAmount } from 'utils/tryParseAmount'
-import gradient from 'assets/svg/overlay_gradient.svg'
 
 const useStyles = makeStyles({
   root: {
@@ -63,23 +62,17 @@ const useStyles = makeStyles({
 export const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
-  padding: 50px;
+  padding: 70px 50px;
   width: 600px;
   position: relative;
-  background: ${({ theme }) => theme.text1};
   max-height: 100%;
-  /* overflow-y: auto; */
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
-    background: url(${gradient}) no-repeat -100px top;
-    background-size: 200%;
-    color: #ffffff;
-    padding: 65px 24px 50px;
+    padding: 70px 24px 50px;
   `}
 `
 
 const StyledNoticeBox = styled(RowFixed)`
-  background: #f7f7f7;
   width: 100%;
   padding: 10px 16px;
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -90,16 +83,7 @@ const StyledNoticeBox = styled(RowFixed)`
   }
 
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    color: #ffffff;
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.5);
     padding: 16px;
-    circle{
-      fill: #ffffff;
-    };
-    path{
-      fill: #000000
-    }
   `}
 `
 export const StyledRadioGroup = styled(RadioGroup)`
@@ -356,33 +340,21 @@ export default function CreationNFTModal() {
         maxHeight={85}
         width="600px"
         maxWidth={600}
-        zIndex={5}
         alignitems="flex-start"
       >
         <Wrapper>
           <ContentBox>
-            <HideSmall>
-              {currentStep !== Step.Choose && <IconBack onEvent={handleBack} style={{ top: 28, left: 28 }} />}
-              <IconClose onEvent={toggleCreationModal} style={{ top: 28, right: 28 }} />
-            </HideSmall>
-            <ShowSmall>
-              {currentStep !== Step.Choose && <IconBack onEvent={handleBack} style={{ top: 32, left: 28 }} />}
-              <IconClose onEvent={toggleCreationModal} style={{ top: 32, right: 28 }} />
-            </ShowSmall>
+            {currentStep !== Step.Choose && <IconBack onEvent={handleBack} style={{ top: 45, left: 28 }} />}
+            <IconClose onEvent={toggleCreationModal} style={{ top: 45, right: 28 }} />
+
             {currentStep === Step.Choose && (
               <>
                 <AutoColumn gap="40px">
                   <AutoColumn gap="16px">
-                    <HideSmall>
-                      <TYPE.largeHeader fontSize={30} color="#000000">
-                        Create your financial NFT
-                      </TYPE.largeHeader>
-                    </HideSmall>
-                    <ShowSmall>
-                      <TYPE.largeHeader fontSize={30} color="#ffffff" style={{ marginBottom: 38 }}>
-                        Create your financial NFT
-                      </TYPE.largeHeader>
-                    </ShowSmall>
+                    <TYPE.largeHeader fontSize={30} color="#000000" style={{ marginBottom: 38 }}>
+                      Create your financial NFT
+                    </TYPE.largeHeader>
+
                     <StyledNoticeBox>
                       <AlertCircle />
                       <Text fontSize={14}>Please read docs about non-fungible finance before creating.</Text>
@@ -402,27 +374,16 @@ export default function CreationNFTModal() {
                       <FormControlLabel value={Step.Locker} control={<StyledRadio />} label={Step.Locker} />
                     </StyledRadioGroup>
                   </AutoColumn>
-                  <HideSmall>
-                    <ButtonPrimary
-                      height={60}
-                      style={{ marginTop: 20 }}
-                      onClick={toCreateNext}
-                      disabled={currentCreation === Step.FutureIndex}
-                    >
-                      {currentCreation !== Step.FutureIndex ? 'Confirm' : 'Coming soon'}
-                    </ButtonPrimary>
-                  </HideSmall>
-                </AutoColumn>
-                <ShowSmall style={{ marginTop: 'auto' }}>
+
                   <ButtonPrimary
                     height={60}
-                    style={{ marginTop: 50 }}
+                    style={{ marginTop: 20 }}
                     onClick={toCreateNext}
                     disabled={currentCreation === Step.FutureIndex}
                   >
                     {currentCreation !== Step.FutureIndex ? 'Confirm' : 'Coming soon'}
                   </ButtonPrimary>
-                </ShowSmall>
+                </AutoColumn>
               </>
             )}
 
