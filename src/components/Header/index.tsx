@@ -496,13 +496,13 @@ const Dropdown = styled.div`
 `
 const StyledModalNotice = styled.div`
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff;
+  color: ${({ theme }) => theme.text1};
   width: 400px;
-  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%);
-  background-color: #424242;
+  background-color: #ffffff;
+  border-radius: 30px;
   padding: 16px 32px 24px;
   #simple-modal-description {
     font-size: 18px;
