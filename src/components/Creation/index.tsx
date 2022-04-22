@@ -258,6 +258,10 @@ export default function CreationNFTModal() {
   const toCreateNext = useCallback(() => {
     setCurrentStep(currentCreation)
     setCurrentStepIndexNumber(1)
+    const contentBox = document.getElementById('create_content_box')
+    if (contentBox) {
+      contentBox.scrollTop = 0
+    }
   }, [setCurrentStep, currentCreation, setCurrentStepIndexNumber])
 
   const handleBack = useCallback(() => {
@@ -384,7 +388,7 @@ export default function CreationNFTModal() {
               }}
             />
           </Control>
-          <ContentBox>
+          <ContentBox id="create_content_box">
             {currentStep === Step.Choose && (
               <>
                 <AutoColumn gap="40px">

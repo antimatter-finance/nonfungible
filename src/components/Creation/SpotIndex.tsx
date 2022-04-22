@@ -268,6 +268,10 @@ export default function SpotIndex({
     if (_assetParams.length < 2) return
     setData('assetsParameters', _assetParams)
     setCurrent(++current)
+    const contentBox = document.getElementById('create_content_box')
+    if (contentBox) {
+      contentBox.scrollTop = 0
+    }
   }, [current, setCurrent, assetParams, setData])
 
   const selectTokens = useAssetsTokens(data.assetsParameters)
@@ -290,6 +294,10 @@ export default function SpotIndex({
   const handleGenerate = useCallback(() => {
     setData('color', currentCard.color)
     setCurrent(++current)
+    const contentBox = document.getElementById('create_content_box')
+    if (contentBox) {
+      contentBox.scrollTop = 0
+    }
   }, [current, setCurrent, setData, currentCard])
 
   const disabledCurrencys = useMemo(
@@ -328,6 +336,7 @@ export default function SpotIndex({
               />
 
               <TextValueInput
+                textarea
                 value={data.description}
                 onUserInput={val => {
                   setData('description', val)
@@ -342,7 +351,13 @@ export default function SpotIndex({
             </AutoColumn>
             <ButtonPrimary
               height={60}
-              onClick={() => setCurrent(++current)}
+              onClick={() => {
+                setCurrent(++current)
+                const contentBox = document.getElementById('create_content_box')
+                if (contentBox) {
+                  contentBox.scrollTop = 0
+                }
+              }}
               disabled={!data.description.trim() || !data.name.trim()}
             >
               Next Step

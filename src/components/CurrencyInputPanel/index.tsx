@@ -14,6 +14,7 @@ import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
 import { useActiveWeb3React } from '../../hooks'
 import useTheme from '../../hooks/useTheme'
 import useBreakpoint from 'hooks/useBreakpoint'
+import { ButtonPrimary } from 'components/Button'
 
 const InputRow = styled.div<{ selected: boolean; halfWidth?: boolean; hideSelect?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -179,24 +180,13 @@ const StyledTokenName = styled.span<{ active?: boolean }>`
   white-space: nowrap;
 `
 
-const StyledBalanceMax = styled.button`
+const StyledBalanceMax = styled(ButtonPrimary)`
   height: 28px;
-  background-color: ${({ theme }) => theme.text2};
-  border: 1px solid transparent;
-  border-radius: 49px;
+  width: max-content;
   font-size: 0.875rem;
   padding: 0 1rem;
   font-weight: 500;
   cursor: pointer;
-  color: ${({ theme }) => theme.text1};
-  :hover {
-    border: 1px solid ${({ theme }) => theme.primary1};
-  }
-  :focus {
-    border: 1px solid ${({ theme }) => theme.primary1};
-    outline: none;
-  }
-
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     margin-right: 0.5rem;
   `};

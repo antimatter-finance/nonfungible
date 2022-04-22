@@ -12,7 +12,7 @@ import {
   UnlockData
 } from './index'
 import { TextValueInput } from 'components/TextInput'
-import { ButtonPrimary, ButtonOutlined } from 'components/Button'
+import { ButtonPrimary, ButtonOutlinedPrimary } from 'components/Button'
 import { RowBetween } from 'components/Row'
 import { FormControlLabel, RadioGroup } from '@material-ui/core'
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers'
@@ -35,6 +35,8 @@ import { useActiveWeb3React } from 'hooks'
 import { tryParseAmount } from 'utils/tryParseAmount'
 import { useCurrencyBalances } from 'state/wallet/hooks'
 import { Dots } from 'components/Dots'
+import useBreakpoint from 'hooks/useBreakpoint'
+import { ZERO_ADDRESS } from 'constants/index'
 
 const StyledDateBox = styled.div`
   width: 260px;
@@ -161,6 +163,7 @@ export default function LockerIndex({
   const userInfo = useCurrentUserInfo()
   const isPassLockerSchedule = useCheckLockerSchedule(data)
   const isPassLockerContent = useCheckLockerContent(data)
+  const isDownSm = useBreakpoint('sm')
 
   const handleCurrentLockerTypeChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -244,6 +247,10 @@ export default function LockerIndex({
     if (_assetParams.length < 1) return
     setData('assetsParameters', _assetParams)
     setCurrent(++current)
+    const contentBox = document.getElementById('create_content_box')
+    if (contentBox) {
+      contentBox.scrollTop = 0
+    }
   }, [current, setCurrent, assetParams, setData])
 
   const selectTokens = useAssetsTokens(data.assetsParameters)
@@ -257,11 +264,11 @@ export default function LockerIndex({
       name: data.name,
       indexId: data.creatorId,
       color: data.color,
-      address: '',
+      address: account ?? ZERO_ADDRESS,
       icons: _icons,
       creator: userInfo ? userInfo.username : ''
     }
-  }, [data, selectTokens, userInfo])
+  }, [account, data.color, data.creatorId, data.name, selectTokens, userInfo])
 
   const selectAllTokens = useMemo(() => {
     return selectTokens.map(item => {
@@ -285,58 +292,69 @@ export default function LockerIndex({
           <CreationHeader title="Locker" indexArr={indexArr} current={current}>
             Locker Content
           </CreationHeader>
-          <AutoColumn>
-            <TYPE.mediumHeader fontSize="14px">Select Creation Type</TYPE.mediumHeader>
-            <StyledRadioGroup
-              row
-              aria-label="gender"
-              name="gender1"
-              value={creationType}
-              onChange={handleCurrentLockerTypeChange}
-            >
-              <FormControlLabel value={LockerType.ERC721} control={<StyledRadio />} label={LockerType.ERC721} />
-              <FormControlLabel
-                value={LockerType.ERC1155}
-                control={<StyledRadio />}
-                disabled
-                label={LockerType.ERC1155}
+          <AutoColumn
+            gap="40px"
+            style={isDownSm ? { background: '#ffffff', padding: '24px 20px', borderRadius: '8px' } : undefined}
+          >
+            <AutoColumn>
+              <TYPE.mediumHeader fontSize="14px" marginBottom={10}>
+                Select Creation Type
+              </TYPE.mediumHeader>
+              <StyledRadioGroup
+                row
+                aria-label="gender"
+                name="gender1"
+                value={creationType}
+                onChange={handleCurrentLockerTypeChange}
+              >
+                <FormControlLabel value={LockerType.ERC721} control={<StyledRadio />} label={LockerType.ERC721} />
+                <FormControlLabel
+                  value={LockerType.ERC1155}
+                  control={<StyledRadio />}
+                  disabled
+                  label={LockerType.ERC1155}
+                />
+              </StyledRadioGroup>
+            </AutoColumn>
+
+            {LockerType.ERC1155 === creationType && (
+              <TextValueInput
+                label="NFT Copies"
+                value={data.copies}
+                onUserInput={val => {
+                  setData('copies', val)
+                }}
+                placeholder="Please enter how many copies to create"
               />
-            </StyledRadioGroup>
-          </AutoColumn>
+            )}
 
-          {LockerType.ERC1155 === creationType && (
             <TextValueInput
-              label="NFT Copies"
-              value={data.copies}
+              value={data.name}
               onUserInput={val => {
-                setData('copies', val)
+                setData('name', val)
               }}
-              placeholder="Please enter how many copies to create"
+              borderColor={isDownSm ? 'rgba(37, 37, 37, 0.1)' : undefined}
+              backgroundColor={isDownSm ? '#ffffff' : undefined}
+              maxLength={20}
+              label="Locker Name"
+              placeholder="Please enter the name of your index"
+              hint="Maximum 20 characters"
             />
-          )}
 
-          <TextValueInput
-            value={data.name}
-            onUserInput={val => {
-              setData('name', val)
-            }}
-            maxLength={20}
-            label="Locker Name"
-            placeholder="Please enter the name of your index"
-            hint="Maximum 20 characters"
-          />
-
-          <TextValueInput
-            value={data.message}
-            onUserInput={val => {
-              setData('message', val)
-            }}
-            maxLength={100}
-            label="Message"
-            placeholder="Please explain why this index is meaningful"
-            hint="Maximum 100 characters"
-          />
-
+            <TextValueInput
+              textarea
+              value={data.message}
+              onUserInput={val => {
+                setData('message', val)
+              }}
+              borderColor={isDownSm ? 'rgba(37, 37, 37, 0.1)' : undefined}
+              backgroundColor={isDownSm ? '#ffffff' : undefined}
+              maxLength={100}
+              label="Message"
+              placeholder="Please explain why this index is meaningful"
+              hint="Maximum 100 characters"
+            />
+          </AutoColumn>
           <ButtonPrimary height={60} disabled={!isPassLockerContent} onClick={() => setCurrent(++current)}>
             Next Step
           </ButtonPrimary>
@@ -349,7 +367,7 @@ export default function LockerIndex({
             Locker Assets
           </CreationHeader>
 
-          <AutoColumn gap="10px">
+          <AutoColumn gap="8px">
             {assetParams.map((item: AssetsParameter, index: number) => {
               return (
                 <StyledCurrencyInputPanel key={index} lessTwo={!!(assetParams.length < 2)}>
@@ -398,9 +416,9 @@ export default function LockerIndex({
           </AutoColumn>
 
           <AutoColumn gap="12px">
-            <ButtonOutlined height={60} onClick={addAsset} disabled={assetParams.length === 8}>
+            <ButtonOutlinedPrimary height={60} onClick={addAsset} disabled={assetParams.length === 8}>
               + Add asset
-            </ButtonOutlined>
+            </ButtonOutlinedPrimary>
             <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled}>
               Next Step
             </ButtonPrimary>
@@ -413,113 +431,117 @@ export default function LockerIndex({
           <CreationHeader title="Locker" indexArr={indexArr} current={current}>
             Locker Time Schedule
           </CreationHeader>
-          <AutoColumn gap="10px">
-            <TYPE.mediumHeader>Select ?</TYPE.mediumHeader>
-            <RadioGroup
-              aria-label="gender"
-              name="gender1"
-              value={schedule}
-              onChange={handleCurrentTimeScheduleTypeChange}
-            >
-              <FormControlLabel
-                value={TimeScheduleType.Flexible}
-                control={<StyledRadio />}
-                label={TimeScheduleType.Flexible}
-              />
-              <FormControlLabel
-                value={TimeScheduleType.OneTIme}
-                control={<StyledRadio />}
-                label={TimeScheduleType.OneTIme}
-              />
-              <FormControlLabel
-                value={TimeScheduleType.Shedule}
-                control={<StyledRadio />}
-                label={TimeScheduleType.Shedule}
-              />
-            </RadioGroup>
+          <AutoColumn
+            gap="40px"
+            style={isDownSm ? { background: '#ffffff', padding: '24px 20px', borderRadius: '8px' } : undefined}
+          >
+            <AutoColumn gap="10px">
+              <TYPE.mediumHeader fontSize={16}>Select ?</TYPE.mediumHeader>
+              <RadioGroup
+                aria-label="gender"
+                name="gender1"
+                value={schedule}
+                onChange={handleCurrentTimeScheduleTypeChange}
+              >
+                <FormControlLabel
+                  value={TimeScheduleType.Flexible}
+                  control={<StyledRadio />}
+                  label={TimeScheduleType.Flexible}
+                />
+                <FormControlLabel
+                  value={TimeScheduleType.OneTIme}
+                  control={<StyledRadio />}
+                  label={TimeScheduleType.OneTIme}
+                />
+                <FormControlLabel
+                  value={TimeScheduleType.Shedule}
+                  control={<StyledRadio />}
+                  label={TimeScheduleType.Shedule}
+                />
+              </RadioGroup>
+            </AutoColumn>
+
+            {schedule === TimeScheduleType.OneTIme && (
+              <>
+                <RowBetween>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <StyledDateBox>
+                      <KeyboardDatePicker
+                        disablePast
+                        margin="normal"
+                        id="date-picker-dialog"
+                        label="Unlock Date"
+                        format="MM/dd/yyyy"
+                        value={data.unlockData.datetime}
+                        onChange={handleDateChange}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date'
+                        }}
+                      />
+                    </StyledDateBox>
+                    <StyledTimeBox>
+                      <KeyboardTimePicker
+                        margin="normal"
+                        id="time-picker"
+                        label="Unlock Time"
+                        value={data.unlockData.datetime}
+                        onChange={handleDateChange}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change time'
+                        }}
+                      />
+                    </StyledTimeBox>
+                  </MuiPickersUtilsProvider>
+                </RowBetween>
+              </>
+            )}
+
+            {schedule === TimeScheduleType.Shedule && (
+              <>
+                <AutoColumn gap="5px">
+                  <TYPE.black fontSize="14px">Number of unlocks</TYPE.black>
+                  <CustomNumericalInput
+                    style={{
+                      width: 'unset',
+                      height: '60px'
+                    }}
+                    maxLength={2}
+                    isInt={true}
+                    placeholder="2 times minimum"
+                    value={data.unlockData.unlockNumbers}
+                    onUserInput={val => {
+                      const _data = { ...data.unlockData, unlockNumbers: val }
+                      setData('unlockData', _data)
+                    }}
+                  />
+                  <TYPE.gray fontSize="14px" color="text3">
+                    2 times minimum
+                  </TYPE.gray>
+                </AutoColumn>
+
+                <AutoColumn gap="5px">
+                  <TYPE.black fontSize="14px">Unlock Interval</TYPE.black>
+                  <CustomNumericalInput
+                    style={{
+                      width: 'unset',
+                      height: '60px'
+                    }}
+                    maxLength={4}
+                    // isInt={true}
+                    placeholder="Days"
+                    value={data.unlockData.unlockInterval}
+                    onUserInput={val => {
+                      const _data = { ...data.unlockData, unlockInterval: val }
+                      setData('unlockData', _data)
+                    }}
+                  />
+                  <TYPE.gray fontSize="14px" color="text3">
+                    Days
+                  </TYPE.gray>
+                </AutoColumn>
+              </>
+            )}
           </AutoColumn>
-
-          {schedule === TimeScheduleType.OneTIme && (
-            <>
-              <RowBetween>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <StyledDateBox>
-                    <KeyboardDatePicker
-                      disablePast
-                      margin="normal"
-                      id="date-picker-dialog"
-                      label="Unlock Date"
-                      format="MM/dd/yyyy"
-                      value={data.unlockData.datetime}
-                      onChange={handleDateChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date'
-                      }}
-                    />
-                  </StyledDateBox>
-                  <StyledTimeBox>
-                    <KeyboardTimePicker
-                      margin="normal"
-                      id="time-picker"
-                      label="Unlock Time"
-                      value={data.unlockData.datetime}
-                      onChange={handleDateChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change time'
-                      }}
-                    />
-                  </StyledTimeBox>
-                </MuiPickersUtilsProvider>
-              </RowBetween>
-            </>
-          )}
-
-          {schedule === TimeScheduleType.Shedule && (
-            <>
-              <AutoColumn gap="5px">
-                <TYPE.black fontSize="14px">Number of unlocks</TYPE.black>
-                <CustomNumericalInput
-                  style={{
-                    width: 'unset',
-                    height: '60px'
-                  }}
-                  maxLength={2}
-                  isInt={true}
-                  placeholder="2 times minimum"
-                  value={data.unlockData.unlockNumbers}
-                  onUserInput={val => {
-                    const _data = { ...data.unlockData, unlockNumbers: val }
-                    setData('unlockData', _data)
-                  }}
-                />
-                <TYPE.gray fontSize="14px" color="text3">
-                  2 times minimum
-                </TYPE.gray>
-              </AutoColumn>
-
-              <AutoColumn gap="5px">
-                <TYPE.black fontSize="14px">Unlock Interval</TYPE.black>
-                <CustomNumericalInput
-                  style={{
-                    width: 'unset',
-                    height: '60px'
-                  }}
-                  maxLength={4}
-                  // isInt={true}
-                  placeholder="Days"
-                  value={data.unlockData.unlockInterval}
-                  onUserInput={val => {
-                    const _data = { ...data.unlockData, unlockInterval: val }
-                    setData('unlockData', _data)
-                  }}
-                />
-                <TYPE.gray fontSize="14px" color="text3">
-                  Days
-                </TYPE.gray>
-              </AutoColumn>
-            </>
-          )}
-
           <ButtonPrimary
             height={60}
             disabled={!isPassLockerSchedule}
