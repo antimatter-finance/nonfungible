@@ -105,6 +105,9 @@ const StyledNoticeBox = styled(RowFixed)`
   `}
 `
 export const StyledRadioGroup = styled(RadioGroup)`
+  & .MuiFormControlLabel-root {
+    margin-left: 0;
+  }
   &.MuiFormGroup-root {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -304,8 +307,11 @@ export default function CreationNFTModal() {
     callback(createSpotData.name, JSON.stringify(metadata), address, amounts)
       .then(hash => {
         setAttemptingTxn(false)
+        setCurrentStep(Step.Choose)
         setHash(hash)
+        setCreateSpotData(defaultSpotData)
         spotCommitSuccessHandler()
+        toggleCreationModal()
       })
       .catch(err => {
         // setTransactionModalOpen(false)
@@ -314,7 +320,7 @@ export default function CreationNFTModal() {
         setErrorMsg(err.data ? err.data.message : err?.message)
         console.error('spo commit err', err)
       })
-  }, [createSpotData, callback, account, spotCommitSuccessHandler, setAttemptingTxn, setTransactionModalOpen])
+  }, [callback, account, createSpotData, spotCommitSuccessHandler, toggleCreationModal])
 
   const { callback: lockerCreateCall } = useLockerCreateCall()
   const createLockerConfirm = useCallback(() => {
@@ -344,8 +350,11 @@ export default function CreationNFTModal() {
     )
       .then(hash => {
         setAttemptingTxn(false)
+        setCurrentStep(Step.Choose)
+        setCreateLockerData(defaultLockerData)
         setHash(hash)
         lockerCommitSuccessHandler()
+        toggleCreationModal()
       })
       .catch(err => {
         // setTransactionModalOpen(false)
@@ -354,13 +363,18 @@ export default function CreationNFTModal() {
         setErrorMsg(err.data ? err.data.message : err?.message)
         console.error('create locker commit err', err)
       })
-  }, [account, createLockerData, lockerCreateCall, lockerCommitSuccessHandler])
+  }, [lockerCreateCall, account, createLockerData, lockerCommitSuccessHandler, toggleCreationModal])
 
   return (
     <>
       <Modal
         isOpen={creationModalOpen}
-        onDismiss={toggleCreationModal}
+        onDismiss={() => {
+          toggleCreationModal()
+          setCreateLockerData(defaultLockerData)
+          setCreateSpotData(defaultSpotData)
+          setCurrentStep(Step.Choose)
+        }}
         minHeight={30}
         maxHeight={85}
         width="600px"
@@ -379,7 +393,12 @@ export default function CreationNFTModal() {
               />
             )}
             <IconClose
-              onEvent={toggleCreationModal}
+              onEvent={() => {
+                toggleCreationModal()
+                setCreateLockerData(defaultLockerData)
+                setCreateSpotData(defaultSpotData)
+                setCurrentStep(Step.Choose)
+              }}
               style={{
                 strokeWidth: 1,
                 height: 24,
