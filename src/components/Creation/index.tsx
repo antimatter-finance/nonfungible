@@ -63,7 +63,7 @@ const useStyles = makeStyles({
 export const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
-  padding: 70px 50px;
+  padding: 80px 50px 50px;
   width: 600px;
   position: relative;
   max-height: 100%;
@@ -77,10 +77,13 @@ export const Control = styled.div`
   justify-content: space-between;
   height: 24px;
   position: absolute;
-  top: 30px;
+  top: 25px;
   left: 30px;
   height: 50px;
   width: calc(100% - 60px);
+  svg {
+    stroke-width: 1px !important;
+  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
   left: 20px;
   top: 0px;
@@ -191,7 +194,7 @@ export const defaultSpotData: CreateSpotData = {
       amount: ''
     }
   ],
-  color: CardColor.PURPLE,
+  color: CardColor.RED,
   creatorId: '__'
 }
 
@@ -212,7 +215,7 @@ export const defaultLockerData: CreateLockerData = {
     unlockNumbers: '',
     unlockInterval: ''
   },
-  color: CardColor.PURPLE,
+  color: CardColor.RED,
   creatorId: '__'
 }
 

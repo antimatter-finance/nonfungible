@@ -52,7 +52,7 @@ const formatSynposis = (synopsis: string) => {
   return synopsis
 }
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div<{ onClick?: any }>`
   height: 394px;
   width: ${NFTCardWidth};
   background: #ffffff;
@@ -62,7 +62,10 @@ const CardWrapper = styled.div`
   justify-content: center;
   padding: 21px 20px;
   gap: 12px;
-  cursor: pointer;
+  :hover {
+    cursor: ${({ onClick }) => (onClick ? 'pointer' : 'auto')};
+    border-color: ${({ onClick, theme }) => (onClick ? theme.primary1 : '#ebecf2')};
+  }
   ${({ theme }) => theme.mediaWidth.upToSmall`
   width: 100%;
   height: auto;
