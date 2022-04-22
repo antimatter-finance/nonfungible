@@ -23,7 +23,7 @@ import {
   useNFTTransactionRecords
 } from 'hooks/useIndexDetail'
 import NumericalInput from 'components/NumericalInput'
-import Loader from 'assets/svg/antimatter_background_logo.svg'
+import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
 import AntimatterLogo from 'assets/svg/antimatter_logo_nft.svg'
 import { WrappedTokenInfo } from 'state/lists/hooks'
 import { useAmountInMins, useCalcBuyFee, useIndexBuyCall } from '../../hooks/useIndexBuyCallback'

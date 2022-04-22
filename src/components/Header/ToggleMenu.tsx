@@ -25,6 +25,8 @@ const Overlay = styled(StyledDialogOverlay)`
     z-index: 11;
     top: 0;
     background-color: ${({ theme }) => theme.bg2};
+    max-height: calc(100vh - ${({ theme }) => theme.headerHeight});
+    overflow: auto;
   }
 `
 
@@ -160,18 +162,23 @@ export default function ToggleMenu({ onCreate }: { onCreate: () => void }) {
                 </TabMobile>
               )
             )}
-            <TabMobile to={'/profile/' + UserInfoTabs.POSITION} onClick={() => setIsOpen(!isOpen)}>
-              {UserInfoTabRoute[UserInfoTabs.POSITION]}
-            </TabMobile>
-            <TabMobile to={'/profile/' + UserInfoTabs.INDEX} onClick={() => setIsOpen(!isOpen)}>
-              {UserInfoTabRoute[UserInfoTabs.INDEX]}
-            </TabMobile>
-            <TabMobile to={'/profile/' + UserInfoTabs.LOCKER} onClick={() => setIsOpen(!isOpen)}>
-              {UserInfoTabRoute[UserInfoTabs.LOCKER]}
-            </TabMobile>
-            <TabMobile to={'/profile/' + UserInfoTabs.NFT} onClick={() => setIsOpen(!isOpen)}>
-              {UserInfoTabRoute[UserInfoTabs.NFT]}
-            </TabMobile>
+
+            <ToggleTab title={'My Profile'}>
+              <>
+                <TabMobile to={'/profile/' + UserInfoTabs.POSITION} onClick={() => setIsOpen(!isOpen)}>
+                  {UserInfoTabRoute[UserInfoTabs.POSITION]}
+                </TabMobile>
+                <TabMobile to={'/profile/' + UserInfoTabs.INDEX} onClick={() => setIsOpen(!isOpen)}>
+                  {UserInfoTabRoute[UserInfoTabs.INDEX]}
+                </TabMobile>
+                <TabMobile to={'/profile/' + UserInfoTabs.LOCKER} onClick={() => setIsOpen(!isOpen)}>
+                  {UserInfoTabRoute[UserInfoTabs.LOCKER]}
+                </TabMobile>
+                <TabMobile to={'/profile/' + UserInfoTabs.NFT} onClick={() => setIsOpen(!isOpen)}>
+                  {UserInfoTabRoute[UserInfoTabs.NFT]}
+                </TabMobile>
+              </>
+            </ToggleTab>
             <CreateButton onClick={handleCreate}>+ Create</CreateButton>
           </AutoColumn>
         </Overlay>

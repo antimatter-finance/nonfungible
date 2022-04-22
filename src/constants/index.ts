@@ -30,7 +30,7 @@ type ChainTokenList = {
   readonly [chainId in ChainId]: Token[]
 }
 
-const UNI_ADDRESS = '0x9b99cca871be05119b2012fd4474731dd653febe'
+const UNI_ADDRESS = '0x9B99CcA871Be05119B2012fd4474731dd653FEBe'
 
 export const Matter = new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'MATTER', 'Antimatter.Finance Governance Token')
 export const DAI = new Token(ChainId.MAINNET, '0x6B175474E89094C44Da98b954EedeAC495271d0F', 18, 'DAI', 'Dai Stablecoin')
@@ -104,15 +104,15 @@ export const CHAIN_ETH_NAME: { [chainId in ChainId]: string } = {
 export const BLIND_BOX_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0x05739eB0B2e3F4545a6EFacABAdc85dB2DE730FD',
   [ChainId.ROPSTEN]: '',
-  [ChainId.RINKEBY]: '0x3ff9c28cce2805dd69eec2113a6853d4f49976a8',
+  [ChainId.RINKEBY]: '0x3ff9C28cce2805Dd69eec2113a6853d4F49976A8',
   [ChainId.BSC]: '',
   [ChainId.FANTOM]: '',
   [ChainId.AVALANCHE]: ''
 }
 export const MATTER_ADDRESS: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '0x9b99cca871be05119b2012fd4474731dd653febe',
+  [ChainId.MAINNET]: '0x9B99CcA871Be05119B2012fd4474731dd653FEBe',
   [ChainId.ROPSTEN]: '',
-  [ChainId.RINKEBY]: '0x3b557e654b64d57634bff210e9dc0e64053cddbf',
+  [ChainId.RINKEBY]: '0x3b557E654b64D57634BfF210E9dc0e64053CddBf',
   [ChainId.BSC]: '',
   [ChainId.FANTOM]: '',
   [ChainId.AVALANCHE]: ''

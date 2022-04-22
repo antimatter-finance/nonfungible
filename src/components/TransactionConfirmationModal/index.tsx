@@ -21,9 +21,6 @@ const Wrapper = styled.div`
   /* max-width: 480px; */
   border-radius: 42px;
   /* background: ${({ theme }) => theme.gradient1}; */
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  color: #ffffff;
-  `}
 `
 const Section = styled(AutoColumn)`
   padding: 50px;
@@ -223,7 +220,7 @@ export default function TransactionConfirmationModal({
 
   // confirmation screen
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={90} width="600px" maxWidth={600} zIndex={5}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={90} width="600px" maxWidth={600}>
       {attemptingTxn ? (
         <ConfirmationPendingContent onDismiss={onDismiss} pendingText={pendingText} />
       ) : error ? (

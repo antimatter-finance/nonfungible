@@ -29,7 +29,7 @@ const ContentWrapper = styled(Column)`
   width: 100%;
   flex: 1 1;
   position: relative;
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.text1};
 `
 
 const Footer = styled.div`
@@ -180,11 +180,11 @@ export function CurrencySearch({
           </RowBetween>
         </HideSmall>
         <ShowSmall>
-          <Text fontWeight={500} fontSize={28} style={{ marginTop: 40, marginBottom: 40 }}>
+          <Text fontWeight={500} fontSize={28} style={{ marginBottom: 30 }}>
             Select a token
           </Text>
           <ButtonEmpty>
-            <X onClick={onDismiss} />
+            <X onClick={onDismiss} style={{ color: '#666666' }} />
           </ButtonEmpty>
         </ShowSmall>
         <Row>

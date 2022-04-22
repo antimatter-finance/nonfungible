@@ -27,7 +27,6 @@ export function useIndexSellCall(): {
       if (!contract) {
         throw new Error('Unexpected error. Contract error')
       }
-      console.log('nftId, nftAmount, amountOutMins', nftId, nftAmount, amountOutMins)
 
       return contract.estimateGas.burn(nftId, nftAmount, amountOutMins, {}).then(estimatedGasLimit => {
         return contract

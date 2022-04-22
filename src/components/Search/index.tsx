@@ -111,6 +111,8 @@ export default function Search({
   const matchLg = useMediaWidth('upToLarge')
 
   const handleSearch = useCallback(() => {
+    setSearchParam(searchParam)
+    setSearchBy(searchBy)
     onSearch(searchParam, searchBy)
   }, [onSearch, searchBy, searchParam])
 
@@ -181,6 +183,14 @@ export function MobileSearch({ onSearch }: { onSearch: (searchParam: string, sea
     setIsOpen(false)
   }, [])
 
+  const handleSearch = useCallback(
+    (searchParam: string, searchBy: string) => {
+      onSearch(searchParam, searchBy)
+      setIsOpen(false)
+    },
+    [onSearch]
+  )
+
   return (
     <>
       <MobileSearchButton onClick={handleOpen} id="mobileSearch">
@@ -195,7 +205,7 @@ export function MobileSearch({ onSearch }: { onSearch: (searchParam: string, sea
           <TYPE.body fontSize={28} fontWeight={700} style={{ marginBottom: 20 }}>
             Search a spot index
           </TYPE.body>
-          <Search onSearch={onSearch} isMobile />
+          <Search onSearch={handleSearch} isMobile />
         </MobileSearchWrapper>
       )}
     </>

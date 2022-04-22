@@ -2,11 +2,11 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import styled from 'styled-components'
 import NFTCard, { CardColor, NFTCardProps, NFTCardWidth } from 'components/NFTCard'
-import Search, { MobileSearch } from 'components/Search'
+import Search /*, { MobileSearch }*/ from 'components/Search'
 import useNFTList from 'hooks/useNFTList'
 import CurrencyLogo from 'components/CurrencyLogo'
 import Pagination from 'components/Pagination'
-import { AnimatedImg, AnimatedWrapper, ShowSmall, TYPE } from 'theme'
+import { AnimatedImg, AnimatedWrapper, TYPE } from 'theme'
 import Loader from 'assets/svg/antimatter_icon.svg'
 import { SportIndexSearchProps } from 'utils/option/httpFetch'
 import { useToken } from 'hooks/Tokens'
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 `
 const EmptyList = styled.div`
   transform: translateY(30px);
-  border: 1px solid ${({ theme }) => theme.text1};
+  // border: 1px solid ${({ theme }) => theme.text1};
   color: ${({ theme }) => theme.text1};
   padding: 16px 12px;
   border-radius: 12px;
@@ -157,9 +157,9 @@ with a variety of lock and unlock mechanism."
           val2={'114'}
           subVal2={'Total Number of Indices'}
         />
-        <ShowSmall>
+        {/* <ShowSmall>
           <MobileSearch onSearch={handleSearch} />
-        </ShowSmall>
+        </ShowSmall> */}
         <Wrapper>
           <Search onSearch={handleSearch} />
           <Divider

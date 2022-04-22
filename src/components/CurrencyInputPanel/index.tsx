@@ -13,6 +13,7 @@ import { ReactComponent as DropDown } from '../../assets/images/dropdown.svg'
 
 import { useActiveWeb3React } from '../../hooks'
 import useTheme from '../../hooks/useTheme'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const InputRow = styled.div<{ selected: boolean; halfWidth?: boolean; hideSelect?: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -377,6 +378,7 @@ export function CurrencyNFTInputPanel({
   const { account } = useActiveWeb3React()
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
   const theme = useTheme()
+  const isDownSm = useBreakpoint('sm')
 
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false)
@@ -409,11 +411,24 @@ export function CurrencyNFTInputPanel({
             )}
           </LabelRow>
         )}
-        <Aligner style={{ gap: 8 }}>
+        <Aligner
+          style={
+            isDownSm
+              ? {
+                  backgroundColor: '#ffffff',
+                  gap: '8px',
+                  display: 'grid',
+                  justifyContent: 'unset',
+                  padding: '24px 20px',
+                  borderRadius: '8px'
+                }
+              : { gap: 8 }
+          }
+        >
           {!hideInput && (
             <InputNFTRow
               style={hideInput ? { padding: '0', borderRadius: '8px' } : {}}
-              halfWidth={halfWidth}
+              halfWidth={isDownSm ? false : halfWidth}
               selected={disableCurrencySelect}
               hideSelect={hideSelect}
             >
@@ -446,7 +461,7 @@ export function CurrencyNFTInputPanel({
           {!hideSelect && (
             <CurrencyNFTSelect
               selected={!!currency}
-              style={{ width: hideInput ? '100%' : '' }}
+              style={{ width: hideInput ? '100%' : '', minWidth: 170 }}
               className="open-currency-select-button"
               onClick={() => {
                 if (!disableCurrencySelect) {

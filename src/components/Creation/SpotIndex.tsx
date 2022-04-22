@@ -4,11 +4,7 @@ import { HideSmall, ShowSmall, TYPE } from 'theme'
 import styled from 'styled-components'
 import { AutoColumn } from 'components/Column'
 import { TextValueInput } from 'components/TextInput'
-import {
-  ButtonPrimary as ButtonPrimaryDesktop,
-  ButtonDropdown,
-  ButtonOutlined as ButtonOutlinedDesktop
-} from 'components/Button'
+import { ButtonPrimary as ButtonPrimaryDesktop, ButtonDropdown, ButtonOutlinedPrimary } from 'components/Button'
 import NumericalInput from 'components/NumericalInput'
 import NFTCard, { CardColor, NFTCardProps } from 'components/NFTCard'
 import { SpotConfirmation } from './Confirmation'
@@ -26,6 +22,8 @@ import { TokenAmount } from '@uniswap/sdk'
 import { useCheckSpotCreateButton } from 'hooks/useIndexCreateCallback'
 import { TokenInfo } from '@uniswap/token-lists'
 import useBreakpoint from 'hooks/useBreakpoint'
+import { useActiveWeb3React } from 'hooks'
+import { ZERO_ADDRESS } from 'constants/index'
 
 export const StyledCurrencyInputPanel = styled.div<{ lessTwo: boolean }>`
   padding-right: ${({ lessTwo }) => (lessTwo ? '0' : '40px')};
@@ -37,7 +35,17 @@ export const StyledCurrencyInputPanel = styled.div<{ lessTwo: boolean }>`
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+    top: unset;
+    right:40px;
+    bottom:0px;
+    z-index:1;
+    color:${theme.text3}
+  `};
   }
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  padding-right:0; 
+  `};
 `
 
 export const IndexIcon = styled.div<{ current?: boolean }>`
@@ -136,6 +144,10 @@ const CreationTitleBox = styled.div`
   position: sticky;
   top: 0;
   z-index: 2;
+  background-color: ${({ theme }) => theme.bg1};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  background-color: ${({ theme }) => theme.bg2};
+  `}
 `
 
 const ButtonPrimary = styled(ButtonPrimaryDesktop)`
@@ -153,13 +165,6 @@ const ButtonPrimary = styled(ButtonPrimaryDesktop)`
   :disabled{
     background: ${({ theme }) => theme.primary5};
   }
-  `}
-`
-
-const ButtonOutlined = styled(ButtonOutlinedDesktop)`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    border-color: ${({ theme }) => theme.primary1};
-    color: ${({ theme }) => theme.primary1};
   `}
 `
 
@@ -207,6 +212,7 @@ export default function SpotIndex({
   const [assetParams, setAssetParams] = useState<AssetsParameter[]>(data.assetsParameters)
   const userInfo = useCurrentUserInfo()
   const isDownSm = useBreakpoint('sm')
+  const { account } = useActiveWeb3React()
 
   const handleParameterInput = useCallback(
     (index: number, value: AssetsParameter) => {
@@ -275,11 +281,11 @@ export default function SpotIndex({
       name: data.name,
       indexId: data.creatorId,
       color: data.color,
-      address: '',
+      address: account ?? ZERO_ADDRESS,
       icons: _icons,
       creator: userInfo ? userInfo.username : ''
     }
-  }, [data, selectTokens, userInfo])
+  }, [account, data.color, data.creatorId, data.name, selectTokens, userInfo])
 
   const handleGenerate = useCallback(() => {
     setData('color', currentCard.color)
@@ -304,30 +310,36 @@ export default function SpotIndex({
         <>
           <AutoColumn gap="40px">
             <CreationHeader current={current}>Index Content</CreationHeader>
+            <AutoColumn
+              gap="40px"
+              style={isDownSm ? { background: '#ffffff', padding: '24px 20px', borderRadius: '8px' } : undefined}
+            >
+              <TextValueInput
+                value={data.name}
+                onUserInput={val => {
+                  setData('name', val)
+                }}
+                borderColor={isDownSm ? 'rgba(37, 37, 37, 0.1)' : undefined}
+                backgroundColor={isDownSm ? '#ffffff' : undefined}
+                maxLength={20}
+                label="Index Name"
+                placeholder="Please enter the name of your index"
+                hint="Maximum 20 characters"
+              />
 
-            <TextValueInput
-              value={data.name}
-              onUserInput={val => {
-                setData('name', val)
-              }}
-              backgroundColor={isDownSm ? '#ffffff' : undefined}
-              maxLength={20}
-              label="Index Name"
-              placeholder="Please enter the name of your index"
-              hint="Maximum 20 characters"
-            />
-
-            <TextValueInput
-              value={data.description}
-              onUserInput={val => {
-                setData('description', val)
-              }}
-              backgroundColor={isDownSm ? '#ffffff' : undefined}
-              maxLength={100}
-              label="Description"
-              placeholder="Please explain why this index is meaningful"
-              hint="Maximum 100 characters"
-            />
+              <TextValueInput
+                value={data.description}
+                onUserInput={val => {
+                  setData('description', val)
+                }}
+                borderColor={isDownSm ? 'rgba(37, 37, 37, 0.1)' : undefined}
+                backgroundColor={isDownSm ? '#ffffff' : undefined}
+                maxLength={100}
+                label="Description"
+                placeholder="Please explain why this index is meaningful"
+                hint="Maximum 100 characters"
+              />
+            </AutoColumn>
             <ButtonPrimary
               height={60}
               onClick={() => setCurrent(++current)}
@@ -359,63 +371,64 @@ export default function SpotIndex({
                   Maximum 8 assets
                 </TYPE.darkGray>
               </RowBetween>
-
-              {assetParams.map((item: AssetsParameter, index: number) => {
-                return (
-                  <StyledCurrencyInputPanel key={index} lessTwo={!!(assetParams.length < 3)}>
-                    <CurrencyNFTInputPanel
-                      hiddenLabel={true}
-                      value={item.amount}
-                      onUserInput={val => {
-                        const newData = { ...item, amount: val }
-                        handleParameterInput(index, newData)
-                      }}
-                      disabledCurrencys={disabledCurrencys}
-                      // onMax={handleMax}
-                      currency={item.currencyToken}
-                      // pair={dummyPair}
-                      showMaxButton={false}
-                      onCurrencySelect={currency => {
-                        if (currency instanceof WrappedTokenInfo) {
-                          const newData = { ...item, currency: currency.address, currencyToken: currency }
+              <AutoColumn gap="8px">
+                {assetParams.map((item: AssetsParameter, index: number) => {
+                  return (
+                    <StyledCurrencyInputPanel key={index} lessTwo={!!(assetParams.length < 3)}>
+                      <CurrencyNFTInputPanel
+                        hiddenLabel={true}
+                        value={item.amount}
+                        onUserInput={val => {
+                          const newData = { ...item, amount: val }
                           handleParameterInput(index, newData)
-                        } else if (currency instanceof Token) {
-                          const tokenInfo: TokenInfo = {
-                            chainId: currency.chainId,
-                            address: currency.address,
-                            name: currency.name ?? '',
-                            decimals: currency.decimals,
-                            symbol: currency.symbol ?? ''
+                        }}
+                        disabledCurrencys={disabledCurrencys}
+                        // onMax={handleMax}
+                        currency={item.currencyToken}
+                        // pair={dummyPair}
+                        showMaxButton={false}
+                        onCurrencySelect={currency => {
+                          if (currency instanceof WrappedTokenInfo) {
+                            const newData = { ...item, currency: currency.address, currencyToken: currency }
+                            handleParameterInput(index, newData)
+                          } else if (currency instanceof Token) {
+                            const tokenInfo: TokenInfo = {
+                              chainId: currency.chainId,
+                              address: currency.address,
+                              name: currency.name ?? '',
+                              decimals: currency.decimals,
+                              symbol: currency.symbol ?? ''
+                            }
+                            const _currency = new WrappedTokenInfo(tokenInfo, [])
+                            const newData = { ...item, currency: currency.address, currencyToken: _currency }
+                            handleParameterInput(index, newData)
                           }
-                          const _currency = new WrappedTokenInfo(tokenInfo, [])
-                          const newData = { ...item, currency: currency.address, currencyToken: _currency }
-                          handleParameterInput(index, newData)
-                        }
-                      }}
-                      label="Amount"
-                      disableCurrencySelect={false}
-                      id="stake-liquidity-token"
-                      hideSelect={false}
-                    />
-                    <X
-                      className="del-input"
-                      onClick={() => {
-                        delAssetsItem(index)
-                      }}
-                    />
-                  </StyledCurrencyInputPanel>
-                )
-              })}
+                        }}
+                        label="Amount"
+                        disableCurrencySelect={false}
+                        id="stake-liquidity-token"
+                        hideSelect={false}
+                      />
+                      <X
+                        className="del-input"
+                        onClick={() => {
+                          delAssetsItem(index)
+                        }}
+                      />
+                    </StyledCurrencyInputPanel>
+                  )
+                })}{' '}
+              </AutoColumn>
             </AutoColumn>
+            <ButtonGroup gap="12px">
+              <ButtonOutlinedPrimary height={60} onClick={addAsset} disabled={assetParams.length === 8}>
+                + Add asset
+              </ButtonOutlinedPrimary>
+              <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled} marginTop={20}>
+                Next Step
+              </ButtonPrimary>
+            </ButtonGroup>
           </AutoColumn>
-          <ButtonGroup gap="12px">
-            <ButtonOutlined height={60} onClick={addAsset} disabled={assetParams.length === 8}>
-              + Add asset
-            </ButtonOutlined>
-            <ButtonPrimary height={60} onClick={toColorStep} disabled={assetsBtnDIsabled} marginTop={20}>
-              Next Step
-            </ButtonPrimary>
-          </ButtonGroup>
         </>
       )}
 
@@ -429,10 +442,10 @@ export default function SpotIndex({
                 setData('color', color)
               }}
             />
+            <ButtonPrimary height={60} onClick={handleGenerate}>
+              Generate
+            </ButtonPrimary>
           </AutoColumn>
-          <ButtonPrimary height={60} onClick={handleGenerate}>
-            Generate
-          </ButtonPrimary>
         </>
       )}
 

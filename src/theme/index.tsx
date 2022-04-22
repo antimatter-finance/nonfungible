@@ -158,7 +158,7 @@ export const TYPE = {
     return <TextWrapper color="#ffffff" fontSize={48} {...props} fontFamily="Monument" />
   },
   largeHeader(props: TextProps) {
-    return <TextWrapper fontWeight={600} fontSize={24} {...props} fontFamily="SF Pro" />
+    return <TextWrapper fontWeight={500} fontSize={24} {...props} fontFamily="SF Pro" />
   },
   mediumHeader(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={22} {...props} fontFamily="SF Pro" />

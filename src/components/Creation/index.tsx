@@ -12,7 +12,7 @@ import IconClose, { IconBack } from 'components/Icons/IconClose'
 import { ReactComponent as AlertCircle } from '../../assets/svg/alert_circle.svg'
 import Modal from '../Modal'
 import { AutoColumn } from 'components/Column'
-import { TYPE } from 'theme'
+import { theme, TYPE } from 'theme'
 import { RowFixed } from 'components/Row'
 import { ButtonPrimary } from 'components/Button'
 import SpotIndex from './SpotIndex'
@@ -23,6 +23,7 @@ import { useIndexCreateCall } from '../../hooks/useIndexCreateCallback'
 import { getLockerClaimParam, useLockerCreateCall } from '../../hooks/useLockerCreate'
 import { WrappedTokenInfo } from 'state/lists/hooks'
 import { tryParseAmount } from 'utils/tryParseAmount'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const useStyles = makeStyles({
   root: {
@@ -68,8 +69,25 @@ export const Wrapper = styled.div`
   max-height: 100%;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     width: 100%;
-    padding: 70px 24px 50px;
+    padding:0 20px;
   `}
+`
+export const Control = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 24px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  height: 50px;
+  width: calc(100% - 60px);
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  left: 20px;
+  top: 0px;
+  width: calc(100% - 40px);
+    background:${theme.bg2};
+    z-index:3
+`}
 `
 
 const StyledNoticeBox = styled(RowFixed)`
@@ -99,12 +117,14 @@ export const StyledRadioGroup = styled(RadioGroup)`
   `}
 `
 const ContentBox = styled.div`
-  margin-right: -10px;
-  padding-right: 10px;
-  padding-left: 2px;
   overflow-y: auto;
+  overflow-x: hidden;
   ${({ theme }) => theme.flexColumnNoWrap}
   height: 100%;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  padding:  50px 0;
+  position:relative;
+`}
 `
 
 enum Step {
@@ -195,6 +215,7 @@ export const defaultLockerData: CreateLockerData = {
 
 export default function CreationNFTModal() {
   const { account } = useWeb3React()
+  const isDownSm = useBreakpoint('sm')
   const [transactionModalOpen, setTransactionModalOpen] = useState(false)
   const [attemptingTxn, setAttemptingTxn] = useState(false)
   const [hash, setHash] = useState('')
@@ -343,24 +364,53 @@ export default function CreationNFTModal() {
         alignitems="flex-start"
       >
         <Wrapper>
+          <Control id="controls">
+            {currentStep !== Step.Choose && (
+              <IconBack
+                onEvent={handleBack}
+                style={{
+                  strokeWidth: 1,
+                  zIndex: 4
+                }}
+              />
+            )}
+            <IconClose
+              onEvent={toggleCreationModal}
+              style={{
+                strokeWidth: 1,
+                height: 24,
+                width: 24,
+                zIndex: 4
+              }}
+            />
+          </Control>
           <ContentBox>
-            {currentStep !== Step.Choose && <IconBack onEvent={handleBack} style={{ top: 45, left: 28 }} />}
-            <IconClose onEvent={toggleCreationModal} style={{ top: 45, right: 28 }} />
-
             {currentStep === Step.Choose && (
               <>
                 <AutoColumn gap="40px">
-                  <AutoColumn gap="16px">
-                    <TYPE.largeHeader fontSize={30} color="#000000" style={{ marginBottom: 38 }}>
+                  <AutoColumn
+                    gap="16px"
+                    style={{
+                      background: isDownSm ? theme().bg2 : theme().bg1,
+                      paddingBottom: isDownSm ? 10 : undefined,
+                      position: 'sticky',
+                      top: 0,
+                      zIndex: 2
+                    }}
+                  >
+                    <TYPE.largeHeader fontSize={30} color="#000000">
                       Create your financial NFT
                     </TYPE.largeHeader>
-
-                    <StyledNoticeBox>
-                      <AlertCircle />
-                      <Text fontSize={14}>Please read docs about non-fungible finance before creating.</Text>
-                    </StyledNoticeBox>
                   </AutoColumn>
-                  <AutoColumn gap="20px">
+
+                  <StyledNoticeBox>
+                    <AlertCircle />
+                    <Text fontSize={14}>Please read docs about non-fungible finance before creating.</Text>
+                  </StyledNoticeBox>
+                  <AutoColumn
+                    gap="20px"
+                    style={isDownSm ? { background: '#ffffff', padding: '24px 20px', borderRadius: '8px' } : undefined}
+                  >
                     <TYPE.subHeader fontSize={16}>Select Creation Type</TYPE.subHeader>
                     <StyledRadioGroup
                       row
@@ -377,7 +427,7 @@ export default function CreationNFTModal() {
 
                   <ButtonPrimary
                     height={60}
-                    style={{ marginTop: 20 }}
+                    style={{ marginTop: isDownSm ? 'auto' : 20 }}
                     onClick={toCreateNext}
                     disabled={currentCreation === Step.FutureIndex}
                   >
