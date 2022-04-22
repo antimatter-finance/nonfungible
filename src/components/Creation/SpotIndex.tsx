@@ -132,11 +132,12 @@ const StyledCard = styled.div`
 const BackgroundItem = styled.div<{ selected?: boolean; color: CardColor }>`
   cursor: pointer;
   border-radius: 10px;
-  border: 1px solid ${({ selected }) => (selected ? '#000000' : 'rgba(0, 0, 0, 0.1)')};
+  border: 1px solid ${({ selected, theme }) => (selected ? theme.text1 : theme.bg1)};
   width: 76px;
   height: 76px;
   background: ${({ theme, color }) => theme[color]};
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme, selected }) => theme.mediaWidth.upToSmall`
+  border: 1px solid ${selected ? theme.text1 : theme.bg2};
   width: 56px;
   height: 56px;`}
 `
@@ -485,12 +486,8 @@ export function NFTCardPanel({
   return (
     <CardPanelWrapper justify="space-between">
       <AutoColumn gap="12px">
-        <HideSmall>
-          <TYPE.black fontSize={14}>Select background color</TYPE.black>
-        </HideSmall>
-        <ShowSmall>
-          <TYPE.darkGray fontSize={14}>Select backgroud color</TYPE.darkGray>
-        </ShowSmall>
+        <TYPE.black fontSize={14}>Select background color</TYPE.black>
+
         <AutoRow gap="6px">
           {Object.values(CardColor).map(color => (
             <BackgroundItem

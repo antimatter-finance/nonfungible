@@ -164,7 +164,7 @@ with a variety of lock and unlock mechanism."
           <Search onSearch={handleSearch} />
           <Divider
             sx={{
-              backgroundColor: '#EBECF2',
+              borderColor: 'rgba(0,0,0,0.1)',
               margin: '0 -12px',
               width: { xs: 'calc(100% + 24px)', md: '100%' }
             }}

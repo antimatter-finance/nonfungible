@@ -3,6 +3,7 @@ import { Box, Grid, Typography, styled } from '@mui/material'
 import useBreakpoint from 'hooks/useBreakpoint'
 import NumericalCard from 'components/Card/NumericalCard'
 import { theme } from 'theme/index'
+import { ReactComponent as NftTag } from 'assets/svg/nft_tag.svg'
 
 const StyledImg = styled('img')(({ theme }) => {
   return {
@@ -86,7 +87,11 @@ export default function ProductBanner({
                     height={isDownMd ? 76 : 'auto'}
                     subValue={subVal1}
                     gap={isDownMd ? '12px' : undefined}
-                  />
+                  >
+                    <Box position="absolute" top={-6} right={-6}>
+                      <NftTag />
+                    </Box>
+                  </NumericalCard>
                 </Grid>
               )}
               {val2 && (
@@ -100,7 +105,11 @@ export default function ProductBanner({
                     subValue={subVal2}
                     height={isDownMd ? 76 : 'auto'}
                     gap={isDownMd ? '12px' : undefined}
-                  />
+                  >
+                    <Box position="absolute" top={-6} right={-6}>
+                      <NftTag />
+                    </Box>
+                  </NumericalCard>
                 </Grid>
               )}
             </Grid>

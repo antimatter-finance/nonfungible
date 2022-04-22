@@ -102,21 +102,8 @@ export default function NumericalCard(props: Props) {
         )}
         {actions && <Box mt={20}>{actions}</Box>}
       </Box>
-      <Box sx={{ position: { xs: 'relative', sm: 'unset' } }}>
-        <Box
-          sx={{
-            position: { xs: 'unset', sm: 'absolute' },
-            right: 20,
-            top: '50%',
-            transform: { xs: 'translateY(-20px)', sm: 'translateY(-50%)' },
-            borderRadius: 40,
-            padding: { xs: '0 20px', sm: 0 }
-            // mt: { xs: '20px', sm: 0 }
-          }}
-        >
-          {children}
-        </Box>
-      </Box>
+
+      {children}
     </Card>
   )
 }
