@@ -22,7 +22,6 @@ import { useCurrentUserInfo, useLogOut } from 'state/userInfo/hooks'
 import { usePositionList, useIndexList, useMyLockerList } from 'hooks/useMyList'
 import Pagination from 'components/Pagination'
 import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
-import LoaderWhite from 'assets/svg/antimatter_background_logo.svg'
 import ClaimModal from 'components/claim/MatterClaimModal'
 import { useCreatorFee } from 'hooks/useMatterClaim'
 import { SwitchTabWrapper, Tab } from 'components/SwitchTab'
@@ -30,6 +29,7 @@ import { isMobile } from 'react-device-detect'
 import { shortenAddress } from 'utils'
 import { useMyBlindBox } from 'hooks/useBlindBox'
 import { Box } from '@mui/material'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 export enum UserInfoTabs {
   POSITION = 'my_position',
@@ -114,18 +114,23 @@ const AppBody = styled.div`
   max-width: 1284px;
   min-height: 400px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  padding: 32px 24px;
+  padding: 20px 12px;
   `}
 `
 
 const ProfileImg = styled.div<{ url?: string }>`
-  height: 68px;
-  width: 68px;
+  height: 60px;
+  width: 60px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 8px;
   margin-bottom: auto;
+  margin-top: 10px;
   background: ${({ url }) => (url ? `url(${url})` : `url(${ProfileFallback})`)};
+  background-size: contain;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+ margin:0
+  `}
 `
 
 const Capsule = styled.p`
@@ -238,6 +243,7 @@ export default function User() {
   const history = useHistory()
   const { tab } = useParams<{ tab: string }>()
   const location = useLocation()
+  const isDownMd = useBreakpoint('md')
   const [currentTab, setCurrentTab] = useState(UserInfoTabs.POSITION)
   const [showSetting, setShowSetting] = useState(false)
   const userInfo = useCurrentUserInfo()
@@ -282,7 +288,6 @@ export default function User() {
       ]),
     [indexList]
   )
-
   useEffect(() => {
     if (tab && UserInfoTabRoute[tab as keyof typeof UserInfoTabRoute]) {
       setCurrentTab(tab as UserInfoTabs)
@@ -316,7 +321,9 @@ export default function User() {
                 </NameWrapper>
                 <TYPE.darkGray fontWeight={400}>
                   <AddressWrapper>
-                    {isMobile ? userInfo && userInfo.account && shortenAddress(userInfo.account) : userInfo?.account}{' '}
+                    {isDownMd || isMobile
+                      ? userInfo && userInfo.account && shortenAddress(userInfo.account)
+                      : userInfo?.account}{' '}
                     <CopyHelper toCopy={userInfo?.account ?? ''} />
                   </AddressWrapper>
                 </TYPE.darkGray>
@@ -376,20 +383,11 @@ export default function User() {
               (currentTab === UserInfoTabs.LOCKER && myLockerIsLoading) ||
               (currentTab === UserInfoTabs.NFT && myMlindBoxLoading)) && (
               <>
-                <HideSmall>
-                  <AnimatedWrapper style={{ marginTop: 40 }}>
-                    <AnimatedImg>
-                      <img src={Loader} alt="loading-icon" />
-                    </AnimatedImg>
-                  </AnimatedWrapper>
-                </HideSmall>
-                <ShowSmall>
-                  <AnimatedWrapper style={{ marginTop: 40 }}>
-                    <AnimatedImg>
-                      <img src={LoaderWhite} alt="loading-icon" />
-                    </AnimatedImg>
-                  </AnimatedWrapper>
-                </ShowSmall>
+                <AnimatedWrapper style={{ marginTop: 40 }}>
+                  <AnimatedImg>
+                    <img src={Loader} alt="loading-icon" />
+                  </AnimatedImg>
+                </AnimatedWrapper>
               </>
             )}
             {!positionIsLoading && currentTab === UserInfoTabs.POSITION /*|| currentTab === Tabs.LOCKER*/ && (
@@ -400,7 +398,7 @@ export default function User() {
                   <>
                     <ContentWrapper>
                       {positionCardList.map(item => {
-                        if (!item) return null
+                        if (!item || !item.id || !item.creator) return null
                         const { color, address, icons, indexId, creator, name, id } = item
                         return (
                           <NFTCard

@@ -76,10 +76,10 @@ export const MenuItem = styled(RowBetween)`
   :hover {
     background-color: ${({ theme, disabled }) => !disabled && theme.advancedBG};
   }
+  color: ${({ theme }) => theme.text1};
   opacity: ${({ disabled, selected }) => (disabled || selected ? 0.5 : 1)};
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    color: #ffffff;
-    border-bottom:  1px solid ${theme.bg1};
+    border-bottom:  1px solid ${theme.text1 + 10};
   `};
 `
 

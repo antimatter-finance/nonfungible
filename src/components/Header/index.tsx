@@ -315,6 +315,14 @@ const UserButtonWrap = styled.div`
     opacity: 0;
     visibility: hidden;
   }
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  :hover {
+    div {
+      opacity: 0;
+      visibility:hidden ;
+    }
+  }
+  `}
 `
 
 const UserButton = styled(ButtonText)<{ isOpen: boolean; size?: string }>`
@@ -541,7 +549,7 @@ export default function Header() {
   }, [userInfo, login, toggleCreationModal])
 
   const toShowUserPanel = useCallback(() => {
-    if (userInfo && userInfo.token) {
+    if (userInfo && userInfo.token && history.location.pathname !== '/profile') {
       history.push('/profile')
       return
     } else login()

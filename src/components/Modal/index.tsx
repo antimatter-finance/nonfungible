@@ -65,6 +65,7 @@ export const StyledDialogContent = styled(
   overflow-y: ${({ mobile }) => (mobile ? 'auto' : 'hidden')};
 
   &[data-reach-dialog-content] {
+    min-width:${({ theme }) => theme.minContentWidth};
     padding: 0px;
     width: ${({ width }) => width ?? '42vw'};
     ${({ minWidth }) =>
@@ -95,14 +96,14 @@ export const StyledDialogContent = styled(
     display: flex;
     border-radius: 40px;
     margin: 0 auto;
-    ${({ theme }) => theme.mediaWidth.upToMedium`
-      width: 65vw;
+    ${({ theme, width }) => theme.mediaWidth.upToMedium`
+      width: ${width ?? '65vw'};
       margin: 0;
     `}
     ${({ theme }) => theme.mediaWidth.upToSmall`
       width: 100vw;
       max-width:unset;
-      min-height:unset;
+      min-height:${`calc(100vh - ${theme.headerHeight})`};
       max-height:${`calc(100vh - ${theme.headerHeight})`};
       height: auto;
       overflow-y: auto;

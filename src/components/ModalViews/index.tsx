@@ -18,8 +18,6 @@ const ConfirmOrLoadingWrapper = styled.div`
   width: 100%;
   padding: 52px 48px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-  color: #ffffff
-  height: 100%;
   padding: 24px;
   `}
 `
@@ -33,23 +31,10 @@ const LoadingViewGrid = styled(AutoColumn)`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 32px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  background-color: #ffffff;
-  color: #000000
-  :disabled{
-    background-color: #ffffff;
-    color: #000000
-  }
-`}
 `
 
 const ConfirmedIcon = styled(ColumnCenter)`
   padding: 0 0 28px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  path{
-    fill: #ffffff
-  }
-  `}
 `
 
 export function LoadingView({ children, onDismiss }: { children: any; onDismiss?: () => void }) {

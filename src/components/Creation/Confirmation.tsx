@@ -21,6 +21,7 @@ const Wrapper = styled(AutoColumn)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
   background: #ffffff
   grid-row-gap: 24px;
+  border-color: transparent
   `}
 `
 const RightText = styled(TYPE.small)`
@@ -32,12 +33,10 @@ const RightText = styled(TYPE.small)`
 `
 const StyledHeader = styled.div`
   position: sticky;
-  background: #fff;
+  background: ${({ theme }) => theme.bg1}
   top: 0;
-  z-index: 2;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  background: #000
-  `}
+  z-index: 2;  ${({ theme }) => theme.mediaWidth.upToSmall`
+  background: ${({ theme }) => theme.bg2}`}
 `
 
 export function SpotConfirmation({
