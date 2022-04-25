@@ -58,10 +58,10 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
         case 2:
           return (
             <>
-              <LogoWrapper size={50} top={121} left={60}>
+              <LogoWrapper size={75} top={80} left={60}>
                 {icons[0]}
               </LogoWrapper>
-              <LogoWrapper size={62} top={170} left={157}>
+              <LogoWrapper size={92} top={190} left={140}>
                 {icons[1]}
               </LogoWrapper>
             </>
@@ -69,13 +69,13 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
         case 3:
           return (
             <>
-              <LogoWrapper size={47} top={100} left={187}>
+              <LogoWrapper size={62} top={76} left={180}>
                 {icons[0]}
               </LogoWrapper>
-              <LogoWrapper size={43} top={126} left={49}>
+              <LogoWrapper size={60} top={115} left={46}>
                 {icons[1]}
               </LogoWrapper>
-              <LogoWrapper size={56} top={183} left={124}>
+              <LogoWrapper size={70} top={213} left={138}>
                 {icons[2]}
               </LogoWrapper>
             </>
@@ -83,16 +83,16 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
         case 4:
           return (
             <>
-              <LogoWrapper size={48} top={111} left={49}>
+              <LogoWrapper size={61} top={66} left={47}>
                 {icons[0]}
               </LogoWrapper>
-              <LogoWrapper size={36} top={106} left={match ? 150 : 168}>
+              <LogoWrapper size={51} top={96} left={match ? 150 : 174}>
                 {icons[1]}
               </LogoWrapper>
-              <LogoWrapper size={40} top={188} left={98}>
+              <LogoWrapper size={60} top={220} left={56}>
                 {icons[2]}
               </LogoWrapper>
-              <LogoWrapper size={60} top={match ? 200 : 226} left={match ? 175 : 175}>
+              <LogoWrapper size={70} top={match ? 200 : 230} left={match ? 175 : 177}>
                 {icons[3]}
               </LogoWrapper>
             </>
@@ -100,19 +100,19 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
         case 5:
           return (
             <>
-              <LogoWrapper size={48} top={104} left={40}>
+              <LogoWrapper size={64} top={61} left={34}>
                 {icons[0]}
               </LogoWrapper>
-              <LogoWrapper size={40} top={97} left={200}>
+              <LogoWrapper size={51} top={60} left={190}>
                 {icons[1]}
               </LogoWrapper>
-              <LogoWrapper size={36} top={144} left={121}>
+              <LogoWrapper size={40} top={151} left={125}>
                 {icons[2]}
               </LogoWrapper>
-              <LogoWrapper size={32} top={211} left={83}>
+              <LogoWrapper size={60} top={223} left={32}>
                 {icons[3]}
               </LogoWrapper>
-              <LogoWrapper size={56} top={234} left={168}>
+              <LogoWrapper size={74} top={224} left={178}>
                 {icons[4]}
               </LogoWrapper>
             </>
@@ -120,22 +120,22 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
         case 6:
           return (
             <>
-              <LogoWrapper size={40} top={104} left={40}>
+              <LogoWrapper size={73} top={77} left={39}>
                 {icons[0]}
               </LogoWrapper>
-              <LogoWrapper size={40} top={97} left={200}>
+              <LogoWrapper size={51} top={48} left={168}>
                 {icons[1]}
               </LogoWrapper>
-              <LogoWrapper size={36} top={match ? 120 : 134} left={match ? 100 : 119}>
+              <LogoWrapper size={46} top={match ? 120 : 159} left={match ? 100 : 194}>
                 {icons[2]}
               </LogoWrapper>
-              <LogoWrapper size={32} top={190} left={58}>
+              <LogoWrapper size={40} top={200} left={112}>
                 {icons[3]}
               </LogoWrapper>
-              <LogoWrapper size={44} top={199} left={match ? 130 : 158}>
+              <LogoWrapper size={60} top={253} left={match ? 23 : 27}>
                 {icons[4]}
               </LogoWrapper>
-              <LogoWrapper size={40} top={match ? 250 : 270} left={match ? 180 : 195}>
+              <LogoWrapper size={49} top={match ? 250 : 268} left={match ? 180 : 196}>
                 {icons[5]}
               </LogoWrapper>
             </>
@@ -143,26 +143,56 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
         case 7:
           return (
             <>
-              <LogoWrapper size={40} top={104} left={40}>
+              <LogoWrapper size={58} top={53} left={34}>
                 {icons[0]}
               </LogoWrapper>
-              <LogoWrapper size={40} top={97} left={200}>
+              <LogoWrapper size={40} top={42} left={127}>
                 {icons[1]}
               </LogoWrapper>
-              <LogoWrapper size={36} top={match ? 100 : 134} left={119}>
+              <LogoWrapper size={65} top={match ? 86 : 96} left={192}>
                 {icons[2]}
               </LogoWrapper>
-              <LogoWrapper size={32} top={190} left={58}>
+              <LogoWrapper size={44} top={157} left={74}>
                 {icons[3]}
               </LogoWrapper>
-              <LogoWrapper size={44} top={199} left={158}>
+              <LogoWrapper size={60} top={255} left={27}>
                 {icons[4]}
               </LogoWrapper>
-              <LogoWrapper size={28} top={232} left={115}>
+              <LogoWrapper size={51} top={244} left={131}>
                 {icons[5]}
               </LogoWrapper>
-              <LogoWrapper size={40} top={270} left={195}>
+              <LogoWrapper size={49} top={255} left={213}>
                 {icons[6]}
+              </LogoWrapper>
+            </>
+          )
+
+        case 8:
+          return (
+            <>
+              <LogoWrapper size={51} top={48} left={24}>
+                {icons[0]}
+              </LogoWrapper>
+              <LogoWrapper size={40} top={66} left={114}>
+                {icons[1]}
+              </LogoWrapper>
+              <LogoWrapper size={46} top={match ? 40 : 45} left={199}>
+                {icons[2]}
+              </LogoWrapper>
+              <LogoWrapper size={44} top={151} left={74}>
+                {icons[3]}
+              </LogoWrapper>
+              <LogoWrapper size={51} top={140} left={177}>
+                {icons[4]}
+              </LogoWrapper>
+              <LogoWrapper size={60} top={258} left={27}>
+                {icons[5]}
+              </LogoWrapper>
+              <LogoWrapper size={40} top={252} left={122}>
+                {icons[6]}
+              </LogoWrapper>
+              <LogoWrapper size={49} top={258} left={202}>
+                {icons[7]}
               </LogoWrapper>
             </>
           )
@@ -192,6 +222,9 @@ export default function CurrencyLogosOverlay({ icons = [] }: { icons: React.Reac
               </LogoWrapper>
               <LogoWrapper size={40} top={270} left={195}>
                 {icons[7]}
+              </LogoWrapper>
+              <LogoWrapper size={49} top={255} left={213}>
+                {icons[8]}
               </LogoWrapper>
             </>
           )

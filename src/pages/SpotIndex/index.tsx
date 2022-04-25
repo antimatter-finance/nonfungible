@@ -149,8 +149,8 @@ export default function SpotIndex() {
       <Layout>
         <ProductBanner
           title="Non-Fungible Finance"
-          text="A basket for multiple assets and store assets 
-with a variety of lock and unlock mechanism."
+          text="A basket for crypto assets 
+with a variety of lock and unlock mechanisms."
           imgUrl={spotBannerUrl}
           val1={'574'}
           subVal1={'Total NFT Issued'}
