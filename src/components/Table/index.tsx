@@ -80,7 +80,7 @@ const useStyles = makeStyles({
   },
   tableRow: {
     borderBottom: ({ isHeaderGray }: StyleProps) =>
-      isHeaderGray ? '1px solid rgba(247, 247, 247, 1)' : '1px solid #999999',
+      isHeaderGray ? '1px solid rgba(247, 247, 247, 1)' : '1px solid #25252520',
     height: 72,
     '&:hover': {
       backgroundColor: ' rgba(178, 243, 85, 0.08)'
@@ -136,7 +136,7 @@ export default function Table({
   return (
     <>
       {match ? (
-        <Box position="relative">
+        <Box position="relative" gap={8} display="grid">
           {rows.map((data, index) => (
             <Card key={index}>
               <AutoColumn gap="16px">
@@ -153,9 +153,11 @@ export default function Table({
         </Box>
       ) : (
         <TableContainer className={classes.root}>
-          <div style={{ position: 'absolute', bottom: 130, left: '50%', transform: 'translateX(-50%)' }}>
-            No activity at the moment
-          </div>
+          {!rows.length && (
+            <div style={{ position: 'absolute', bottom: 130, left: '50%', transform: 'translateX(-50%)' }}>
+              No activity at the moment
+            </div>
+          )}
           <table>
             <TableHead className={classes.tableHeader}>
               <TableRow>

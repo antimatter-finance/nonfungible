@@ -65,6 +65,7 @@ export default function NumericalCard(props: Props) {
           <Box display="flex">
             {title && (
               <Typography
+                component="div"
                 variant="inherit"
                 color={primary ? theme.palette.primary.contrastText : theme.palette.text.secondary}
               >
@@ -83,6 +84,7 @@ export default function NumericalCard(props: Props) {
           }}
         >
           <Typography
+            component="div"
             sx={{
               fontSize: fontSize || 24,
               fontWeight: 700,
@@ -92,11 +94,13 @@ export default function NumericalCard(props: Props) {
             {value}
           </Typography>
           {unit && (
-            <Typography sx={{ fontSize: unitSize || 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>{unit}</Typography>
+            <Typography component="div" sx={{ fontSize: unitSize || 16, fontWeight: 700, ml: 4, lineHeight: 1 }}>
+              {unit}
+            </Typography>
           )}
         </Box>
         {subValue && (
-          <Typography sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }} align="left">
+          <Typography component="div" sx={{ fontSize: 12, fontWeight: 400, opacity: 0.5 }} align="left">
             {subValue}
           </Typography>
         )}

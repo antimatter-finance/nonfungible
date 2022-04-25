@@ -1,4 +1,5 @@
 import { LockerType } from 'components/Creation'
+import { useActiveWeb3React } from 'hooks'
 import { useEffect, useMemo, useState } from 'react'
 import { getLockerIndexEventRecord } from '../utils/option/httpFetch'
 
@@ -34,9 +35,10 @@ export function useLockerIndexData(): {
     list: LockerIndexData[]
   }
 } {
+  const { chainId } = useActiveWeb3React()
   const [lockerListData, setLockerListData] = useState<LockerIndexData[]>([])
   const [lockerCreatedCount, setLockerCreatedCount] = useState(0)
-  const [ownerCount, setOwnerCount] = useState(0)
+  const [ownerCount, setOwnerCount] = useState<any>({})
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [totalPages, setTotalPages] = useState<number>(0)
@@ -44,12 +46,13 @@ export function useLockerIndexData(): {
     ;(async () => {
       try {
         setIsLoading(true)
-        const indexRes = await getLockerIndexEventRecord(currentPage)
+        const indexRes = await getLockerIndexEventRecord(currentPage, chainId)
+
         setIsLoading(false)
-        if (indexRes && (indexRes.eventList as [])) {
-          setLockerCreatedCount(indexRes.lockerCreatedCount)
-          setOwnerCount(indexRes.ownerCount)
-          const _list: LockerIndexData[] = indexRes.eventList.map((item: any) => {
+        if (indexRes) {
+          const _list: LockerIndexData[] = indexRes.map((item: any) => {
+            setLockerCreatedCount(count => (item.eventType === LockerIndexEventType.Created ? count + 1 : count))
+            setOwnerCount((dict: any) => ({ ...dict, [item.username]: true }))
             return {
               eventType: item.eventType as LockerIndexEventType,
               tokenType: item.tokenType === 1 ? LockerType.ERC721 : LockerType.ERC1155,
@@ -67,13 +70,13 @@ export function useLockerIndexData(): {
         console.error('fetch index List', error)
       }
     })()
-  }, [currentPage])
+  }, [chainId, currentPage])
   const result = useMemo(
     () => ({
       loading: isLoading,
       data: {
         lockerCreatedCount: lockerCreatedCount,
-        ownerCount,
+        ownerCount: Object.keys(ownerCount).length,
         list: lockerListData
       },
       page: { totalPages, currentPage, setCurrentPage }
