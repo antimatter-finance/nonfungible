@@ -1,6 +1,5 @@
 import { Currency, ETHER, Token } from '@uniswap/sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import { X } from 'react-feather'
@@ -84,7 +83,6 @@ export function CurrencySearch({
   tokenList,
   disabledCurrencys
 }: CurrencySearchProps & { disabledCurrencys?: Currency[] }) {
-  const { t } = useTranslation()
   const { chainId } = useActiveWeb3React()
   const theme = useTheme()
 
@@ -191,7 +189,7 @@ export function CurrencySearch({
           <SearchNFTInput
             type="text"
             id="token-search-input"
-            placeholder={t('tokenSearchPlaceholder')}
+            placeholder={'Search by name or paste address'}
             autoComplete="off"
             value={searchQuery}
             ref={inputRef as RefObject<HTMLInputElement>}

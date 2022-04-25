@@ -1,7 +1,6 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { darken } from 'polished'
 import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { NetworkContextName } from '../../constants'
 import useENSName from '../../hooks/useENSName'
@@ -82,7 +81,6 @@ const SOCK = (
 )
 
 function Web3StatusInner() {
-  const { t } = useTranslation()
   const { account, error } = useWeb3React()
 
   const { ENSName } = useENSName(account ?? undefined)
@@ -130,7 +128,7 @@ function Web3StatusInner() {
   } else {
     return (
       <ButtonPrimary onClick={toggleWalletModal} style={{ height: '40px', padding: '8px 25px' }}>
-        {t('Connect Wallet')}
+        Connect Wallet
       </ButtonPrimary>
     )
   }
