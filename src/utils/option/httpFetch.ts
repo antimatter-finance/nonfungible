@@ -1,3 +1,4 @@
+import { ChainId } from '@uniswap/sdk'
 import store from 'state'
 import { getCurrentUserInfoSync, clearLoginStoreSync } from 'state/userInfo/hooks'
 
@@ -172,10 +173,11 @@ export function getNFTTransferRecords(nftId: string): Promise<any> {
   return promiseGenerator(request)
 }
 
-export function getLockerIndexEventRecord(curPage: string | number): Promise<any> {
+export function getLockerIndexEventRecord(curPage: string | number, chainId: ChainId | null | undefined): Promise<any> {
   const param = {
     curPage,
-    pageSize: '12'
+    pageSize: '12',
+    chainId
   }
   const request = new Request(`${domain}/app/getEventRecord`, {
     method: 'POST',
