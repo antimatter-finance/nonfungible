@@ -38,7 +38,7 @@ export function useLockerIndexData(): {
   const { chainId } = useActiveWeb3React()
   const [lockerListData, setLockerListData] = useState<LockerIndexData[]>([])
   const [lockerCreatedCount, setLockerCreatedCount] = useState(0)
-  const [ownerCount, setOwnerCount] = useState<any>({})
+  const [ownerCount, setOwnerCount] = useState(0)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [totalPages, setTotalPages] = useState<number>(0)
@@ -47,12 +47,11 @@ export function useLockerIndexData(): {
       try {
         setIsLoading(true)
         const indexRes = await getLockerIndexEventRecord(currentPage, chainId)
-
         setIsLoading(false)
-        if (indexRes) {
-          const _list: LockerIndexData[] = indexRes.map((item: any) => {
-            setLockerCreatedCount(count => (item.eventType === LockerIndexEventType.Created ? count + 1 : count))
-            setOwnerCount((dict: any) => ({ ...dict, [item.username]: true }))
+        if (indexRes && (indexRes.eventList as [])) {
+          setLockerCreatedCount(indexRes.lockerCreatedCount)
+          setOwnerCount(indexRes.ownerCount)
+          const _list: LockerIndexData[] = indexRes.eventList.map((item: any) => {
             return {
               eventType: item.eventType as LockerIndexEventType,
               tokenType: item.tokenType === 1 ? LockerType.ERC721 : LockerType.ERC1155,
@@ -71,12 +70,13 @@ export function useLockerIndexData(): {
       }
     })()
   }, [chainId, currentPage])
+
   const result = useMemo(
     () => ({
       loading: isLoading,
       data: {
         lockerCreatedCount: lockerCreatedCount,
-        ownerCount: Object.keys(ownerCount).length,
+        ownerCount,
         list: lockerListData
       },
       page: { totalPages, currentPage, setCurrentPage }
