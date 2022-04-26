@@ -394,7 +394,11 @@ export default function Box() {
       <TransactionConfirmationModal
         isOpen={transactionModalOpen}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onDismiss={() => setTransactionModalOpen(false)}
+        onDismiss={() => {
+          setError(false)
+          setErrorMsg('')
+          setTransactionModalOpen(false)
+        }}
         hash={modalHash}
         attemptingTxn={attemptingTxnModal}
         error={error}
