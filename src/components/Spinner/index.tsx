@@ -1,5 +1,6 @@
 import React from 'react'
 import { CircularProgress, makeStyles, createStyles } from '@material-ui/core'
+import { theme } from 'theme'
 
 interface Props {
   size?: string | number
@@ -20,11 +21,11 @@ const useStyles = makeStyles(() =>
     },
     bottom: {
       '& svg circle': {
-        stroke: '#A1A1A1'
+        stroke: '#25252510'
       }
     },
     top: {
-      color: (props: Props) => props.color ?? '#B2F355',
+      color: (props: Props) => props.color ?? theme().primary1,
       animationDuration: '850ms',
       position: 'absolute',
       left: 0,
