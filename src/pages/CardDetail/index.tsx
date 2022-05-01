@@ -92,7 +92,7 @@ export const InfoPanel = styled.div`
   background: #ffffff;
   border-radius: 40px;
   width: 100%;
-  padding: 26px 52px;
+  padding: 26px 40px;
   min-height: 508px;
   ${({ theme }) => theme.mediaWidth.upToLarge`
     padding: 26px 24px 60px;
@@ -164,8 +164,9 @@ const BuyPannel = styled(ColumnCenter)`
   height: 360px;
   align-items: flex-start;
   justify-content: space-between;
-  ${({ theme }) => theme.mediaWidth.upToLarge`
-  padding-right: 0;
+  gap: 26px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  gap: 18px;
   `}
 `
 const MarketPrice = styled(RowBetween)`
@@ -425,24 +426,27 @@ export default function CardDetail({
       <Wrapper>
         <ContentWrapper>
           <StyledNFTCard>
-            <NFTCard {...currentCard} />
+            <NFTCard noBorderArea={true} {...currentCard} />
           </StyledNFTCard>
           {currentTab === TabType.Information ? (
             <InfoPanel>
               <StyledTabs>
                 <StyledTabItem
+                  isDownMd={isDownMd}
                   current={currentSubTab === SubTabType.Creater}
                   onClick={() => setCurrentSubTab(SubTabType.Creater)}
                 >
                   Creator info
                 </StyledTabItem>
                 <StyledTabItem
+                  isDownMd={isDownMd}
                   current={currentSubTab === SubTabType.Index}
                   onClick={() => setCurrentSubTab(SubTabType.Index)}
                 >
                   Index info
                 </StyledTabItem>
                 <StyledTabItem
+                  isDownMd={isDownMd}
                   current={currentSubTab === SubTabType.Underlying}
                   onClick={() => setCurrentSubTab(SubTabType.Underlying)}
                 >
@@ -488,7 +492,7 @@ export default function CardDetail({
                         </TYPE.body>
                         <CustomNumericalInput
                           style={{
-                            width: 'unset',
+                            width: '100%',
                             height: '60px'
                           }}
                           maxLength={6}
@@ -546,7 +550,9 @@ export default function CardDetail({
                       </AutoColumn>
                       <AutoColumn gap="8px" style={{ width: '100%' }}>
                         <RowBetween>
-                          <TYPE.black color="black">Payment Currency </TYPE.black>
+                          <TYPE.body fontSize={14} fontWeight={500}>
+                            Payment Currency
+                          </TYPE.body>
                           <SettingsTab onlySlippage={true} />
                         </RowBetween>
                         <CurrencyETHShow />
@@ -704,7 +710,7 @@ function AssetItem({ amount, currencyToken }: { amount: string; currencyToken: W
             target="_blank"
             href={getEtherscanLink(chainId ?? 1, currencyToken ? currencyToken.address ?? '' : '', 'token')}
           >
-            <TYPE.subHeader>{currencyToken?.symbol}</TYPE.subHeader>
+            <TYPE.smallHeader>{currencyToken?.symbol}</TYPE.smallHeader>
           </StyledLink>
           <TYPE.black color={'black'} fontWeight={400}>
             {amount}

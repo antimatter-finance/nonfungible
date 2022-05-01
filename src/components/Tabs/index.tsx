@@ -6,11 +6,11 @@ const StyledTabs = styled(RowFixed)`
   margin-bottom: 20px;
 `
 
-const StyledTabItem = styled(ButtonEmpty)<{ current?: string | boolean }>`
+const StyledTabItem = styled(ButtonEmpty)<{ isDownMd?: boolean; current?: string | boolean }>`
   color: ${({ theme, current }) => (current ? theme.text1 : theme.text3)};
   width: auto;
   font-family: SF Pro;
-  font-weight: bold;
+  font-weight: ${({ isDownMd }) => (isDownMd ? 'medium' : 'bold')};
   margin-right: 32px;
   border-radius: 0;
   padding: 14px 0 8px;
