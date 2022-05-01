@@ -53,11 +53,11 @@ const formatSynposis = (synopsis: string) => {
   return synopsis
 }
 
-const CardWrapper = styled.div<{ onClick?: any }>`
+const CardWrapper = styled.div<{ onClick?: any; noBorderArea?: boolean }>`
   height: 394px;
   width: ${NFTCardWidth};
   background: #ffffff;
-  border: 1px solid #ebecf2;
+  border: ${({ noBorderArea }) => (noBorderArea ? '' : '1px solid #ebecf2')};
   border-radius: 30px;
   display: grid;
   justify-content: center;
@@ -120,7 +120,7 @@ function NFTCardBase({
   icons?: React.ReactNode[]
 }) {
   return (
-    <CardWrapper onClick={onClick}>
+    <CardWrapper noBorderArea={noBorderArea} onClick={onClick}>
       {children}
       <CardContent padding={noBorderArea ? 0 : '20px'} color={color}>
         {icons && <CurrencyLogosOverlay icons={icons} />}
@@ -154,7 +154,12 @@ export default function NFTCard({
   const downMd = useBreakpoint('md')
   return (
     <NFTCardBase noBorderArea={noBorderArea} color={color} address={address} onClick={onClick} icons={icons}>
-      <TYPE.black fontWeight={700} fontSize={downMd ? 20 : 22} color="#000000" style={{ ...ellipsis('100%') }}>
+      <TYPE.black
+        fontWeight={700}
+        fontSize={noBorderArea ? 26 : downMd ? 20 : 22}
+        color="#000000"
+        style={{ ...ellipsis('100%') }}
+      >
         {name}
       </TYPE.black>
       <Box display="flex" gap={'8px'}>

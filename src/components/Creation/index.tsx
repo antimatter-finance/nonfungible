@@ -96,7 +96,7 @@ export const Control = styled.div`
 const StyledNoticeBox = styled(RowFixed)`
   width: 100%;
   padding: 10px 16px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   color: #000000;
   > svg {
