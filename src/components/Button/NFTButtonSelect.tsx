@@ -10,10 +10,15 @@ import useTheme from '../../hooks/useTheme'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ReactComponent as Check } from 'assets/svg/black_check.svg'
 
-export const StyledDropDown = styled(DropDown)`
+export const StyledDropDown = styled(DropDown)<{
+  selected?: boolean
+}>`
   margin: 0 11px 0 0;
   width: 17px;
   height: 17px;
+
+  transform: ${({ selected }) => (selected ? 'rotate(180deg)' : 'none')};
+  transition: ${({ selected }) => (selected ? 'transform 0.1s linear' : 'transform 0.1s linear')};
   path {
     stroke-width: 1.5px;
     stroke: ${({ theme }) => theme.text1};
@@ -158,7 +163,7 @@ export default function ButtonSelect({
       >
         <RowBetween>
           <div style={{ display: 'flex', alignItems: 'center' }}>{buttonContent}</div>
-          {!disabled && <StyledDropDown />}
+          {!disabled && <StyledDropDown selected={isOpen} />}
         </RowBetween>
       </ButtonSelectStyle>
       {options && onSelection && (

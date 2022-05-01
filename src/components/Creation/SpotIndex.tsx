@@ -37,8 +37,8 @@ export const StyledCurrencyInputPanel = styled.div<{ lessTwo: boolean }>`
     cursor: pointer;
     ${({ theme }) => theme.mediaWidth.upToSmall`
     top: unset;
-    right:40px;
-    bottom:0px;
+    right:20px;
+    bottom:22px;
     z-index:1;
     color:${theme.text3}
   `};
@@ -392,6 +392,7 @@ export default function SpotIndex({
                   return (
                     <StyledCurrencyInputPanel key={index} lessTwo={!!(assetParams.length < 3)}>
                       <CurrencyNFTInputPanel
+                        lessTwo={!!(assetParams.length < 3)}
                         hiddenLabel={true}
                         value={item.amount}
                         onUserInput={val => {

@@ -116,7 +116,7 @@ export function SpotConfirmation({
                     <CurrencyLogo currency={currencyToken} style={{ marginRight: 10 }} />
                     <TYPE.smallGray>{currencyToken?.symbol}</TYPE.smallGray>
                   </RowFixed>
-                  <RightText>{amount}</RightText>
+                  <RightText style={{ alignSelf: 'center' }}>{amount}</RightText>
                 </RowBetween>
                 <TokenFluidityErrorLine tokenFluidity={tokenFluiditys[index]} />
               </div>

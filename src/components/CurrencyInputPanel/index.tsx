@@ -79,7 +79,7 @@ const CurrencySelect = styled.button<{ selected: boolean; halfWidth?: boolean }>
   `}
 `
 
-const CurrencyNFTSelect = styled.button<{ selected: boolean; halfWidth?: boolean }>`
+const CurrencyNFTSelect = styled.button<{ lessTwo?: boolean; selected: boolean; halfWidth?: boolean }>`
   align-items: center;
   width: ${({ halfWidth }) => (halfWidth ? '48%' : '42%')}};
   height: 60px;
@@ -100,9 +100,9 @@ const CurrencyNFTSelect = styled.button<{ selected: boolean; halfWidth?: boolean
   :hover {
     border: 1px solid ${({ selected }) => (selected ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.1)')};
   }
-  ${({ theme, selected }) => theme.mediaWidth.upToSmall`
+  ${({ theme, selected, lessTwo }) => theme.mediaWidth.upToSmall`
   right: 0;
-  width: 50%;
+  width: ${lessTwo ? '100%' : '50%'};
   height: 48px;
   // color:${selected ? theme.text1 : theme.primary1}
   // border: 1px solid ${selected ? theme.text1 : theme.primary1}
@@ -205,6 +205,7 @@ interface CurrencyInputPanelProps {
   pair?: Pair | null
   hideInput?: boolean
   hideSelect?: boolean
+  lessTwo?: boolean
   otherCurrency?: Currency | null
   id: string
   showCommonBases?: boolean
@@ -356,6 +357,7 @@ export function CurrencyNFTInputPanel({
   pair = null, // used for double token logo
   hideInput = false,
   hideSelect = false,
+  lessTwo = false,
   otherCurrency,
   id,
   showCommonBases,
@@ -450,8 +452,9 @@ export function CurrencyNFTInputPanel({
 
           {!hideSelect && (
             <CurrencyNFTSelect
+              lessTwo={lessTwo}
               selected={!!currency}
-              style={{ width: hideInput ? '100%' : '', minWidth: 170 }}
+              style={{ width: hideInput ? '100%' : '', minWidth: 246 }}
               className="open-currency-select-button"
               onClick={() => {
                 if (!disableCurrencySelect) {
@@ -481,7 +484,7 @@ export function CurrencyNFTInputPanel({
                     </StyledTokenName>
                   )}
                 </Aligner>
-                {!disableCurrencySelect && <StyledNFTDropDown selected={!currency} />}
+                {!disableCurrencySelect && <StyledNFTDropDown selected={true} />}
               </Aligner>
             </CurrencyNFTSelect>
           )}

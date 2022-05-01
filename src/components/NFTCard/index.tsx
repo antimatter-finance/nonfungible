@@ -12,6 +12,7 @@ import { ellipsis } from 'polished'
 import { shortenAddress } from 'utils'
 import CopyHelper from 'components/AccountDetails/Copy'
 import { Box } from '@mui/material'
+import useBreakpoint from 'hooks/useBreakpoint'
 export { default as NFTArtCard } from './NFTArtCard'
 
 export enum CardColor {
@@ -150,9 +151,10 @@ export default function NFTCard({
   onClick,
   createName
 }: NFTCardProps & { onClick?: () => void; createName?: string }) {
+  const downMd = useBreakpoint('md')
   return (
     <NFTCardBase noBorderArea={noBorderArea} color={color} address={address} onClick={onClick} icons={icons}>
-      <TYPE.black fontWeight={700} fontSize={28} color="#000000" style={{ ...ellipsis('100%') }}>
+      <TYPE.black fontWeight={700} fontSize={downMd ? 20 : 22} color="#000000" style={{ ...ellipsis('100%') }}>
         {name}
       </TYPE.black>
       <Box display="flex" gap={'8px'}>

@@ -6,6 +6,7 @@ import { LinkStyledButton } from '../../theme'
 import { CheckCircle, Copy } from 'react-feather'
 
 const CopyIcon = styled(LinkStyledButton)`
+  padding: 0px 6px 0px 0px;
   color: ${({ theme }) => theme.text2};
   flex-shrink: 0;
   display: flex;
@@ -19,7 +20,6 @@ const CopyIcon = styled(LinkStyledButton)`
   }
 `
 const TransactionStatusText = styled.span`
-  margin-left: 0.25rem;
   font-size: 0.825rem;
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
