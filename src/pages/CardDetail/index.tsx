@@ -165,8 +165,10 @@ const BuyPannel = styled(ColumnCenter)`
   align-items: flex-start;
   justify-content: space-between;
   gap: 26px;
+  ${({ theme }) => theme.mediaWidth.upToMedium`  padding: 0`}
   ${({ theme }) => theme.mediaWidth.upToSmall`
   gap: 18px;
+
   `}
 `
 const MarketPrice = styled(RowBetween)`
