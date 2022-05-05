@@ -44,6 +44,7 @@ const useStyles = makeStyles({
       fontSize: '16px',
       borderBottom: 'none',
       padding: '14px 20px',
+      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif!important',
       '& svg': {
         marginRight: 8
       },
@@ -69,6 +70,7 @@ const useStyles = makeStyles({
       fontSize: '14px',
       fontWeight: 700,
       color: '#252525',
+      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif!important',
       borderBottom: ({ isHeaderGray }: StyleProps) => (isHeaderGray ? 'none' : '1px solid #25252520'),
       '&:first-child': {
         paddingLeft: 50

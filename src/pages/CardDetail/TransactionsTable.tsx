@@ -40,6 +40,7 @@ const useStyles = makeStyles({
     backgroundColor: '#ffffff',
     maxHeight: 314,
     '& .MuiTableCell-root': {
+      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif!important',
       fontSize: '12px',
       borderBottom: 'none',
       padding: '10px 15px',
@@ -130,7 +131,7 @@ export default function TransactionsTable({
   transactionRecords: NFTTransactionRecordsProps[] | undefined
 }) {
   const { chainId } = useActiveWeb3React()
-  const header = ['address', 'buy/sell', 'amount', 'price']
+  const header = ['Address', 'Buy/Sell', 'Amount', 'Price']
   const rows: (string | number | JSX.Element)[][] = useMemo(() => {
     if (!transactionRecords) return []
     return transactionRecords.map(({ nftAmount, type, sender, totalSpend }) => {

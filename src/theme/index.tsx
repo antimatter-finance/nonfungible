@@ -259,6 +259,12 @@ const MuiTheme = createTheme({
         }
       }
     }
+  },
+  typography: {
+    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif!important',
+    allVariants: {
+      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif'
+    }
   }
 })
 

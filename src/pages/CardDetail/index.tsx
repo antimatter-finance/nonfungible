@@ -592,7 +592,7 @@ export default function CardDetail({
                   <div>
                     <TransactionsTable transactionRecords={NFTTransactionRecords} />
                     {!NFTTransactionRecords?.length && (
-                      <TYPE.darkGray textAlign="center" padding="10px">
+                      <TYPE.darkGray textAlign="center" padding="10px" marginTop={30}>
                         No transaction record
                       </TYPE.darkGray>
                     )}
