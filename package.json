@@ -127,6 +127,7 @@
     "autoprefixer": "^10.4.5",
     "browserslist": "^4.20.3",
     "date-fns": "^2.22.1",
-    "lightweight-charts": "^3.3.0"
+    "lightweight-charts": "^3.3.0",
+    "lottie-web": "^5.9.4"
   }
 }

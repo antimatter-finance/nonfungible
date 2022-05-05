@@ -1,14 +1,10 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { TYPE } from 'theme'
-import { ReactComponent as BoxBottom } from 'assets/svg/box_bottom.svg'
-import BoxSlabUrl from 'assets/svg/box_slab.svg'
-import { HideMedium, AnimatedImg, AnimatedWrapper } from 'theme'
 import { AutoColumn } from 'components/Column'
 import { SwitchTabWrapper, Tab } from 'components/SwitchTab'
 import DefaultBox from './DefaultBox'
 import { RowFixed } from 'components/Row'
-import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
 import { useBlindBox, useBlindBoxClaimed, useMyBlindBox } from 'hooks/useBlindBox'
 import { useActiveWeb3React } from 'hooks/index'
 import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
@@ -24,6 +20,9 @@ import { useTokenBalance } from 'state/wallet/hooks'
 import { useCurrentUserInfo, useLogin } from 'state/userInfo/hooks'
 import { ButtonPrimary } from 'components/Button'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
+import AnimatedSvg from 'components/AnimatedSvg'
+import { Box as MuiBox } from '@mui/material'
+import useBreakpoint from 'hooks/useBreakpoint'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -65,50 +64,19 @@ const AppBody = styled.div`
 
 const FormWrapper = styled.div`
   width: 100%;
-  max-width: 1000px;
+  max-width: ${({ theme }) => theme.maxContentWidth};
   display: flex;
   justify-content: space-between;
   margin-top: 80px;
   align-items: center;
+  gap: 100px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
+    gap: 40px;
     justify-content: center;
+    flex-direction: column;
     margin-bottom: auto;
     margin-top: 24px;
   `};
-`
-
-const bounceAnimation = keyframes`
- 0% {transform(0)}
- 100% {transform:translateY(-20px) }
-`
-const breatheAnimation = keyframes`
- 0% {transform:scale(1)}
- 100% {transform:scale(0.1)}
-`
-const AnimatedLight = styled.div`
-  width: 50%;
-  height: 50%;
-  left: 40%;
-  top: 10%;
-  left: 25%;
-  position: absolute;
-  background: radial-gradient(50% 50% at 50% 50%, #d3f355 0%, rgba(255, 255, 255, 0.75) 100%);
-  filter: blur(200px);
-  border-radius: 50%;
-  transform-origin: 50% 50%;
-  animation: ${breatheAnimation} 1.6s infinite alternate cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation-delay: 0.5s;
-`
-
-const AnimatedSlab = styled.img`
-  position: absolute;
-  top: -57px;
-  left: 185px;
-  animation: ${bounceAnimation} 1.6s infinite alternate cubic-bezier(0.175, 0.885, 0.32, 1.275);
-`
-
-const AnimationWrapper = styled.div`
-  position: relative;
 `
 
 const CardWrapper = styled(AutoColumn)`
@@ -163,7 +131,7 @@ const generateImages = (onLastLoad: () => void) => {
   while (i <= 65) {
     arr.push(
       <CardImgWrapper key={i}>
-        <CardImg src={`/images/doll/${i}.png`} onLoad={i === 65 ? onLastLoad : undefined} alt={''} />
+        <CardImg src={`/images/doll/${65 - i}.png`} onLoad={i === 65 ? onLastLoad : undefined} alt={''} />
         <RowFixed>
           <span>#{i + 1}&nbsp;</span>
           <span>/66</span>
@@ -197,6 +165,7 @@ export default function Box() {
     account || undefined,
     MATTER_ADDRESS[chainId || 1] ? new Token(chainId || 1, MATTER_ADDRESS[chainId || 1], 18) : undefined
   )
+  const isDownSm = useBreakpoint('sm')
   const history = useHistory()
   const addTxn = useTransactionAdder()
   const txn = useTransaction(hash)
@@ -285,17 +254,13 @@ export default function Box() {
 
   return (
     <Wrapper>
-      <TYPE.monument style={{ width: '100%', color: '#252525' }} textAlign="center">
+      <TYPE.monument style={{ width: '100%', color: '#252525', fontSize: isDownSm ? 28 : 48 }} textAlign="center">
         Art meets Finance
       </TYPE.monument>
       <FormWrapper>
-        <HideMedium>
-          <AnimationWrapper>
-            <BoxBottom />
-            <AnimatedLight />
-            <AnimatedSlab src={BoxSlabUrl} alt="" />
-          </AnimationWrapper>
-        </HideMedium>
+        <MuiBox mb={{ xs: 0, md: 100 }}>
+          <AnimatedSvg fileName="collectables" />
+        </MuiBox>
         <AppBody>
           {approval === ApprovalState.PENDING && (
             <WaitingModal
@@ -381,12 +346,11 @@ export default function Box() {
             All Boxes
           </Tab>
         </SwitchTabWrapper>
+
         {!imgLoaded && (
-          <AnimatedWrapper style={{ marginTop: 100 }}>
-            <AnimatedImg>
-              <img src={Loader} alt="loading-icon" />
-            </AnimatedImg>
-          </AnimatedWrapper>
+          <MuiBox>
+            <AnimatedSvg fileName="loader" />
+          </MuiBox>
         )}
         <CardGrid style={{ display: imgLoaded ? 'inherit' : 'none' }}>{images}</CardGrid>
       </CardWrapper>

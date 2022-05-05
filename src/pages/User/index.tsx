@@ -6,7 +6,7 @@ import { Text } from 'rebass'
 import { AutoColumn } from 'components/Column'
 import { AutoRow, RowBetween, RowFixed } from 'components/Row'
 import { ButtonPrimary, ButtonWhite } from 'components/Button'
-import { AnimatedImg, AnimatedWrapper, HideSmall, TYPE, ShowSmall } from 'theme'
+import { AnimatedWrapper, HideSmall, TYPE, ShowSmall } from 'theme'
 import CopyHelper from 'components/AccountDetails/Copy'
 import ProfileFallback from 'assets/images/profile-fallback.png'
 import NFTCard, { NFTCardWidth /*, { NFTArtCard }*/ } from 'components/NFTCard'
@@ -21,7 +21,6 @@ import ProfileSetting from './ProfileSetting'
 import { useCurrentUserInfo, useLogOut } from 'state/userInfo/hooks'
 import { usePositionList, useIndexList, useMyLockerList } from 'hooks/useMyList'
 import Pagination from 'components/Pagination'
-import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
 import ClaimModal from 'components/claim/MatterClaimModal'
 import { useCreatorFee } from 'hooks/useMatterClaim'
 import { SwitchTabWrapper, Tab } from 'components/SwitchTab'
@@ -30,6 +29,7 @@ import { shortenAddress } from 'utils'
 import { useMyBlindBox } from 'hooks/useBlindBox'
 import { Box } from '@mui/material'
 import useBreakpoint from 'hooks/useBreakpoint'
+import AnimatedSvg from 'components/AnimatedSvg'
 
 export enum UserInfoTabs {
   POSITION = 'my_position',
@@ -384,9 +384,7 @@ export default function User() {
               (currentTab === UserInfoTabs.NFT && myMlindBoxLoading)) && (
               <>
                 <AnimatedWrapper style={{ marginTop: 40 }}>
-                  <AnimatedImg>
-                    <img src={Loader} alt="loading-icon" />
-                  </AnimatedImg>
+                  <AnimatedSvg fileName="loader" />
                 </AnimatedWrapper>
               </>
             )}

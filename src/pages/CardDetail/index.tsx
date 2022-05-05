@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js'
 import { ButtonPrimary, ButtonEmpty, ButtonOutlinedBlack } from 'components/Button'
 import { RowBetween, RowFixed } from 'components/Row'
 import { StyledTabItem, StyledTabs } from 'components/Tabs'
-import { AnimatedImg, AnimatedWrapper, HideMedium, HideSmall, TYPE } from 'theme'
+import { AnimatedWrapper, HideMedium, HideSmall, TYPE } from 'theme'
 import { ReactComponent as ArrowLeftCircle } from 'assets/svg/arrow_left_circle.svg'
 import useTheme from 'hooks/useTheme'
 import { Hr, Paragraph } from './Paragraph'
@@ -23,7 +23,6 @@ import {
   useNFTTransactionRecords
 } from 'hooks/useIndexDetail'
 import NumericalInput from 'components/NumericalInput'
-import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
 import AntimatterLogo from 'assets/svg/antimatter_logo_nft.svg'
 import { WrappedTokenInfo } from 'state/lists/hooks'
 import { useAmountInMins, useCalcBuyFee, useIndexBuyCall } from '../../hooks/useIndexBuyCallback'
@@ -46,6 +45,7 @@ import { ReactComponent as BNBIcon } from '../../assets/svg/bnb_icon.svg'
 import { ReactComponent as ETHIcon } from '../../assets/svg/eth_logo.svg'
 import { getEtherscanLink } from 'utils'
 import useBreakpoint from 'hooks/useBreakpoint'
+import AnimatedSvg from 'components/AnimatedSvg'
 
 export const Wrapper = styled.div`
   /* min-height: calc(100vh - ${({ theme }) => theme.headerHeight}); */
@@ -396,9 +396,7 @@ export default function CardDetail({
   if (!NFTIndexInfo) {
     return (
       <AnimatedWrapper>
-        <AnimatedImg>
-          <img src={Loader} alt="loading-icon" />
-        </AnimatedImg>
+        <AnimatedSvg fileName="loader" />
       </AnimatedWrapper>
     )
   }

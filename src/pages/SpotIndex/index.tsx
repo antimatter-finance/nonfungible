@@ -6,13 +6,13 @@ import Search /*, { MobileSearch }*/ from 'components/Search'
 import useNFTList from 'hooks/useNFTList'
 import CurrencyLogo from 'components/CurrencyLogo'
 import Pagination from 'components/Pagination'
-import { AnimatedImg, AnimatedWrapper, TYPE } from 'theme'
-import Loader from 'assets/svg/antimatter_icon.svg'
+import { AnimatedWrapper, TYPE } from 'theme'
 import { SportIndexSearchProps } from 'utils/option/httpFetch'
 import { useToken } from 'hooks/Tokens'
 import ProductBanner from 'components/ProductBanner'
 import spotBannerUrl from 'assets/svg/spot_banner.svg'
 import { Divider } from '@mui/material'
+import AnimatedSvg from 'components/AnimatedSvg'
 
 const Layout = styled.div`
   padding: 20px;
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 `
 const EmptyList = styled.div`
   transform: translateY(30px);
-  // border: 1px solid ${({ theme }) => theme.text1};
+  border: 1px solid ${({ theme }) => theme.text1 + '10'};
   color: ${({ theme }) => theme.text1};
   padding: 16px 12px;
   border-radius: 12px;
@@ -171,14 +171,12 @@ with a variety of lock and unlock mechanisms."
           />
           {showLoading && loading ? (
             <AnimatedWrapper style={{ marginTop: 100, opacity: 0.8 }}>
-              <AnimatedImg>
-                <img src={Loader} alt="loading-icon" />
-              </AnimatedImg>
+              <AnimatedSvg fileName="loader" />
             </AnimatedWrapper>
           ) : (
             <>
               {NFTListCardData?.length === 0 && (
-                <EmptyList>
+                <EmptyList style={{ marginTop: 40 }}>
                   <TYPE.body style={{ marginBottom: '8px' }}>No NFT found.</TYPE.body>
                   <TYPE.subHeader>
                     <i>You can create or change search criteria.</i>

@@ -2,7 +2,7 @@ import { ButtonPrimary, ButtonEmpty } from 'components/Button'
 import { RowBetween, RowFixed } from 'components/Row'
 import { StyledTabItem } from 'components/Tabs'
 import React, { useCallback, useMemo, useState } from 'react'
-import { AnimatedImg, AnimatedWrapper, TYPE } from 'theme'
+import { TYPE } from 'theme'
 import { ChevronLeft } from 'react-feather'
 import styled from 'styled-components'
 import useTheme from 'hooks/useTheme'
@@ -13,7 +13,7 @@ import { useOwnerOf } from 'hooks/useOwnerOf'
 import { UnClaimListProps, useLocker721Info } from 'hooks/useLocker721Detail'
 import { useLockerClaim721Call } from 'hooks/useLockerClaimCallback'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
-import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
+// import Loader from 'assets/svg/antimatter_background_logo_dark.svg'
 import AntimatterLogo from 'assets/svg/antimatter_logo_nft.svg'
 import { WrappedTokenInfo } from 'state/lists/hooks'
 import TransactionConfirmationModal from 'components/TransactionConfirmationModal'
@@ -24,6 +24,8 @@ import { LOCKER_721_ADDRESS } from '../../constants'
 import { getEtherscanLink } from 'utils'
 import { Locker721ClaimComfirmModel, LockerShowTimeScheduleModel } from 'components/NFTSpotDetail/ComfirmModel'
 import { Wrapper, InfoPanel, StyledNFTCard, StyledAvatar, TokenWrapper, AssetsWrapper } from 'pages/CardDetail'
+import { Box } from '@mui/material'
+import AnimatedSvg from 'components/AnimatedSvg'
 
 export const ContentWrapper = styled(RowBetween)`
   margin-top: 30px;
@@ -144,11 +146,9 @@ export default function LockerDetail({
 
   if (!locker721Info) {
     return (
-      <AnimatedWrapper>
-        <AnimatedImg>
-          <img src={Loader} alt="loading-icon" />
-        </AnimatedImg>
-      </AnimatedWrapper>
+      <Box height={300} width={300}>
+        <AnimatedSvg fileName="loader" />
+      </Box>
     )
   }
   return (

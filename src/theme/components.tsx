@@ -275,8 +275,9 @@ export const AnimatedWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  width: 100%;
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
   ${({ theme }) => theme.mediaWidth.upToMedium`
   padding-bottom: ${theme.headerHeight}
   `}
