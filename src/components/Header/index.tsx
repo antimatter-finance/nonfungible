@@ -46,7 +46,7 @@ export const tabs: Tab[] = [
   { title: 'Spot Index', route: 'spot_index' },
   { title: 'Locker', route: 'locker' },
   { title: 'Collectables', route: 'collectables' },
-  { title: 'Governance', link: 'https://governance.antimatter.finance/' }
+  { title: 'Governance', link: 'https://gov.antimatter.finance' }
 ]
 
 const NetworkInfo: {
