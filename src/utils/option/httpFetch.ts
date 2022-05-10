@@ -124,7 +124,7 @@ export function indexListFetch(
   const request = new Request(`${domain}/app/getIndexList`, {
     method: 'POST',
     headers: { ...headers, token },
-    body: requestBodyGenerator({ address, curPage: currentPage, pageSize }, 0)
+    body: requestBodyGenerator({ address, curPage: currentPage, pageSize, type: '1' }, 0)
   })
 
   return promiseGenerator(request)
